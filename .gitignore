@@ -35,3 +35,6 @@ out/
 
 ### VS Code ###
 .vscode/
+/infrustructure/idp_mysql_data/
+/infrustructure/postgresql/
+/infrustructure/rabbitmq/
