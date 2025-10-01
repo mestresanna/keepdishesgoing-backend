@@ -13,16 +13,16 @@ public record CreateRestaurantRequest(String name,
                                       String city,
                                       String country,
                                       String contactEmail,
-                                      List<String> pictureUrls,
+                                      String pictureUrls,
                                       int defaultPreparationTimeInMinutes,
                                       TypeOfCuisine typeOfCuisine,
                                       Map<DayOfWeek, TimeRange> openingHours,
-                                      Owner owner) {
+                                      OwnerRequest owner) {
 
     public CreateRestaurantCommand toCommand() {
         return new CreateRestaurantCommand(
                 name,
-                owner,
+                owner.toDomain(),
                 new Address(street, number, city, country),
                 contactEmail,
                 pictureUrls,

@@ -12,7 +12,7 @@ public record CreateRestaurantCommand (
         Owner owner,
         Address address,
         String contactEmail,
-        List<String> pictureUrls,
+        String pictureUrls,
         int defaultPreparationTimeInMinutes,
         TypeOfCuisine typeOfCuisine,
         OpeningHours openingHours

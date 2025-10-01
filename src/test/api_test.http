@@ -1,0 +1,30 @@
+### GET request to example server
+GET https://examples.http-client.intellij.net/get
+    ?generated-in=IntelliJ IDEA
+
+###
+
+POST http://localhost:8080/api/restaurants
+Content-Type: application/json
+
+{
+  "name": "Delicious Bites",
+  "street": "Main Street",
+  "number": 123,
+  "city": "Foodville",
+  "country": "TasteLand",
+  "contactEmail": "contact@deliciousbites.com",
+  "pictureUrls": "http://example.com/pic1.jpg",
+  "defaultPreparationTimeInMinutes": 30,
+  "typeOfCuisine": "ITALIAN",
+  "openingHours": {
+    "MONDAY": {"open": "09:00", "close": "22:00"},
+    "TUESDAY": {"open": "09:00", "close": "22:00"}
+  },
+  "owner": {
+    "ownerId": "c8f8c8b3-2d7b-4f1f-b0e8-3f7f6a9d5c2a",
+    "name": "John",
+    "surname": "Doe"
+  }
+}
+
