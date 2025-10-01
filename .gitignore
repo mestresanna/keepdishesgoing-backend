@@ -38,3 +38,4 @@ out/
 /infrustructure/idp_mysql_data/
 /infrustructure/postgresql/
 /infrustructure/rabbitmq/
+/venv/

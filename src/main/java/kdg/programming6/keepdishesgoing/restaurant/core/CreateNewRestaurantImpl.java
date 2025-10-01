@@ -8,7 +8,6 @@ import kdg.programming6.keepdishesgoing.restaurant.port.out.RestaurantRepository
 import org.springframework.stereotype.Service;
 
 @Service
-// As an owner, I want to create my restaurant by submitting name, full address, contact email, picture(s) url, default preparation time, type of cuisine, and opening hours.
 public class CreateNewRestaurantImpl implements CreateRestaurantUseCase {
 
     private final RestaurantRepository repository;
