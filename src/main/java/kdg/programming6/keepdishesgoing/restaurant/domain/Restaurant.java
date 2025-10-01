@@ -1,99 +1,77 @@
 package kdg.programming6.keepdishesgoing.restaurant.domain;
+import kdg.programming6.keepdishesgoing.common.events.DomainEvent;
+import kdg.programming6.keepdishesgoing.common.events.RestaurantCreatedEvent;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 public class Restaurant {
+    private final UUID restaurantId;
+    private Owner owner;
     private String name;
-    private String street;
-    private String city;
-    private String country;
-    private int number;
+    private Address address;
+    private String pictureUrls;
+    private OpeningHours openingHours;
     private TypeOfCuisine typeOfCuisine;
     private String contactEmail;
-    private List<Dish> menu;
-    private List<Order> orders;
+    private int defaultPreparationTimeInMinutes;
+//    private List<Dish> menu;
+//    private List<Order> orders;
 
-    public Restaurant(String name, String street, String city, String country, int number, TypeOfCuisine typeOfCuisine, String contactEmail) {
+    private final List<DomainEvent> domainEvents = new ArrayList<>();
+
+
+    private Restaurant(UUID restaurantId, String name, Address address, String contactEmail,
+                       String pictureUrls, int defaultPreparationTimeInMinutes,
+                       TypeOfCuisine typeOfCuisine, OpeningHours openingHours, Owner owner) {
+        this.restaurantId = restaurantId;
         this.name = name;
-        this.street = street;
-        this.city = city;
-        this.country = country;
-        this.number = number;
-        this.typeOfCuisine = typeOfCuisine;
+        this.address = address;
         this.contactEmail = contactEmail;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getStreet() {
-        return street;
-    }
-
-    public void setStreet(String street) {
-        this.street = street;
-    }
-
-    public String getCity() {
-        return city;
-    }
-
-    public void setCity(String city) {
-        this.city = city;
-    }
-
-    public String getCountry() {
-        return country;
-    }
-
-    public void setCountry(String country) {
-        this.country = country;
-    }
-
-    public int getNumber() {
-        return number;
-    }
-
-    public void setNumber(int number) {
-        this.number = number;
-    }
-
-    public TypeOfCuisine getTypeOfCuisine() {
-        return typeOfCuisine;
-    }
-
-    public void setTypeOfCuisine(TypeOfCuisine typeOfCuisine) {
+        this.pictureUrls = pictureUrls;
+        this.defaultPreparationTimeInMinutes = defaultPreparationTimeInMinutes;
         this.typeOfCuisine = typeOfCuisine;
+        this.openingHours = openingHours;
+        this.owner = owner;
     }
 
-    public String getContactEmail() {
-        return contactEmail;
+    public static Restaurant create(String name, Address address, String contactEmail,
+                                    String pictureUrls, int defaultPreparationTimeInMinutes,
+                                    TypeOfCuisine typeOfCuisine, OpeningHours openingHours, Owner owner) {
+        Restaurant restaurant = new Restaurant(
+                UUID.randomUUID(),
+                name,
+                address,
+                contactEmail,
+                pictureUrls,
+                defaultPreparationTimeInMinutes,
+                typeOfCuisine,
+                openingHours,
+                owner
+        );
+        restaurant.recordEvent(new RestaurantCreatedEvent(restaurant.restaurantId));
+        return restaurant;
     }
 
-    public void setContactEmail(String contactEmail) {
-        this.contactEmail = contactEmail;
+    public UUID getRestaurantId() { return restaurantId; }
+    public Owner getOwner() { return owner; }
+    public String getName() { return name; }
+    public Address getAddress() { return address; }
+    public String getContactEmail() { return contactEmail; }
+    public String getPictureUrls() { return pictureUrls; }
+    public int getDefaultPreparationTimeInMinutes() { return defaultPreparationTimeInMinutes; }
+    public TypeOfCuisine getTypeOfCuisine() { return typeOfCuisine; }
+    public OpeningHours getOpeningHours() { return openingHours; }
+
+    private void recordEvent(DomainEvent event) {
+        domainEvents.add(event);
     }
 
-    public List<Dish> getMenu() {
-        return menu;
+    public List<DomainEvent> getDomainEvents() {
+        return List.copyOf(domainEvents);
     }
 
-    public void setMenu(List<Dish> menu) {
-        this.menu = menu;
-    }
-
-    public List<Order> getOrders() {
-        return orders;
-    }
-
-    public void setOrders(List<Order> orders) {
-        this.orders = orders;
-    }
 }
 
 

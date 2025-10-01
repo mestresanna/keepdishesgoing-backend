@@ -1,4 +1,34 @@
 package kdg.programming6.keepdishesgoing.restaurant.adapter.in.request;
 
-public record CreateRestaurantRequest() {
+import kdg.programming6.keepdishesgoing.restaurant.domain.*;
+import kdg.programming6.keepdishesgoing.restaurant.port.in.CreateRestaurantCommand;
+
+import java.time.DayOfWeek;
+import java.util.List;
+import java.util.Map;
+
+public record CreateRestaurantRequest(String name,
+                                      String street,
+                                      int number,
+                                      String city,
+                                      String country,
+                                      String contactEmail,
+                                      List<String> pictureUrls,
+                                      int defaultPreparationTimeInMinutes,
+                                      TypeOfCuisine typeOfCuisine,
+                                      Map<DayOfWeek, TimeRange> openingHours,
+                                      Owner owner) {
+
+    public CreateRestaurantCommand toCommand() {
+        return new CreateRestaurantCommand(
+                name,
+                owner,
+                new Address(street, number, city, country),
+                contactEmail,
+                pictureUrls,
+                defaultPreparationTimeInMinutes,
+                typeOfCuisine,
+                new OpeningHours(openingHours)
+        );
+    }
 }

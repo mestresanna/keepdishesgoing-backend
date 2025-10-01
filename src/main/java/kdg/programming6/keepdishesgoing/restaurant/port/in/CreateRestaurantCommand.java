@@ -1,4 +1,19 @@
 package kdg.programming6.keepdishesgoing.restaurant.port.in;
 
-public class CreateRestaurantCommand {
-}
+import kdg.programming6.keepdishesgoing.restaurant.domain.Address;
+import kdg.programming6.keepdishesgoing.restaurant.domain.OpeningHours;
+import kdg.programming6.keepdishesgoing.restaurant.domain.Owner;
+import kdg.programming6.keepdishesgoing.restaurant.domain.TypeOfCuisine;
+
+import java.util.List;
+
+public record CreateRestaurantCommand (
+        String name,
+        Owner owner,
+        Address address,
+        String contactEmail,
+        List<String> pictureUrls,
+        int defaultPreparationTimeInMinutes,
+        TypeOfCuisine typeOfCuisine,
+        OpeningHours openingHours
+) {}
