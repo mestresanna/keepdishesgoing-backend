@@ -5,6 +5,12 @@ GRANT ALL PRIVILEGES ON DATABASE prog6 TO kdg;
 \c prog6 kdg;
 CREATE SCHEMA restaurant AUTHORIZATION kdg;
 
+ALTER DEFAULT PRIVILEGES IN SCHEMA restaurant
+    GRANT ALL PRIVILEGES ON TABLES TO kdg;
+
+GRANT ALL PRIVILEGES ON ALL TABLES IN SCHEMA restaurant TO kdg;
+GRANT ALL PRIVILEGES ON ALL SEQUENCES IN SCHEMA restaurant TO kdg;
+
 CREATE TABLE restaurant.owners (
                         owner_id UUID PRIMARY KEY,
                         name VARCHAR(100) NOT NULL,
