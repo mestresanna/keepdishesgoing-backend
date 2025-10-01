@@ -1,11 +1,11 @@
 package kdg.programming6.keepdishesgoing.restaurant.adapter.out;
 
 import kdg.programming6.keepdishesgoing.restaurant.domain.Restaurant;
-import kdg.programming6.keepdishesgoing.restaurant.port.out.RestaurantRepository;
+import kdg.programming6.keepdishesgoing.restaurant.port.out.RestaurantPort;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public class RestaurantJpaAdapter implements RestaurantRepository {
+public class RestaurantJpaAdapter implements RestaurantPort {
     private final RestaurantJpaRepository jpaRepo;
     private final RestaurantMapper mapper;
 
