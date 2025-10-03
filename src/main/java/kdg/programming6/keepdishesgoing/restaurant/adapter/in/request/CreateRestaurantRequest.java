@@ -4,7 +4,6 @@ import kdg.programming6.keepdishesgoing.restaurant.domain.*;
 import kdg.programming6.keepdishesgoing.restaurant.port.in.CreateRestaurantCommand;
 
 import java.time.DayOfWeek;
-import java.util.List;
 import java.util.Map;
 
 public record CreateRestaurantRequest(String name,
@@ -17,12 +16,12 @@ public record CreateRestaurantRequest(String name,
                                       int defaultPreparationTimeInMinutes,
                                       TypeOfCuisine typeOfCuisine,
                                       Map<DayOfWeek, TimeRange> openingHours,
-                                      OwnerRequest owner) {
+                                      OwnerId owner) {
 
     public CreateRestaurantCommand toCommand() {
         return new CreateRestaurantCommand(
                 name,
-                owner.toDomain(),
+                owner,
                 new Address(street, number, city, country),
                 contactEmail,
                 pictureUrls,

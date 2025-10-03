@@ -3,6 +3,8 @@ import jakarta.persistence.*;
 import java.util.UUID;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.Email;
+import kdg.programming6.keepdishesgoing.restaurant.domain.OwnerId;
 
 @Entity
 @Table(name="restaurants", schema = "restaurant")
@@ -10,13 +12,16 @@ public class RestaurantJpaEntity {
     @Id
     private UUID restaurantId;
 
-    @ManyToOne(optional = false, fetch = FetchType.LAZY)
-    @JoinColumn(name = "owner_id")
-    private OwnerJpaEntity owner;
+    private UUID owner;
 
     private String name;
+
+    @Email
     private String contactEmail;
     private String typeOfCuisine;
+
+    @Column(columnDefinition = "TEXT")
+    private String openingHoursJson;
 
     private String street;
     private int number;
@@ -34,11 +39,11 @@ public class RestaurantJpaEntity {
         this.restaurantId = restaurantId;
     }
 
-    public OwnerJpaEntity getOwner() {
+    public UUID getOwner() {
         return owner;
     }
 
-    public void setOwner(OwnerJpaEntity owner) {
+    public void setOwner(UUID owner) {
         this.owner = owner;
     }
 
@@ -113,4 +118,7 @@ public class RestaurantJpaEntity {
     public void setDefaultPreparationTimeInMinutes(int defaultPreparationTimeInMinutes) {
         this.defaultPreparationTimeInMinutes = defaultPreparationTimeInMinutes;
     }
+    public String getOpeningHoursJson() { return openingHoursJson; }
+    public void setOpeningHoursJson(String openingHoursJson) { this.openingHoursJson = openingHoursJson; }
+
 }

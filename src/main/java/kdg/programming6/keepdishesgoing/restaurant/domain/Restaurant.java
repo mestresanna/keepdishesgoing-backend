@@ -8,7 +8,7 @@ import java.util.UUID;
 
 public class Restaurant {
     private final UUID restaurantId;
-    private Owner owner;
+    private OwnerId owner;
     private String name;
     private Address address;
     private String pictureUrls;
@@ -16,15 +16,13 @@ public class Restaurant {
     private TypeOfCuisine typeOfCuisine;
     private String contactEmail;
     private int defaultPreparationTimeInMinutes;
-//    private List<Dish> menu;
-//    private List<Order> orders;
 
     private final List<DomainEvent> domainEvents = new ArrayList<>();
 
 
     private Restaurant(UUID restaurantId, String name, Address address, String contactEmail,
                        String pictureUrls, int defaultPreparationTimeInMinutes,
-                       TypeOfCuisine typeOfCuisine, OpeningHours openingHours, Owner owner) {
+                       TypeOfCuisine typeOfCuisine, OpeningHours openingHours, OwnerId owner) {
         this.restaurantId = restaurantId;
         this.name = name;
         this.address = address;
@@ -38,7 +36,7 @@ public class Restaurant {
 
     public static Restaurant create(String name, Address address, String contactEmail,
                                     String pictureUrls, int defaultPreparationTimeInMinutes,
-                                    TypeOfCuisine typeOfCuisine, OpeningHours openingHours, Owner owner) {
+                                    TypeOfCuisine typeOfCuisine, OpeningHours openingHours, OwnerId owner) {
         Restaurant restaurant = new Restaurant(
                 UUID.randomUUID(),
                 name,
@@ -55,7 +53,7 @@ public class Restaurant {
     }
 
     public UUID getRestaurantId() { return restaurantId; }
-    public Owner getOwner() { return owner; }
+    public OwnerId getOwner() { return owner; }
     public String getName() { return name; }
     public Address getAddress() { return address; }
     public String getContactEmail() { return contactEmail; }

@@ -18,7 +18,6 @@ public class CreateNewRestaurantImpl implements CreateRestaurantUseCase {
     @Override
     public void handle(CreateRestaurantCommand command) {
         Restaurant restaurant = Restaurant.create(
-
                 command.name(),
                 command.address(),
                 command.contactEmail(),

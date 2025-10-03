@@ -1,20 +1,35 @@
 package kdg.programming6.keepdishesgoing.restaurant.adapter.out;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.DeserializationFeature;
+import kdg.programming6.keepdishesgoing.restaurant.domain.OwnerId;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import kdg.programming6.keepdishesgoing.restaurant.domain.*;
 import org.springframework.stereotype.Component;
 
+import java.time.DayOfWeek;
+import java.util.Map;
+import java.util.stream.Collectors;
+
 @Component
 public class RestaurantMapper {
+    private static final ObjectMapper objectMapper = new ObjectMapper();
+
+    static {
+        objectMapper.registerModule(new JavaTimeModule()); // support LocalTime
+    }
 
     public static RestaurantJpaEntity toEntity(Restaurant restaurant) {
         RestaurantJpaEntity entity = new RestaurantJpaEntity();
         entity.setRestaurantId(restaurant.getRestaurantId());
 
-        OwnerJpaEntity ownerEntity = new OwnerJpaEntity();
-        ownerEntity.setOwnerId(restaurant.getOwner().getOwnerId());
-        ownerEntity.setName(restaurant.getOwner().getName());
-        ownerEntity.setSurname(restaurant.getOwner().getSurname());
-        entity.setOwner(ownerEntity);
+//        OwnerJpaEntity ownerEntity = new OwnerJpaEntity();
+//        ownerEntity.setOwnerId(restaurant.getOwner().getOwnerId());
+//        ownerEntity.setName(restaurant.getOwner().getName());
+//        ownerEntity.setSurname(restaurant.getOwner().getSurname());
+        entity.setOwner(restaurant.getOwner().ownerId());
 
         entity.setName(restaurant.getName());
         entity.setContactEmail(restaurant.getContactEmail());
@@ -25,20 +40,50 @@ public class RestaurantMapper {
         entity.setCountry(restaurant.getAddress().country());
         entity.setPictureUrls(restaurant.getPictureUrls());
         entity.setDefaultPreparationTimeInMinutes(restaurant.getDefaultPreparationTimeInMinutes());
-
+        try {
+            if (restaurant.getOpeningHours() != null) {
+                String json = objectMapper.writeValueAsString(
+                        restaurant.getOpeningHours().hoursPerDay()
+                );
+                entity.setOpeningHoursJson(json);
+            }
+        } catch (Exception e) {
+            throw new RuntimeException("Error serializing openingHours", e);
+        }
         return entity;
     }
 
-    public static Restaurant toDomain(RestaurantJpaEntity entity) {
-        Owner owner = new Owner(
-                entity.getOwner().getOwnerId(),
-                entity.getOwner().getName(),
-                entity.getOwner().getSurname()
-        );
-
+    public Restaurant toDomain(RestaurantJpaEntity entity) {
+//        Owner owner = new Owner(
+//                entity.getOwner().getOwnerId(),
+//                entity.getOwner().getName(),
+//                entity.getOwner().getSurname()
+//        );
+        OwnerId orderId = OwnerId.of(entity.getOwner());
         Address address = new Address(
                 entity.getStreet(), entity.getNumber(), entity.getCity(), entity.getCountry()
         );
+
+        OpeningHours openingHours = null;
+        String json = entity.getOpeningHoursJson();
+        if (json != null && !json.isEmpty()) {
+            try {
+                Map<String, TimeRange> stringMap = objectMapper.readValue(
+                        json,
+                        new TypeReference<Map<String, TimeRange>>() {}
+                );
+
+                Map<DayOfWeek, TimeRange> hoursPerDay = stringMap.entrySet().stream()
+                        .collect(Collectors.toMap(
+                                e -> DayOfWeek.valueOf(e.getKey()),
+                                Map.Entry::getValue
+                        ));
+
+                openingHours = new OpeningHours(hoursPerDay);
+            } catch (Exception e) {
+                throw new RuntimeException("Error deserializing openingHours", e);
+            }
+        }
 
         return Restaurant.create(
                 entity.getName(),
@@ -47,8 +92,8 @@ public class RestaurantMapper {
                 entity.getPictureUrls(),
                 entity.getDefaultPreparationTimeInMinutes(),
                 TypeOfCuisine.valueOf(entity.getTypeOfCuisine()),
-                null, // OpeningHours needs its own mapping
-                owner
+                openingHours,
+                orderId
         );
     }
 }
