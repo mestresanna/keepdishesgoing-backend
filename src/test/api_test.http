@@ -27,3 +27,16 @@ Accept: application/json
 ###
 GET http://localhost:8080/api/restaurants
 Accept: application/json
+
+###
+PATCH http://localhost:8080/api/restaurants/fadf3314-b555-46f7-a070-b8505e3c5e44/opening-hours
+Content-Type: application/json
+X-Owner-Id: 31e3a110-37f1-4185-8a55-4d0c57963439
+
+{
+  "hoursPerDay": {
+    "MONDAY": {"open": "09:00", "close": "22:00"},
+    "TUESDAY": {"open": "09:00", "close": "22:00"},
+    "WEDNESDAY": {"open": "09:00", "close": "22:00"}
+  }
+}

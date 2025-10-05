@@ -11,7 +11,7 @@ public record OwnerId (UUID ownerId) {
         return new OwnerId(ownerId);
     }
 
-    public void notFound() throws OwnerNotFoundException {
-        throw new OwnerNotFoundException(String.format("Owner with UUID %s was not found", this.ownerId));
+    public static void notOwnerFound(UUID ownerId) throws OwnerNotFoundException {
+        throw new OwnerNotFoundException(String.format("Owner with UUID %s was not found", ownerId.toString()));
     }
 }

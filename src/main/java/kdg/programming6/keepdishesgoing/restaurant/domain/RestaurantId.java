@@ -9,7 +9,7 @@ public record RestaurantId (UUID restaurantId){
         return new RestaurantId(restaurantId);
     }
 
-    public void notFound() throws RestaurantNotFoundException {
-        throw new RestaurantNotFoundException(String.format("Owner with UUID %s was not found", this.restaurantId));
+    public static void notRestaurantFound(UUID restaurantId) throws RestaurantNotFoundException {
+        throw new RestaurantNotFoundException(String.format("Owner with UUID %s was not found", restaurantId));
     }
 }

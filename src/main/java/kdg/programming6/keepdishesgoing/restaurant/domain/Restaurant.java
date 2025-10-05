@@ -4,6 +4,7 @@ import kdg.programming6.keepdishesgoing.common.events.RestaurantCreatedEvent;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.UUID;
 
 public class Restaurant {
@@ -71,6 +72,7 @@ public class Restaurant {
         return restaurant;
     }
 
+
     public UUID getRestaurantId() { return restaurantId.restaurantId(); }
     public OwnerId getOwner() { return owner; }
     public String getName() { return name; }
@@ -81,6 +83,17 @@ public class Restaurant {
     public TypeOfCuisine getTypeOfCuisine() { return typeOfCuisine; }
     public OpeningHours getOpeningHours() { return openingHours; }
     public PriceRange getPriceRange() { return priceRange; }
+
+    public void changeOpeningHours(OpeningHours newOpeningHours) {
+        if (newOpeningHours == null || newOpeningHours.hoursPerDay() == null) {
+            throw new IllegalArgumentException("Opening hours cannot be null");
+        }
+        if (Objects.equals(this.openingHours, newOpeningHours)) {
+            return; // no change
+        }
+        this.openingHours = newOpeningHours;
+        //recordEvent(new RestaurantOpeningHoursChangedEvent(restaurantId.restaurantId()));
+    }
 
     private void recordEvent(DomainEvent event) {
         domainEvents.add(event);
