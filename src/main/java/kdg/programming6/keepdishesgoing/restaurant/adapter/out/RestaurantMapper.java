@@ -40,6 +40,7 @@ public class RestaurantMapper {
         entity.setCountry(restaurant.getAddress().country());
         entity.setPictureUrls(restaurant.getPictureUrls());
         entity.setDefaultPreparationTimeInMinutes(restaurant.getDefaultPreparationTimeInMinutes());
+        entity.setPriceRange(restaurant.getPriceRange().name());
         try {
             if (restaurant.getOpeningHours() != null) {
                 String json = objectMapper.writeValueAsString(
@@ -85,15 +86,30 @@ public class RestaurantMapper {
             }
         }
 
-        return Restaurant.create(
-                entity.getName(),
-                address,
-                entity.getContactEmail(),
-                entity.getPictureUrls(),
-                entity.getDefaultPreparationTimeInMinutes(),
-                TypeOfCuisine.valueOf(entity.getTypeOfCuisine()),
-                openingHours,
-                orderId
-        );
+        if (entity.getPriceRange() == null || entity.getPriceRange().isEmpty()) {
+            return Restaurant.create(
+                    entity.getName(),
+                    address,
+                    entity.getContactEmail(),
+                    entity.getPictureUrls(),
+                    entity.getDefaultPreparationTimeInMinutes(),
+                    TypeOfCuisine.valueOf(entity.getTypeOfCuisine()),
+                    openingHours,
+                    orderId);
+        } else {
+            PriceRange priceRange = PriceRange.valueOf(entity.getPriceRange());
+            return Restaurant.create(
+                    entity.getName(),
+                    address,
+                    entity.getContactEmail(),
+                    entity.getPictureUrls(),
+                    entity.getDefaultPreparationTimeInMinutes(),
+                    TypeOfCuisine.valueOf(entity.getTypeOfCuisine()),
+                    openingHours,
+                    orderId,
+                    priceRange);
+        }
+
+
     }
 }

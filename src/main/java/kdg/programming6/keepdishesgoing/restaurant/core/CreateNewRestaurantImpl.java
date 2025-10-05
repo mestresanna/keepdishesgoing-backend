@@ -25,8 +25,7 @@ public class CreateNewRestaurantImpl implements CreateRestaurantUseCase {
                 command.defaultPreparationTimeInMinutes(),
                 command.typeOfCuisine(),
                 command.openingHours(),
-                command.owner()
-        );
+                command.owner());
         repository.save(restaurant);
     }
 }

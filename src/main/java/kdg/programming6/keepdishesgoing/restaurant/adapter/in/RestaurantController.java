@@ -4,6 +4,7 @@ import kdg.programming6.keepdishesgoing.restaurant.adapter.in.request.CreateRest
 import kdg.programming6.keepdishesgoing.restaurant.domain.Restaurant;
 import kdg.programming6.keepdishesgoing.restaurant.port.in.CreateRestaurantCommand;
 import kdg.programming6.keepdishesgoing.restaurant.port.in.CreateRestaurantUseCase;
+import kdg.programming6.keepdishesgoing.restaurant.port.in.FindAllRestaurantsUseCase;
 import kdg.programming6.keepdishesgoing.restaurant.port.in.FindRestaurantUseCase;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,10 +19,12 @@ public class RestaurantController {
 
     private final CreateRestaurantUseCase createRestaurant;
     private final FindRestaurantUseCase findRestaurant;
+    private final FindAllRestaurantsUseCase findAllRestaurants;
 
-    public RestaurantController(CreateRestaurantUseCase createRestaurant, FindRestaurantUseCase findRestaurant) {
+    public RestaurantController(CreateRestaurantUseCase createRestaurant, FindRestaurantUseCase findRestaurant, FindAllRestaurantsUseCase findAllRestaurants) {
         this.createRestaurant = createRestaurant;
         this.findRestaurant = findRestaurant;
+        this.findAllRestaurants = findAllRestaurants;
     }
 
     @PostMapping
@@ -30,8 +33,13 @@ public class RestaurantController {
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
-    @GetMapping
-    public ResponseEntity<Restaurant> getRestaurantById(@RequestParam UUID id) {
+    @GetMapping("/{id}")
+    public ResponseEntity<Restaurant> getRestaurantById(@PathVariable UUID id) {
         return ResponseEntity.ok(findRestaurant.findRestaurant(id));
+    }
+
+    @GetMapping
+    public ResponseEntity<List<Restaurant>> getAllRestaurant() {
+        return ResponseEntity.ok(findAllRestaurants.findAll());
     }
 }

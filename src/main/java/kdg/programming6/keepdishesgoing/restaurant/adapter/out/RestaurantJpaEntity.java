@@ -30,6 +30,7 @@ public class RestaurantJpaEntity {
 
     private String pictureUrls;
     private int defaultPreparationTimeInMinutes;
+    private String priceRange;
 
     public UUID getRestaurantId() {
         return restaurantId;
@@ -41,6 +42,14 @@ public class RestaurantJpaEntity {
 
     public UUID getOwner() {
         return owner;
+    }
+
+    public String getPriceRange() {
+        return priceRange;
+    }
+
+    public void setPriceRange(String priceRange) {
+        this.priceRange = priceRange;
     }
 
     public void setOwner(UUID owner) {

@@ -29,6 +29,7 @@ CREATE TABLE restaurant.restaurants (
                              country VARCHAR(100) NOT NULL,
                              picture_urls TEXT,
                              default_preparation_time_in_minutes INT NOT NULL,
-                             opening_hours_json TEXT
+                             opening_hours_json TEXT,
+                             price_range VARCHAR
 --                              CONSTRAINT fk_owner FOREIGN KEY (owner_id) REFERENCES restaurant.owners(owner_id)
 );

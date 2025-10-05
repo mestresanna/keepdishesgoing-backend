@@ -4,7 +4,7 @@ POST http://localhost:8080/api/restaurants
 Content-Type: application/json
 
 {
-  "name": "New",
+  "name": "Borgerhub",
   "street": "Main Street",
   "number": 123,
   "city": "Antwerpen",
@@ -21,5 +21,9 @@ Content-Type: application/json
 }
 
 ###
-GET http://localhost:8080/api/restaurants?id=842699cc-000b-471c-bf13-d75b64e570a3
+GET http://localhost:8080/api/restaurants/842699cc-000b-471c-bf13-d75b64e570a3
+Accept: application/json
+
+###
+GET http://localhost:8080/api/restaurants
 Accept: application/json
