@@ -1,5 +1,4 @@
-###
-
+### Create a restaurant
 POST http://localhost:8080/api/restaurants
 Content-Type: application/json
 
@@ -20,23 +19,23 @@ Content-Type: application/json
   "owner": { "ownerId": "31e3a110-37f1-4185-8a55-4d0c57963439" }
 }
 
-###
-GET http://localhost:8080/api/restaurants/842699cc-000b-471c-bf13-d75b64e570a3
+### Get a restaurant
+GET http://localhost:8080/api/restaurants/839f80c6-2d35-473b-ae80-58f368bbeed0
 Accept: application/json
 
-###
+### Get all restaurants
 GET http://localhost:8080/api/restaurants
 Accept: application/json
 
-###
-PATCH http://localhost:8080/api/restaurants/fadf3314-b555-46f7-a070-b8505e3c5e44/opening-hours
+### Update opening-hours of a restaurant
+PATCH http://localhost:8080/api/restaurants/839f80c6-2d35-473b-ae80-58f368bbeed0/opening-hours
 Content-Type: application/json
 X-Owner-Id: 31e3a110-37f1-4185-8a55-4d0c57963439
 
 {
   "hoursPerDay": {
-    "MONDAY": {"open": "09:00", "close": "22:00"},
-    "TUESDAY": {"open": "09:00", "close": "22:00"},
-    "WEDNESDAY": {"open": "09:00", "close": "22:00"}
+    "MONDAY": {"open": "12:00", "close": "22:00"},
+    "TUESDAY": {"open": "12:00", "close": "22:00"},
+    "WEDNESDAY": {"open": "09:00", "close": "20:00"}
   }
 }

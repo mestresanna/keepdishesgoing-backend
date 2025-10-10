@@ -36,7 +36,22 @@ public class Restaurant {
         this.owner = owner;
         this.priceRange = priceRange;
     }
-
+    public static Restaurant update (RestaurantId restaurantID, String name, Address address, String contactEmail,
+                                     String pictureUrls, int defaultPreparationTimeInMinutes,
+                                     TypeOfCuisine typeOfCuisine, OpeningHours openingHours, OwnerId owner, PriceRange priceRange) {
+        Restaurant restaurant = new Restaurant(
+                restaurantID,
+                name,
+                address,
+                contactEmail,
+                pictureUrls,
+                defaultPreparationTimeInMinutes,
+                typeOfCuisine,
+                openingHours,
+                owner,
+                priceRange);
+        return restaurant;
+    }
     public static Restaurant create(String name, Address address, String contactEmail,
                                     String pictureUrls, int defaultPreparationTimeInMinutes,
                                     TypeOfCuisine typeOfCuisine, OpeningHours openingHours, OwnerId owner) {

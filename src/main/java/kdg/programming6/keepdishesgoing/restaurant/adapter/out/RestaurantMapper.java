@@ -86,19 +86,33 @@ public class RestaurantMapper {
             }
         }
 
-        if (entity.getPriceRange() == null || entity.getPriceRange().isEmpty()) {
-            return Restaurant.create(
-                    entity.getName(),
-                    address,
-                    entity.getContactEmail(),
-                    entity.getPictureUrls(),
-                    entity.getDefaultPreparationTimeInMinutes(),
-                    TypeOfCuisine.valueOf(entity.getTypeOfCuisine()),
-                    openingHours,
-                    orderId);
+        if (entity.getRestaurantId() == null) {
+            if (entity.getPriceRange() == null || entity.getPriceRange().isEmpty()) {
+                return Restaurant.create(
+                        entity.getName(),
+                        address,
+                        entity.getContactEmail(),
+                        entity.getPictureUrls(),
+                        entity.getDefaultPreparationTimeInMinutes(),
+                        TypeOfCuisine.valueOf(entity.getTypeOfCuisine()),
+                        openingHours,
+                        orderId);
+            } else {
+                PriceRange priceRange = PriceRange.valueOf(entity.getPriceRange());
+                return Restaurant.create(
+                        entity.getName(),
+                        address,
+                        entity.getContactEmail(),
+                        entity.getPictureUrls(),
+                        entity.getDefaultPreparationTimeInMinutes(),
+                        TypeOfCuisine.valueOf(entity.getTypeOfCuisine()),
+                        openingHours,
+                        orderId,
+                        priceRange);
+            }
         } else {
-            PriceRange priceRange = PriceRange.valueOf(entity.getPriceRange());
-            return Restaurant.create(
+            return Restaurant.update(
+                    RestaurantId.of(entity.getRestaurantId()),
                     entity.getName(),
                     address,
                     entity.getContactEmail(),
@@ -107,9 +121,8 @@ public class RestaurantMapper {
                     TypeOfCuisine.valueOf(entity.getTypeOfCuisine()),
                     openingHours,
                     orderId,
-                    priceRange);
+                    PriceRange.valueOf(entity.getPriceRange()));
         }
-
 
     }
 }

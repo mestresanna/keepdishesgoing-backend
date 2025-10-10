@@ -1,8 +1,11 @@
 package kdg.programming6.keepdishesgoing.restaurant.adapter.out;
 
 import kdg.programming6.keepdishesgoing.restaurant.domain.Restaurant;
+import kdg.programming6.keepdishesgoing.restaurant.domain.exceptions.RestaurantNotFoundException;
 import kdg.programming6.keepdishesgoing.restaurant.port.out.LoadRestaurantPort;
 import kdg.programming6.keepdishesgoing.restaurant.port.out.RestaurantPort;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -13,16 +16,29 @@ import java.util.UUID;
 public class RestaurantJpaAdapter implements RestaurantPort, LoadRestaurantPort {
     private final RestaurantJpaRepository jpaRepo;
     private final RestaurantMapper mapper;
+    private final OpeningHoursMapper openingHoursMapper;
+    private Logger logger = LoggerFactory.getLogger(RestaurantJpaAdapter.class);
 
-    public RestaurantJpaAdapter(RestaurantJpaRepository jpaRepo, RestaurantMapper mapper) {
+    public RestaurantJpaAdapter(RestaurantJpaRepository jpaRepo, RestaurantMapper mapper, OpeningHoursMapper openingHoursMapper) {
         this.jpaRepo = jpaRepo;
         this.mapper = mapper;
+        this.openingHoursMapper = openingHoursMapper;
     }
 
     @Override
     public void save(Restaurant restaurant) {
-        RestaurantJpaEntity entity = mapper.toEntity(restaurant);
-        jpaRepo.save(entity);
+        logger.info("Saving restaurant " + restaurant.getRestaurantId());
+        if (jpaRepo.existsById(restaurant.getRestaurantId())) {
+            RestaurantJpaEntity existing = jpaRepo.findById(restaurant.getRestaurantId())
+                    .orElseThrow(() -> new RuntimeException("Restaurant not found in DB"));
+
+            existing.setOpeningHoursJson(
+                    openingHoursMapper.serializeOpeningHours(restaurant.getOpeningHours())
+            );
+            jpaRepo.save(existing);
+        } else {
+            jpaRepo.save(mapper.toEntity(restaurant));
+        }
     }
 
     @Override

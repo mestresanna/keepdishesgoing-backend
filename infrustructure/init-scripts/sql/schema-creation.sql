@@ -33,3 +33,27 @@ CREATE TABLE restaurant.restaurants (
                              price_range VARCHAR
 --                              CONSTRAINT fk_owner FOREIGN KEY (owner_id) REFERENCES restaurant.owners(owner_id)
 );
+
+CREATE TABLE restaurant.dishes (
+                                   id UUID PRIMARY KEY,
+                                   owner_id UUID NOT NULL,
+                                   restaurant_id UUID NULL, -- linked when published
+                                   name VARCHAR(255) NOT NULL,
+                                   description TEXT,
+                                   type VARCHAR(50) NOT NULL, -- starter, main, dessert, etc.
+                                   price DECIMAL(10,2) NOT NULL,
+                                   picture_url TEXT,
+                                   state VARCHAR(50) NOT NULL, -- DRAFT, PUBLISHED, OUT_OF_STOCK, UNPUBLISHED
+                                   scheduled_at TIMESTAMP NULL, -- when publish/unpublish is planned
+                                   created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+                                   updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+CREATE TABLE restaurant.food_tags (
+                                      id UUID PRIMARY KEY,
+                                      dish_id UUID NOT NULL,
+                                      name VARCHAR(100) NOT NULL,
+                                      CONSTRAINT fk_foodtag_dish
+                                          FOREIGN KEY (dish_id)
+                                              REFERENCES restaurant.dishes (id)
+                                              ON DELETE CASCADE
+);

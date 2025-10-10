@@ -16,6 +16,7 @@ import org.springframework.stereotype.Service;
 public class SetOpeningHoursImpl implements SetOpeningHoursUseCase {
     private final LoadRestaurantPort repository;
     private final RestaurantPort restaurantPort;
+
     public SetOpeningHoursImpl(LoadRestaurantPort repository, RestaurantPort restaurantPort) {
         this.repository = repository;
         this.restaurantPort = restaurantPort;
@@ -32,7 +33,6 @@ public class SetOpeningHoursImpl implements SetOpeningHoursUseCase {
 
         restaurant.changeOpeningHours(command.openingHours());
         restaurantPort.save(restaurant);
-
         return restaurant;
     }
 }
