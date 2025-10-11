@@ -5,7 +5,7 @@ import jakarta.persistence.*;
 import java.util.UUID;
 
 @Entity
-@Table(name = "food_tags")
+@Table(name = "food_tags", schema = "restaurant")
 public class FoodTagJpaEntity {
     @Id
     private UUID id;

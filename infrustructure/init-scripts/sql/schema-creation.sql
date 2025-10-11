@@ -33,11 +33,23 @@ CREATE TABLE restaurant.restaurants (
                              price_range VARCHAR
 --                              CONSTRAINT fk_owner FOREIGN KEY (owner_id) REFERENCES restaurant.owners(owner_id)
 );
-
+DROP TABLE restaurant.menus;
+CREATE TABLE restaurant.menus (
+                                menu_id UUID PRIMARY KEY,
+                                restaurant_id UUID NOT NULL
+);
+DROP TABLE restaurant.menu_dishes;
+CREATE TABLE restaurant.menu_dishes (
+                                        menu_id UUID REFERENCES restaurant.menus(menu_id) ON DELETE CASCADE,
+                                        dish_id UUID REFERENCES restaurant.dishes(id),
+                                        PRIMARY KEY (menu_id, dish_id),
+                                            FOREIGN KEY (menu_id) REFERENCES restaurant.menus(menu_id),
+                                            FOREIGN KEY (dish_id) REFERENCES restaurant.dishes(id)
+);
+DROP TABLE restaurant.dishes;
 CREATE TABLE restaurant.dishes (
                                    id UUID PRIMARY KEY,
                                    owner_id UUID NOT NULL,
-                                   restaurant_id UUID NULL, -- linked when published
                                    name VARCHAR(255) NOT NULL,
                                    description TEXT,
                                    type VARCHAR(50) NOT NULL, -- starter, main, dessert, etc.
@@ -45,9 +57,11 @@ CREATE TABLE restaurant.dishes (
                                    picture_url TEXT,
                                    state VARCHAR(50) NOT NULL, -- DRAFT, PUBLISHED, OUT_OF_STOCK, UNPUBLISHED
                                    scheduled_at TIMESTAMP NULL, -- when publish/unpublish is planned
+                                   has_pending_changes BOOLEAN NOT NULL,
                                    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
                                    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
+DROP TABLE restaurant.food_tags;
 CREATE TABLE restaurant.food_tags (
                                       id UUID PRIMARY KEY,
                                       dish_id UUID NOT NULL,

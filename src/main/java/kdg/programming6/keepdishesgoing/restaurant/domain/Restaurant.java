@@ -1,6 +1,7 @@
 package kdg.programming6.keepdishesgoing.restaurant.domain;
 import kdg.programming6.keepdishesgoing.common.events.DomainEvent;
 import kdg.programming6.keepdishesgoing.common.events.RestaurantCreatedEvent;
+import kdg.programming6.keepdishesgoing.common.events.RestaurantUpdatedEvent;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -104,10 +105,10 @@ public class Restaurant {
             throw new IllegalArgumentException("Opening hours cannot be null");
         }
         if (Objects.equals(this.openingHours, newOpeningHours)) {
-            return; // no change
+            return;
         }
         this.openingHours = newOpeningHours;
-        //recordEvent(new RestaurantOpeningHoursChangedEvent(restaurantId.restaurantId()));
+        recordEvent(new RestaurantUpdatedEvent(restaurantId.restaurantId()));
     }
 
     private void recordEvent(DomainEvent event) {

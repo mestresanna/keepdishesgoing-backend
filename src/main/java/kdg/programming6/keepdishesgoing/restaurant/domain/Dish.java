@@ -6,7 +6,7 @@ import java.util.UUID;
 public class Dish {
     private DishId id;
     private String name;
-    private OwnerId ownerId;
+    private RestaurantId restaurantId;
     private DishType type;
     private Set<FoodTag> tags;
     private String description;
@@ -16,9 +16,9 @@ public class Dish {
     private boolean hasPendingChanges;
     private PublishDishesSchedule scheduledChange;
 
-    public Dish(String name,OwnerId ownerId, DishType type, Set<FoodTag> tags, String description, Float price, String pictureUrl, DishState state) {
+    public Dish(String name,RestaurantId restaurantId, DishType type, Set<FoodTag> tags, String description, Float price, String pictureUrl, DishState state) {
         this.name = name;
-        this.ownerId = ownerId;
+        this.restaurantId = restaurantId;
         this.type = type;
         this.tags = tags;
         this.description = description;
