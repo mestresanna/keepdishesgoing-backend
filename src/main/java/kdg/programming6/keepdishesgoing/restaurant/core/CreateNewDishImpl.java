@@ -1,7 +1,7 @@
 package kdg.programming6.keepdishesgoing.restaurant.core;
 
 import kdg.programming6.keepdishesgoing.restaurant.domain.Dish;
-import kdg.programming6.keepdishesgoing.restaurant.domain.DishId;
+import kdg.programming6.keepdishesgoing.restaurant.domain.ov.DishId;
 import kdg.programming6.keepdishesgoing.restaurant.port.in.CreateDishCommand;
 import kdg.programming6.keepdishesgoing.restaurant.port.in.CreateDishUseCase;
 import kdg.programming6.keepdishesgoing.restaurant.port.out.SaveDishPort;

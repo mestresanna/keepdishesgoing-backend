@@ -1,6 +1,7 @@
-package kdg.programming6.keepdishesgoing.restaurant.adapter.out;
+package kdg.programming6.keepdishesgoing.restaurant.adapter.out.menu;
 
 import jakarta.persistence.*;
+import kdg.programming6.keepdishesgoing.restaurant.adapter.out.dish.DishJpaEntity;
 
 import java.util.ArrayList;
 import java.util.List;

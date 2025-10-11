@@ -2,11 +2,13 @@ package kdg.programming6.keepdishesgoing.restaurant.domain;
 
 import kdg.programming6.keepdishesgoing.common.events.DishPublishedEvent;
 import kdg.programming6.keepdishesgoing.common.events.DomainEvent;
+import kdg.programming6.keepdishesgoing.restaurant.domain.ov.DishId;
+import kdg.programming6.keepdishesgoing.restaurant.domain.ov.FoodTag;
+import kdg.programming6.keepdishesgoing.restaurant.domain.ov.RestaurantId;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
-import java.util.UUID;
 
 public class Dish {
     private DishId id;
@@ -141,12 +143,6 @@ public class Dish {
     }
 
     public void publish() {
-        this.state = DishState.PUBLISHED;
-        this.hasPendingChanges = false;
-        this.scheduledChange = null;
-    }
-
-    public void unpublish() {
         if (this.state == DishState.PUBLISHED) {
             throw new IllegalStateException("Dish is already published.");
         }
@@ -160,6 +156,12 @@ public class Dish {
         } else {
             throw new IllegalStateException("Dish must be DRAFT or UNPUBLISHED to publish.");
         }
+    }
+
+    public void unpublish() {
+        if (state != DishState.PUBLISHED)
+            throw new IllegalStateException("Only published dishes can be unpublished");
+        this.state = DishState.UNPUBLISHED;
     }
 
     public void markOutOfStock() {

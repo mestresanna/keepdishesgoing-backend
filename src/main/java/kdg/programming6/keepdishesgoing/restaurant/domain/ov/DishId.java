@@ -1,4 +1,4 @@
-package kdg.programming6.keepdishesgoing.restaurant.domain;
+package kdg.programming6.keepdishesgoing.restaurant.domain.ov;
 
 import java.util.UUID;
 

@@ -1,4 +1,4 @@
-package kdg.programming6.keepdishesgoing.restaurant.adapter.out;
+package kdg.programming6.keepdishesgoing.restaurant.adapter.out.menu;
 
 import jakarta.persistence.Embeddable;
 import java.io.Serializable;

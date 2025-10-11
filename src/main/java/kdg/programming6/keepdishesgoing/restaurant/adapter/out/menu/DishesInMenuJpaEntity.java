@@ -1,10 +1,9 @@
-package kdg.programming6.keepdishesgoing.restaurant.adapter.out;
+package kdg.programming6.keepdishesgoing.restaurant.adapter.out.menu;
 
 import jakarta.persistence.*;
+import kdg.programming6.keepdishesgoing.restaurant.adapter.out.dish.DishJpaEntity;
 
 import java.io.Serializable;
-import java.util.Objects;
-import java.util.UUID;
 
 @Entity
 @Table(name = "menu_dishes", schema = "restaurant")

@@ -1,11 +1,11 @@
-package kdg.programming6.keepdishesgoing.restaurant.adapter.out;
+package kdg.programming6.keepdishesgoing.restaurant.adapter.out.restaurant;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
-import kdg.programming6.keepdishesgoing.restaurant.domain.OpeningHours;
-import kdg.programming6.keepdishesgoing.restaurant.domain.TimeRange;
+import kdg.programming6.keepdishesgoing.restaurant.domain.ov.OpeningHours;
+import kdg.programming6.keepdishesgoing.restaurant.domain.ov.TimeRange;
 import org.springframework.stereotype.Component;
 
 import java.time.DayOfWeek;

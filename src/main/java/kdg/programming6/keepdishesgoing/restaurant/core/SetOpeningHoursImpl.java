@@ -1,9 +1,6 @@
 package kdg.programming6.keepdishesgoing.restaurant.core;
 
-import kdg.programming6.keepdishesgoing.restaurant.domain.OpeningHours;
-import kdg.programming6.keepdishesgoing.restaurant.domain.OwnerId;
 import kdg.programming6.keepdishesgoing.restaurant.domain.Restaurant;
-import kdg.programming6.keepdishesgoing.restaurant.domain.RestaurantId;
 import kdg.programming6.keepdishesgoing.restaurant.domain.exceptions.OwnerNotFoundException;
 import kdg.programming6.keepdishesgoing.restaurant.domain.exceptions.RestaurantNotFoundException;
 import kdg.programming6.keepdishesgoing.restaurant.port.in.SetOpeningHoursCommand;

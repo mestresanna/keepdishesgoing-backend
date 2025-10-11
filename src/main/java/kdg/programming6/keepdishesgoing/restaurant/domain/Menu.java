@@ -1,6 +1,7 @@
 package kdg.programming6.keepdishesgoing.restaurant.domain;
 
-import java.time.LocalDateTime;
+import kdg.programming6.keepdishesgoing.restaurant.domain.ov.RestaurantId;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -45,7 +46,11 @@ public class Menu {
 //        }
 //    }
 
-
+    public void removeDish(Dish dish) {
+        if (this.dishes != null) {
+            this.dishes.removeIf(d -> d.getId().equals(dish.getId()));
+        }
+    }
     public UUID getId() {
         return id;
     }
@@ -67,7 +72,7 @@ public class Menu {
     }
 
     public void setDishes(List<Dish> dishes) {
-        this.dishes = dishes;
+        this.dishes = new ArrayList<>(dishes);
     }
 
     private long getPublishedCount() {

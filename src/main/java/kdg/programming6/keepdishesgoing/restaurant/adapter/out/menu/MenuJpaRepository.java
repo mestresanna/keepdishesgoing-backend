@@ -1,6 +1,5 @@
-package kdg.programming6.keepdishesgoing.restaurant.adapter.out;
+package kdg.programming6.keepdishesgoing.restaurant.adapter.out.menu;
 
-import kdg.programming6.keepdishesgoing.restaurant.domain.Menu;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Optional;

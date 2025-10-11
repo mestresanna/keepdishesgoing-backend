@@ -1,10 +1,9 @@
-package kdg.programming6.keepdishesgoing.restaurant.adapter.out;
+package kdg.programming6.keepdishesgoing.restaurant.adapter.out.restaurant;
 import jakarta.persistence.*;
 import java.util.UUID;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.Email;
-import kdg.programming6.keepdishesgoing.restaurant.domain.OwnerId;
 
 @Entity
 @Table(name="restaurants", schema = "restaurant")

@@ -1,7 +1,6 @@
-package kdg.programming6.keepdishesgoing.restaurant.adapter.out;
+package kdg.programming6.keepdishesgoing.restaurant.adapter.out.restaurant;
 
 import kdg.programming6.keepdishesgoing.restaurant.domain.Restaurant;
-import kdg.programming6.keepdishesgoing.restaurant.domain.exceptions.RestaurantNotFoundException;
 import kdg.programming6.keepdishesgoing.restaurant.port.out.LoadRestaurantPort;
 import kdg.programming6.keepdishesgoing.restaurant.port.out.RestaurantPort;
 import org.slf4j.Logger;

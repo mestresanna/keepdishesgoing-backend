@@ -1,7 +1,7 @@
 package kdg.programming6.keepdishesgoing.restaurant.port.out;
 
 import kdg.programming6.keepdishesgoing.restaurant.domain.Menu;
-import kdg.programming6.keepdishesgoing.restaurant.domain.RestaurantId;
+import kdg.programming6.keepdishesgoing.restaurant.domain.ov.RestaurantId;
 
 import java.util.Optional;
 import java.util.UUID;

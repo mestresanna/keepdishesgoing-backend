@@ -1,4 +1,4 @@
-package kdg.programming6.keepdishesgoing.restaurant.adapter.out;
+package kdg.programming6.keepdishesgoing.restaurant.adapter.out.restaurant;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;

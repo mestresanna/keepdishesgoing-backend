@@ -1,7 +1,9 @@
 package kdg.programming6.keepdishesgoing.restaurant.core;
 
+import jakarta.transaction.Transactional;
 import kdg.programming6.keepdishesgoing.restaurant.domain.Dish;
 import kdg.programming6.keepdishesgoing.restaurant.domain.Menu;
+import kdg.programming6.keepdishesgoing.restaurant.domain.exceptions.DishNotFoundException;
 import kdg.programming6.keepdishesgoing.restaurant.port.in.PublishDishUseCase;
 import kdg.programming6.keepdishesgoing.restaurant.port.out.LoadDishPort;
 import kdg.programming6.keepdishesgoing.restaurant.port.out.LoadMenuPort;
@@ -29,19 +31,14 @@ public class PublishDishImpl implements PublishDishUseCase {
     }
 
     @Override
+    @Transactional
     public void handle(UUID dishId) {
-        Dish dish = loadDishPort.loadById(dishId).orElseThrow(() -> new IllegalArgumentException("Dish not found: " + dishId));
-
-        dish.publish(); // domain logic handles validations
-
-        saveDishPort.save(dish);
-
-        // find or create menu for this restaurant
+        Dish dish = loadDishPort.loadById(dishId).orElseThrow(() -> new DishNotFoundException("Dish not found: " + dishId));
         Menu menu = loadMenuPort.loadMenuByRestaurantId(dish.getRestaurantId())
                 .orElseGet(() -> new Menu(UUID.randomUUID(), dish.getRestaurantId()));
-
+        dish.publish();
+        saveDishPort.save(dish);
         menu.addDish(dish);
-
         saveMenuPort.save(menu);
     }
 }
