@@ -14,4 +14,28 @@ public class FoodTagJpaEntity {
     @ManyToOne
     @JoinColumn(name = "dish_id")
     private DishJpaEntity dish;
+
+    public UUID getId() {
+        return id;
+    }
+
+    public void setId(UUID id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public DishJpaEntity getDish() {
+        return dish;
+    }
+
+    public void setDish(DishJpaEntity dish) {
+        this.dish = dish;
+    }
 }

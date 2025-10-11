@@ -4,6 +4,8 @@ import jakarta.persistence.*;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 @Entity
@@ -22,6 +24,14 @@ public class DishJpaEntity {
     private LocalDateTime scheduledAt;
     public UUID getId() { return id; }
     public void setId(UUID id) { this.id = id; }
+
+    @OneToMany(mappedBy = "dish", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
+    private List<FoodTagJpaEntity> foodTags = new ArrayList<>();
+
+    public void addTag(FoodTagJpaEntity tag) {
+        foodTags.add(tag);
+        tag.setDish(this);
+    }
 
     public UUID getRestaurantId() { return restaurantId; }
     public void setRestaurantId(UUID restaurantId) { this.restaurantId = restaurantId; }
@@ -49,5 +59,8 @@ public class DishJpaEntity {
 
     public LocalDateTime getScheduledAt() { return scheduledAt; }
     public void setScheduledAt(LocalDateTime scheduledAt) { this.scheduledAt = scheduledAt; }
+
+    public List<FoodTagJpaEntity> getFoodTags() { return foodTags; }
+    public void setFoodTags(List<FoodTagJpaEntity> foodTags) { this.foodTags = foodTags; }
 
 }

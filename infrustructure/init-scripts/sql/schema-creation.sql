@@ -49,10 +49,10 @@ CREATE TABLE restaurant.menu_dishes (
 DROP TABLE restaurant.dishes;
 CREATE TABLE restaurant.dishes (
                                    id UUID PRIMARY KEY,
-                                   owner_id UUID NOT NULL,
+                                   restaurant_id UUID NOT NULL,
                                    name VARCHAR(255) NOT NULL,
                                    description TEXT,
-                                   type VARCHAR(50) NOT NULL, -- starter, main, dessert, etc.
+                                   type VARCHAR(50) NOT NULL, -- starter, dessert, etc.
                                    price DECIMAL(10,2) NOT NULL,
                                    picture_url TEXT,
                                    state VARCHAR(50) NOT NULL, -- DRAFT, PUBLISHED, OUT_OF_STOCK, UNPUBLISHED

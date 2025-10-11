@@ -39,3 +39,18 @@ X-Owner-Id: 31e3a110-37f1-4185-8a55-4d0c57963439
     "WEDNESDAY": {"open": "09:00", "close": "20:00"}
   }
 }
+
+### Create a new dish
+POST http://localhost:8080/api/dishes
+Content-Type: application/json
+
+{
+  "name": "Pasta Carbonara",
+  "restaurantId": "31e3a110-37f1-4185-8a55-4d0c57963439",
+  "type": "ENTREE",
+  "tags": ["gluten", "dairy"],
+  "description": "Classic creamy Italian pasta.",
+  "price": 14.5,
+  "pictureUrl": "https://cdn.example.com/pasta.jpg",
+  "state": "DRAFT"
+}

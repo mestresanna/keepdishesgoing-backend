@@ -1,5 +1,9 @@
 package kdg.programming6.keepdishesgoing.restaurant.domain;
 
+import kdg.programming6.keepdishesgoing.common.events.DomainEvent;
+
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 import java.util.UUID;
 
@@ -15,6 +19,7 @@ public class Dish {
     private DishState state;
     private boolean hasPendingChanges;
     private PublishDishesSchedule scheduledChange;
+    private final List<DomainEvent> domainEvents = new ArrayList<>();
 
     public Dish(String name,RestaurantId restaurantId, DishType type, Set<FoodTag> tags, String description, Float price, String pictureUrl, DishState state) {
         this.name = name;
@@ -29,6 +34,10 @@ public class Dish {
         this.hasPendingChanges = true;} else  {
         this.hasPendingChanges = false;
         }
+    }
+
+    public static Dish create(String name,RestaurantId restaurantId, DishType type, Set<FoodTag> tags, String description, Float price, String pictureUrl, DishState state){
+        return new Dish(name, restaurantId, type, tags, description, price, pictureUrl, state);
     }
 
     public DishId getId() {
@@ -69,6 +78,14 @@ public class Dish {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public RestaurantId getRestaurantId() {
+        return restaurantId;
+    }
+
+    public void setRestaurantId(RestaurantId restaurantId) {
+        this.restaurantId = restaurantId;
     }
 
     public Float getPrice() {
@@ -150,4 +167,12 @@ public class Dish {
         //change schedules, check method later
         this.scheduledChange = schedule;
     }
+    private void recordEvent(DomainEvent event) {
+        domainEvents.add(event);
+    }
+
+    public List<DomainEvent> getDomainEvents() {
+        return List.copyOf(domainEvents);
+    }
+
 }

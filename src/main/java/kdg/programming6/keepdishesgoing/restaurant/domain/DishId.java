@@ -7,4 +7,5 @@ public record DishId (UUID dishId) {
         return new DishId(dishId);
     }
 
+
 }
