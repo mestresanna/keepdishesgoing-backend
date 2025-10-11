@@ -3,6 +3,7 @@ package kdg.programming6.keepdishesgoing.restaurant.adapter.in;
 import kdg.programming6.keepdishesgoing.restaurant.adapter.in.request.CreateDishRequest;
 import kdg.programming6.keepdishesgoing.restaurant.port.in.CreateDishCommand;
 import kdg.programming6.keepdishesgoing.restaurant.port.in.CreateDishUseCase;
+import kdg.programming6.keepdishesgoing.restaurant.port.in.PublishDishUseCase;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -14,14 +15,22 @@ import java.util.UUID;
 public class DishController {
 
     private final CreateDishUseCase createDishUseCase;
+    private final PublishDishUseCase publishDishUseCase;
 
-    public DishController(CreateDishUseCase createDishUseCase) {
+    public DishController(CreateDishUseCase createDishUseCase, PublishDishUseCase publishDishUseCase) {
         this.createDishUseCase = createDishUseCase;
+        this.publishDishUseCase = publishDishUseCase;
     }
 
     @PostMapping
     public ResponseEntity<Void> createDish(@RequestBody CreateDishRequest request) {
         createDishUseCase.handle(request.toCommand());
         return ResponseEntity.status(HttpStatus.CREATED).build();
+    }
+
+    @PostMapping("/{dishId}/publish")
+    public ResponseEntity<Void> publishDish(@PathVariable UUID dishId) {
+        publishDishUseCase.handle(dishId);
+        return ResponseEntity.ok().build();
     }
 }

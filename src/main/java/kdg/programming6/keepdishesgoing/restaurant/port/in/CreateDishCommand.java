@@ -5,6 +5,7 @@ import kdg.programming6.keepdishesgoing.restaurant.domain.*;
 import java.util.Set;
 
 public record CreateDishCommand(
+        DishId dishId,
         String name,
         RestaurantId restaurantId,
         DishType type,

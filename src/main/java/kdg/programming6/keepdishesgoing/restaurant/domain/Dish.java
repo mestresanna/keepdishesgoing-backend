@@ -1,5 +1,6 @@
 package kdg.programming6.keepdishesgoing.restaurant.domain;
 
+import kdg.programming6.keepdishesgoing.common.events.DishPublishedEvent;
 import kdg.programming6.keepdishesgoing.common.events.DomainEvent;
 
 import java.util.ArrayList;
@@ -21,7 +22,8 @@ public class Dish {
     private PublishDishesSchedule scheduledChange;
     private final List<DomainEvent> domainEvents = new ArrayList<>();
 
-    public Dish(String name,RestaurantId restaurantId, DishType type, Set<FoodTag> tags, String description, Float price, String pictureUrl, DishState state) {
+    public Dish(DishId id, String name,RestaurantId restaurantId, DishType type, Set<FoodTag> tags, String description, Float price, String pictureUrl, DishState state) {
+        this.id = id;
         this.name = name;
         this.restaurantId = restaurantId;
         this.type = type;
@@ -36,8 +38,8 @@ public class Dish {
         }
     }
 
-    public static Dish create(String name,RestaurantId restaurantId, DishType type, Set<FoodTag> tags, String description, Float price, String pictureUrl, DishState state){
-        return new Dish(name, restaurantId, type, tags, description, price, pictureUrl, state);
+    public static Dish create(DishId id, String name,RestaurantId restaurantId, DishType type, Set<FoodTag> tags, String description, Float price, String pictureUrl, DishState state){
+        return new Dish(id, name, restaurantId, type, tags, description, price, pictureUrl, state);
     }
 
     public DishId getId() {
@@ -145,8 +147,19 @@ public class Dish {
     }
 
     public void unpublish() {
-        this.state = DishState.UNPUBLISHED;
-        this.hasPendingChanges = false;
+        if (this.state == DishState.PUBLISHED) {
+            throw new IllegalStateException("Dish is already published.");
+        }
+
+        if (this.state == DishState.DRAFT || this.state == DishState.UNPUBLISHED) {
+            this.state = DishState.PUBLISHED;
+            this.hasPendingChanges = false;
+            this.scheduledChange = null;
+
+            recordEvent(new DishPublishedEvent(this.id.dishId()));
+        } else {
+            throw new IllegalStateException("Dish must be DRAFT or UNPUBLISHED to publish.");
+        }
     }
 
     public void markOutOfStock() {

@@ -4,22 +4,23 @@ import kdg.programming6.keepdishesgoing.restaurant.domain.Dish;
 import kdg.programming6.keepdishesgoing.restaurant.domain.DishId;
 import kdg.programming6.keepdishesgoing.restaurant.port.in.CreateDishCommand;
 import kdg.programming6.keepdishesgoing.restaurant.port.in.CreateDishUseCase;
-import kdg.programming6.keepdishesgoing.restaurant.port.out.DishPort;
+import kdg.programming6.keepdishesgoing.restaurant.port.out.SaveDishPort;
 import org.springframework.stereotype.Service;
 
 import java.util.UUID;
 
 @Service
 public class CreateNewDishImpl implements CreateDishUseCase {
-    private final DishPort dishPort;
+    private final SaveDishPort saveDishPort;
 
-    public CreateNewDishImpl(DishPort dishPort) {
-        this.dishPort = dishPort;
+    public CreateNewDishImpl(SaveDishPort saveDishPort) {
+        this.saveDishPort = saveDishPort;
     }
 
     @Override
     public void handle(CreateDishCommand command) {
         Dish dish = Dish.create(
+                command.dishId(),
                 command.name(),
                 command.restaurantId(),
                 command.type(),
@@ -31,6 +32,6 @@ public class CreateNewDishImpl implements CreateDishUseCase {
         );
 
         dish.setId(new DishId(UUID.randomUUID()));
-        dishPort.save(dish);
+        saveDishPort.save(dish);
     }
 }

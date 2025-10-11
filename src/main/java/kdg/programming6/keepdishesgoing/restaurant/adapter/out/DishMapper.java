@@ -46,6 +46,7 @@ public class DishMapper {
                 .collect(Collectors.toSet());
 
         return Dish.create(
+                DishId.of(entity.getId() != null ? entity.getId() : UUID.randomUUID()),
                 entity.getName(),
                 new RestaurantId(entity.getRestaurantId()),
                 DishType.valueOf(entity.getType()),

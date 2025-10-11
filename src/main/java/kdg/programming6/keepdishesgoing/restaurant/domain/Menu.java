@@ -1,6 +1,7 @@
 package kdg.programming6.keepdishesgoing.restaurant.domain;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -9,27 +10,70 @@ public class Menu {
     private RestaurantId restaurantId;
     private List<Dish> dishes;
 
+    public Menu(UUID id, RestaurantId restaurantId) {
+        this.id = id;
+        this.restaurantId = restaurantId;
+    }
+
+
     public void addDish(Dish dish) {
-        if (getPublishedCount() >= 10 && dish.getState() == DishState.PUBLISHED)
-            throw new IllegalStateException("Max 10 dishes can be live at once.");
+        if  (this.dishes != null) {
+            if (dishes.stream().anyMatch(d -> d.getId().equals(dish.getId()))) {
+                return;
+            }
+            if (getPublishedCount() >= 10 && dish.getState() == DishState.PUBLISHED)
+                throw new IllegalStateException("Max 10 dishes can be live at once.");
+
+        }
+        if (this.dishes == null) {
+            this.dishes = new ArrayList<Dish>();
+        }
         dishes.add(dish);
     }
 
-    public void applyAllPendingChanges() {
-        for (Dish dish : dishes) {
-            if (dish.hasPendingChanges()) dish.publish();
-        }
+//    public void applyAllPendingChanges() {
+//        for (Dish dish : dishes) {
+//            if (dish.hasPendingChanges()) dish.publish();
+//        }
+//    }
+
+//    public void scheduleChanges(LocalDateTime when) {
+//        for (Dish dish : dishes) {
+//            if (dish.hasPendingChanges()) {
+//                dish.scheduleChange(new PublishDishesSchedule(when));
+//            }
+//        }
+//    }
+
+
+    public UUID getId() {
+        return id;
     }
 
-    public void scheduleChanges(LocalDateTime when) {
-        for (Dish dish : dishes) {
-            if (dish.hasPendingChanges()) {
-                dish.scheduleChange(new PublishDishesSchedule(when));
-            }
-        }
+    public void setId(UUID id) {
+        this.id = id;
+    }
+
+    public RestaurantId getRestaurantId() {
+        return restaurantId;
+    }
+
+    public void setRestaurantId(RestaurantId restaurantId) {
+        this.restaurantId = restaurantId;
+    }
+
+    public List<Dish> getDishes() {
+        return dishes;
+    }
+
+    public void setDishes(List<Dish> dishes) {
+        this.dishes = dishes;
     }
 
     private long getPublishedCount() {
+        if (dishes == null) {
+            return 0;
+        }
         return dishes.stream()
                 .filter(d -> d.getState() == DishState.PUBLISHED)
                 .count();

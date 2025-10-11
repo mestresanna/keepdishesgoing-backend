@@ -54,3 +54,7 @@ Content-Type: application/json
   "pictureUrl": "https://cdn.example.com/pasta.jpg",
   "state": "DRAFT"
 }
+
+### Publish a dish
+POST http://localhost:8080/api/dishes/2fc75c5d-839b-4ba3-819b-44dfcb43f8ef/publish
+

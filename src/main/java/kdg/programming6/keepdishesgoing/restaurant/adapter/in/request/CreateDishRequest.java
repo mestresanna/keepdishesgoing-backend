@@ -7,6 +7,7 @@ import java.util.Set;
 import java.util.UUID;
 
 public record CreateDishRequest(
+        UUID dishId,
         String name,
         UUID restaurantId,
         String type,
@@ -18,6 +19,7 @@ public record CreateDishRequest(
 ) {
     public CreateDishCommand toCommand() {
         return new CreateDishCommand(
+                new DishId(dishId),
                 name,
                 new RestaurantId(restaurantId),
                 DishType.valueOf(type),
