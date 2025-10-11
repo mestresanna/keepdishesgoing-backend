@@ -6,6 +6,7 @@ import kdg.programming6.keepdishesgoing.restaurant.domain.ov.DishId;
 import kdg.programming6.keepdishesgoing.restaurant.domain.ov.FoodTag;
 import kdg.programming6.keepdishesgoing.restaurant.domain.ov.RestaurantId;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
@@ -143,18 +144,29 @@ public class Dish {
     }
 
     public void publish() {
-        if (this.state == DishState.PUBLISHED) {
-            throw new IllegalStateException("Dish is already published.");
-        }
+        switch (this.state) {
+            case DRAFT -> {
+                this.state = DishState.PUBLISHED;
+                this.hasPendingChanges = false;
+                recordEvent(new DishPublishedEvent(this.id.dishId()));
 
-        if (this.state == DishState.DRAFT || this.state == DishState.UNPUBLISHED) {
-            this.state = DishState.PUBLISHED;
-            this.hasPendingChanges = false;
-            this.scheduledChange = null;
+            }
+            case PUBLISHED -> {
+                if (this.hasPendingChanges) {
+                    this.hasPendingChanges = false;
+                } else {
+                    throw new IllegalStateException("Dish is already published and has no pending changes.");
+                }
+            }
+            case UNPUBLISHED -> {
+                this.state = DishState.PUBLISHED;
+                recordEvent(new DishPublishedEvent(this.id.dishId()));
 
-            recordEvent(new DishPublishedEvent(this.id.dishId()));
-        } else {
-            throw new IllegalStateException("Dish must be DRAFT or UNPUBLISHED to publish.");
+            }
+            case OUT_OF_STOCK -> {
+                throw new IllegalStateException("Cannot publish dish that is out of stock.");
+            }
+            default -> throw new IllegalStateException("Unsupported dish state: " + state);
         }
     }
 
@@ -174,8 +186,31 @@ public class Dish {
         this.state = DishState.PUBLISHED;
     }
 
+    public void editAsDraft(String newName, String newDescription, Float newPrice, String newPictureUrl, DishType newType, Set<FoodTag> newtags) {
+        if (state == DishState.PUBLISHED) {
+            this.name = newName;
+            this.description = newDescription;
+            this.price = newPrice;
+            this.hasPendingChanges = true;
+            this.state = DishState.DRAFT;
+            this.tags = newtags;
+            this.pictureUrl = newPictureUrl;
+            this.type = newType;
+        } else if (state == DishState.DRAFT) {
+            this.name = newName;
+            this.description = newDescription;
+            this.price = newPrice;
+            this.tags = newtags;
+            this.pictureUrl = newPictureUrl;
+            this.type = newType;
+        } else {
+            throw new IllegalStateException("Cannot edit dish in state: " + state);
+        }
+    }
+
+
     public boolean hasPendingChanges(){
-        return this.hasPendingChanges;
+        return state == DishState.DRAFT && hasPendingChanges;
     }
     public void scheduleChange(PublishDishesSchedule  schedule){
         //TODO

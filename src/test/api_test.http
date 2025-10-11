@@ -77,3 +77,19 @@ POST http://localhost:8080/api/dishes/8490c201-d893-4169-90aa-90cd770beb58/publi
 ### Unpublish a dish
 POST http://localhost:8080/api/dishes/8490c201-d893-4169-90aa-90cd770beb58/unpublish
 # TODO: apply security
+
+### Edit a dish
+PATCH http://localhost:8080/api/dishes/c54f97bd-cae1-48e1-9105-6ef4dd39bb1a
+Content-Type: application/json
+
+{
+  "name": "Pasta Carbonara Deluxe",
+  "description": "Rich and creamy Italian pasta with pancetta and extra parmesan.",
+  "price": 15.75,
+  "pictureUrl": "https://cdn.example.com/pasta-deluxe.jpg",
+  "type": "ENTREE",
+  "tags": [
+    { "tag": "gluten" },
+    { "tag": "dairy" }
+  ]
+}
