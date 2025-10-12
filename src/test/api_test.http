@@ -46,7 +46,7 @@ Content-Type: application/json
 
 {
   "name": "Pasta Carbonara",
-  "restaurantId": "31e3a110-37f1-4185-8a55-4d0c57963439",
+  "restaurantId": "839f80c6-2d35-473b-ae80-58f368bbeed0",
   "type": "ENTREE",
   "tags": ["gluten", "dairy"],
   "description": "Classic creamy Italian pasta.",
@@ -60,32 +60,32 @@ POST http://localhost:8080/api/dishes
 Content-Type: application/json
 
 {
-  "name": "Arroz a la Cubana",
-  "restaurantId": "31e3a110-37f1-4185-8a55-4d0c57963439",
+  "name": "Paella",
+  "restaurantId": "839f80c6-2d35-473b-ae80-58f368bbeed0",
   "type": "ENTREE",
   "tags": ["egg", "lactose"],
-  "description": "White rice with tomato sauce. With a fried egg on top and some parmesan",
-  "price": 9.5,
+  "description": "Rice with seafood and chicken and beans.",
+  "price": 30.5,
   "pictureUrl": "https://cdn.example.com/pasta.jpg",
   "state": "DRAFT"
 }
 
 ### Publish a dish
-POST http://localhost:8080/api/dishes/8490c201-d893-4169-90aa-90cd770beb58/publish
+POST http://localhost:8080/api/dishes/6595039b-6235-4c9b-8ab3-ae4232c257cc/publish
 # TODO: apply security
 
 ### Unpublish a dish
-POST http://localhost:8080/api/dishes/8490c201-d893-4169-90aa-90cd770beb58/unpublish
+POST http://localhost:8080/api/dishes/6595039b-6235-4c9b-8ab3-ae4232c257cc/unpublish
 # TODO: apply security
 
 ### Edit a dish
-PATCH http://localhost:8080/api/dishes/c54f97bd-cae1-48e1-9105-6ef4dd39bb1a
+PATCH http://localhost:8080/api/dishes/8490c201-d893-4169-90aa-90cd770beb58
 Content-Type: application/json
 
 {
   "name": "Pasta Carbonara Deluxe",
   "description": "Rich and creamy Italian pasta with pancetta and extra parmesan.",
-  "price": 15.75,
+  "price": 35.75,
   "pictureUrl": "https://cdn.example.com/pasta-deluxe.jpg",
   "type": "ENTREE",
   "tags": [

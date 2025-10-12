@@ -8,5 +8,4 @@ import java.util.UUID;
 
 public interface LoadRestaurantPort {
     Optional<Restaurant> loadById(UUID id);
-    List<Restaurant> loadAll();
 }

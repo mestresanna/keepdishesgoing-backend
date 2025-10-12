@@ -91,8 +91,6 @@ public class Restaurant {
         restaurant.recordEvent(new RestaurantCreatedEvent(restaurant.restaurantId.restaurantId()));
         return restaurant;
     }
-
-
     public UUID getRestaurantId() { return restaurantId.restaurantId(); }
     public OwnerId getOwner() { return owner; }
     public String getName() { return name; }
@@ -104,6 +102,20 @@ public class Restaurant {
     public OpeningHours getOpeningHours() { return openingHours; }
     public PriceRange getPriceRange() { return priceRange; }
 
+    public void setPriceRange(Long averagePrice) {
+        if (averagePrice == null) {
+            this.priceRange = PriceRange.NONE;
+            throw new IllegalArgumentException("average price is null, there is no price for this restaurant.");
+        } else if (averagePrice<=10) {
+            this.priceRange = PriceRange.CHEAP;
+        } else if (averagePrice<=30) {
+            this.priceRange = PriceRange.REGULAR;
+        } else if (averagePrice <=60) {
+            this.priceRange = PriceRange.EXPENSIVE;
+        } else {
+            this.priceRange = PriceRange.PREMIUM;
+        }
+    }
     public void changeOpeningHours(OpeningHours newOpeningHours) {
         if (newOpeningHours == null || newOpeningHours.hoursPerDay() == null) {
             throw new IllegalArgumentException("Opening hours cannot be null");

@@ -6,6 +6,7 @@ import kdg.programming6.keepdishesgoing.restaurant.domain.Dish;
 import kdg.programming6.keepdishesgoing.restaurant.domain.Menu;
 import kdg.programming6.keepdishesgoing.restaurant.domain.ov.RestaurantId;
 import kdg.programming6.keepdishesgoing.restaurant.port.out.LoadMenuPort;
+import kdg.programming6.keepdishesgoing.restaurant.port.out.LoadRestaurantPort;
 import kdg.programming6.keepdishesgoing.restaurant.port.out.SaveMenuPort;
 import org.springframework.stereotype.Repository;
 
@@ -19,12 +20,6 @@ public class MenuJpaAdapter implements LoadMenuPort, SaveMenuPort {
     public MenuJpaAdapter(MenuJpaRepository menuRepo, DishMapper dishMapper) {
         this.menuRepo = menuRepo;
         this.dishMapper = dishMapper;
-    }
-
-
-    @Override
-    public Optional<Menu> loadById(UUID id) {
-        return Optional.empty();
     }
 
     @Override
@@ -47,7 +42,6 @@ public class MenuJpaAdapter implements LoadMenuPort, SaveMenuPort {
         entity.setMenuId(menu.getId() != null ? menu.getId() : UUID.randomUUID());
         entity.setRestaurantId(menu.getRestaurantId().restaurantId());
 
-        // attach dishes
         entity.getMenuDishes().clear();
         for (Dish dish : menu.getDishes()) {
             DishJpaEntity dishEntity = dishMapper.toEntity(dish);

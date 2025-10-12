@@ -1,5 +1,7 @@
 package kdg.programming6.keepdishesgoing.restaurant.domain;
 
+import kdg.programming6.keepdishesgoing.common.events.DomainEvent;
+import kdg.programming6.keepdishesgoing.common.events.MenuUpdatedEvent;
 import kdg.programming6.keepdishesgoing.restaurant.domain.ov.RestaurantId;
 
 import java.util.ArrayList;
@@ -10,6 +12,9 @@ public class Menu {
     private UUID id;
     private RestaurantId restaurantId;
     private List<Dish> dishes;
+
+    private final List<DomainEvent> eventStore = new ArrayList<>();
+    private final List<DomainEvent> uncommittedEvents = new ArrayList<>();
 
     public Menu(UUID id, RestaurantId restaurantId) {
         this.id = id;
@@ -30,25 +35,13 @@ public class Menu {
             this.dishes = new ArrayList<Dish>();
         }
         dishes.add(dish);
+        this.uncommittedEvents.add(new MenuUpdatedEvent(restaurantId.restaurantId()));
     }
-
-//    public void applyAllPendingChanges() {
-//        for (Dish dish : dishes) {
-//            if (dish.hasPendingChanges()) dish.publish();
-//        }
-//    }
-
-//    public void scheduleChanges(LocalDateTime when) {
-//        for (Dish dish : dishes) {
-//            if (dish.hasPendingChanges()) {
-//                dish.scheduleChange(new PublishDishesSchedule(when));
-//            }
-//        }
-//    }
 
     public void removeDish(Dish dish) {
         if (this.dishes != null) {
             this.dishes.removeIf(d -> d.getId().equals(dish.getId()));
+            this.uncommittedEvents.add(new MenuUpdatedEvent(restaurantId.restaurantId()));
         }
     }
     public UUID getId() {
@@ -74,6 +67,16 @@ public class Menu {
     public void setDishes(List<Dish> dishes) {
         this.dishes = new ArrayList<>(dishes);
     }
+
+    public void commitEvents() {
+        eventStore.addAll(uncommittedEvents);
+        uncommittedEvents.clear();
+    }
+
+    public List<DomainEvent> getUncommittedEvents() {
+        return new ArrayList<>(uncommittedEvents);
+    }
+
 
     private long getPublishedCount() {
         if (dishes == null) {

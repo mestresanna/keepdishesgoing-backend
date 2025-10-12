@@ -1,6 +1,7 @@
 package kdg.programming6.keepdishesgoing.restaurant.adapter.out.restaurant;
 
 import kdg.programming6.keepdishesgoing.restaurant.domain.Restaurant;
+import kdg.programming6.keepdishesgoing.restaurant.port.out.LoadAllRestaurantsPort;
 import kdg.programming6.keepdishesgoing.restaurant.port.out.LoadRestaurantPort;
 import kdg.programming6.keepdishesgoing.restaurant.port.out.RestaurantPort;
 import org.slf4j.Logger;
@@ -12,7 +13,7 @@ import java.util.Optional;
 import java.util.UUID;
 
 @Repository
-public class RestaurantJpaAdapter implements RestaurantPort, LoadRestaurantPort {
+public class RestaurantJpaAdapter implements RestaurantPort, LoadRestaurantPort, LoadAllRestaurantsPort {
     private final RestaurantJpaRepository jpaRepo;
     private final RestaurantMapper mapper;
     private final OpeningHoursMapper openingHoursMapper;
