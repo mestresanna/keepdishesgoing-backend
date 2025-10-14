@@ -75,7 +75,7 @@ POST http://localhost:8080/api/dishes/7fb8b264-5049-463b-894f-01fcd653bfc1/publi
 # TODO: apply security
 
 ### Unpublish a dish
-POST http://localhost:8080/api/dishes/7fb8b264-5049-463b-894f-01fcd653bfc1/unpublish
+POST http://localhost:8080/api/dishes/8490c201-d893-4169-90aa-90cd770beb58/unpublish
 # TODO: apply security
 
 ### Edit a dish

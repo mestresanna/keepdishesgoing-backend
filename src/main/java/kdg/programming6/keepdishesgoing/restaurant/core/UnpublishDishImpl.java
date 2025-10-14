@@ -4,6 +4,7 @@ import jakarta.transaction.Transactional;
 import kdg.programming6.keepdishesgoing.common.events.DomainEvent;
 import kdg.programming6.keepdishesgoing.restaurant.domain.Dish;
 import kdg.programming6.keepdishesgoing.restaurant.domain.Menu;
+import kdg.programming6.keepdishesgoing.restaurant.domain.Restaurant;
 import kdg.programming6.keepdishesgoing.restaurant.domain.exceptions.DishNotFoundException;
 import kdg.programming6.keepdishesgoing.restaurant.domain.exceptions.RestaurantNotFoundException;
 import kdg.programming6.keepdishesgoing.restaurant.port.in.UnpublishDishUseCase;
@@ -21,17 +22,19 @@ public class UnpublishDishImpl implements UnpublishDishUseCase {
     private final SaveDishPort saveDishPort;
     private final LoadMenuPort loadMenuPort;
     private final SaveMenuPort saveMenuPort;
-    private final List<UpdateMenuPort> updateMenuPorts;
+    private final LoadRestaurantPort loadRestaurantPort;
+    private final RestaurantPort restaurantPort;
 
     private static final Logger logger = LoggerFactory.getLogger(UnpublishDishImpl.class);
 
 
-    public UnpublishDishImpl(LoadDishPort loadDishPort, SaveDishPort saveDishPort, LoadMenuPort loadMenuPort, SaveMenuPort saveMenuPort, List<UpdateMenuPort> updateMenuPorts) {
+    public UnpublishDishImpl(LoadDishPort loadDishPort, SaveDishPort saveDishPort, LoadMenuPort loadMenuPort, SaveMenuPort saveMenuPort, LoadRestaurantPort loadRestaurantPort, RestaurantPort restaurantPort) {
         this.loadDishPort = loadDishPort;
         this.saveDishPort = saveDishPort;
         this.loadMenuPort = loadMenuPort;
         this.saveMenuPort = saveMenuPort;
-        this.updateMenuPorts = updateMenuPorts;
+        this.loadRestaurantPort = loadRestaurantPort;
+        this.restaurantPort = restaurantPort;
     }
 
 
@@ -40,12 +43,15 @@ public class UnpublishDishImpl implements UnpublishDishUseCase {
     public void handle(UUID dishId) {
         Dish dish =loadDishPort.loadById(dishId).orElseThrow(() -> new DishNotFoundException("Dish with id " + dishId + " not found"));
         Menu menu = loadMenuPort.loadMenuByRestaurantId(dish.getRestaurantId()).orElseThrow(() -> new RestaurantNotFoundException("Menu with id " + dish.getRestaurantId() + " not found"));
+        Restaurant restaurant =  loadRestaurantPort.loadById(dish.getRestaurantId().restaurantId()).orElseThrow(() -> new RestaurantNotFoundException("Restaurant not found: " + dish.getRestaurantId()));
         dish.unpublish();
         saveDishPort.save(dish);
         menu.removeDish(dish);
+        menu.setAvgPrice();
         saveMenuPort.save(menu);
         logger.info("Uncommitted events: {}", menu.getUncommittedEvents());
-        updateMenuPorts.forEach(port -> port.update(menu));
+        restaurant.setPriceRange(menu.updateAvgPrice());
+        restaurantPort.save(restaurant);
         menu.commitEvents();
     }
 }
