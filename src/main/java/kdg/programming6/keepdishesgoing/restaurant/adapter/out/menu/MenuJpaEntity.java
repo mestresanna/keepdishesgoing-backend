@@ -16,8 +16,18 @@ public class MenuJpaEntity {
     @Column(nullable = false)
     private UUID restaurantId;
 
+    private Double avgPrice;
+
     @OneToMany(mappedBy = "menu", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<DishesInMenuJpaEntity> menuDishes = new ArrayList<>();
+
+    public Double getAvgPrice() {
+        return avgPrice;
+    }
+
+    public void setAvgPrice(Double avgPrice) {
+        this.avgPrice = avgPrice;
+    }
 
     public UUID getMenuId() { return menuId; }
     public void setMenuId(UUID menuId) { this.menuId = menuId; }

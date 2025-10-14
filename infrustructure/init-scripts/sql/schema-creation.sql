@@ -36,7 +36,8 @@ CREATE TABLE restaurant.restaurants (
 DROP TABLE restaurant.menus;
 CREATE TABLE restaurant.menus (
                                 menu_id UUID PRIMARY KEY,
-                                restaurant_id UUID NOT NULL
+                                restaurant_id UUID NOT NULL,
+                                avg_price float
 );
 DROP TABLE restaurant.menu_dishes;
 CREATE TABLE restaurant.menu_dishes (

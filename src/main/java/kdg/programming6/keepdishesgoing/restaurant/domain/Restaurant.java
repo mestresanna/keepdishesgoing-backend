@@ -102,7 +102,7 @@ public class Restaurant {
     public OpeningHours getOpeningHours() { return openingHours; }
     public PriceRange getPriceRange() { return priceRange; }
 
-    public void setPriceRange(Long averagePrice) {
+    public void setPriceRange(Double averagePrice) {
         if (averagePrice == null) {
             this.priceRange = PriceRange.NONE;
             throw new IllegalArgumentException("average price is null, there is no price for this restaurant.");

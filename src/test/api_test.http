@@ -71,11 +71,11 @@ Content-Type: application/json
 }
 
 ### Publish a dish
-POST http://localhost:8080/api/dishes/6595039b-6235-4c9b-8ab3-ae4232c257cc/publish
+POST http://localhost:8080/api/dishes/7fb8b264-5049-463b-894f-01fcd653bfc1/publish
 # TODO: apply security
 
 ### Unpublish a dish
-POST http://localhost:8080/api/dishes/6595039b-6235-4c9b-8ab3-ae4232c257cc/unpublish
+POST http://localhost:8080/api/dishes/7fb8b264-5049-463b-894f-01fcd653bfc1/unpublish
 # TODO: apply security
 
 ### Edit a dish

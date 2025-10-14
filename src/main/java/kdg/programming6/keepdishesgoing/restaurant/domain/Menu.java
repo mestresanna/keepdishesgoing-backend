@@ -12,6 +12,7 @@ public class Menu {
     private UUID id;
     private RestaurantId restaurantId;
     private List<Dish> dishes;
+    private Double avgPrice;
 
     private final List<DomainEvent> eventStore = new ArrayList<>();
     private final List<DomainEvent> uncommittedEvents = new ArrayList<>();
@@ -20,7 +21,6 @@ public class Menu {
         this.id = id;
         this.restaurantId = restaurantId;
     }
-
 
     public void addDish(Dish dish) {
         if  (this.dishes != null) {
@@ -44,6 +44,23 @@ public class Menu {
             this.uncommittedEvents.add(new MenuUpdatedEvent(restaurantId.restaurantId()));
         }
     }
+
+    public Double updateAvgPrice() {
+        Double avgPrice = this.getDishes().stream()
+                .mapToDouble(Dish::getPrice)
+                .average()
+                .orElse(0.0);
+        return avgPrice;
+    }
+
+    public Double getAvgPrice() {
+        return avgPrice;
+    }
+
+    public void setAvgPrice() {
+        this.avgPrice = this.updateAvgPrice();
+    }
+
     public UUID getId() {
         return id;
     }

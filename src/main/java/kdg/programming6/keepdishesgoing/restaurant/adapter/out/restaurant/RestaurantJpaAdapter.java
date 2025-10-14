@@ -35,6 +35,7 @@ public class RestaurantJpaAdapter implements RestaurantPort, LoadRestaurantPort,
             existing.setOpeningHoursJson(
                     openingHoursMapper.serializeOpeningHours(restaurant.getOpeningHours())
             );
+            existing.setPriceRange(restaurant.getPriceRange().toString());
             jpaRepo.save(existing);
         } else {
             jpaRepo.save(mapper.toEntity(restaurant));
@@ -43,8 +44,8 @@ public class RestaurantJpaAdapter implements RestaurantPort, LoadRestaurantPort,
 
     @Override
     public Optional<Restaurant>  loadById(UUID id) {
-        return jpaRepo.findById(id)   // returns Optional<RestaurantJpaEntity>
-                .map(mapper::toDomain); // convert entity -> domain
+        return jpaRepo.findById(id)
+                .map(mapper::toDomain);
     }
 
     @Override

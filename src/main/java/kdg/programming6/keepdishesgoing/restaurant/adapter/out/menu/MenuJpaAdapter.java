@@ -47,6 +47,7 @@ public class MenuJpaAdapter implements LoadMenuPort, SaveMenuPort {
             DishJpaEntity dishEntity = dishMapper.toEntity(dish);
             entity.addDish(dishEntity);
         }
+        entity.setAvgPrice(menu.getAvgPrice());
         menuRepo.save(entity);
     }
 }
