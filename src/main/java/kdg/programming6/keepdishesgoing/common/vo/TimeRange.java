@@ -1,4 +1,4 @@
-package kdg.programming6.keepdishesgoing.restaurant.domain.ov;
+package kdg.programming6.keepdishesgoing.common.vo;
 
 
 import java.time.LocalTime;

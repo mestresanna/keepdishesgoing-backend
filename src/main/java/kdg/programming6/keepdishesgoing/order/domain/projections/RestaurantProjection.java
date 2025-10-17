@@ -1,15 +1,10 @@
 package kdg.programming6.keepdishesgoing.order.domain.projections;
 
 import kdg.programming6.keepdishesgoing.order.domain.vo.OpeningHoursProjection;
-import kdg.programming6.keepdishesgoing.order.domain.vo.TimeRangeProjection;
-import kdg.programming6.keepdishesgoing.restaurant.domain.PriceRange;
-import kdg.programming6.keepdishesgoing.restaurant.domain.TypeOfCuisine;
-import kdg.programming6.keepdishesgoing.restaurant.domain.ov.*;
 
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.LocalTime;
-import java.util.Map;
 import java.util.UUID;
 
 public class RestaurantProjection {

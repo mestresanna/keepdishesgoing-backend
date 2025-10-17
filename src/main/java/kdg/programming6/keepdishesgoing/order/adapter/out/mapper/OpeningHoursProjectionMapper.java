@@ -1,22 +1,30 @@
-package kdg.programming6.keepdishesgoing.order.adapter.in.mapper;
+package kdg.programming6.keepdishesgoing.order.adapter.out.mapper;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
+import kdg.programming6.keepdishesgoing.common.vo.TimeRange;
 import kdg.programming6.keepdishesgoing.order.domain.vo.OpeningHoursProjection;
-import kdg.programming6.keepdishesgoing.order.domain.vo.TimeRangeProjection;
+import org.springframework.stereotype.Component;
 
 import java.time.DayOfWeek;
 import java.util.Map;
 
+@Component
 public class OpeningHoursProjectionMapper {
 
     private static final ObjectMapper objectMapper = new ObjectMapper();
 
+    static {
+        objectMapper.registerModule(new JavaTimeModule());
+        objectMapper.disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS); // optional: serialize as "HH:mm:ss"
+    }
+
     public static OpeningHoursProjection fromJson(String json) {
         try {
-            // Deserialize into Map<DayOfWeek, TimeRangeProjection>
-            Map<DayOfWeek, TimeRangeProjection> hours = objectMapper.readValue(
-                    json, new TypeReference<Map<DayOfWeek, TimeRangeProjection>>() {}
+            Map<DayOfWeek, TimeRange> hours = objectMapper.readValue(
+                    json, new com.fasterxml.jackson.core.type.TypeReference<Map<DayOfWeek, TimeRange>>() {}
             );
             return new OpeningHoursProjection(hours);
         } catch (Exception e) {
@@ -30,5 +38,4 @@ public class OpeningHoursProjectionMapper {
         } catch (Exception e) {
             throw new RuntimeException("Failed to serialize OpeningHoursProjection", e);
         }
-    }
-}
+    }}

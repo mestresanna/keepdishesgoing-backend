@@ -2,7 +2,8 @@ package kdg.programming6.keepdishesgoing.order.adapter.in;
 
 import kdg.programming6.keepdishesgoing.common.events.RestaurantCreatedEvent;
 import kdg.programming6.keepdishesgoing.common.events.RestaurantUpdatedEvent;
-import kdg.programming6.keepdishesgoing.order.adapter.in.mapper.OpeningHoursProjectionMapper;
+import kdg.programming6.keepdishesgoing.order.adapter.out.mapper.OpeningHoursProjectionMapper;
+import kdg.programming6.keepdishesgoing.order.domain.vo.OpeningHoursProjection;
 import kdg.programming6.keepdishesgoing.order.port.in.CreatedRestaurantProjectionCommand;
 import kdg.programming6.keepdishesgoing.order.port.in.RestaurantChangedProjector;
 import kdg.programming6.keepdishesgoing.order.port.in.UpdatedRestaurantProjectionCommand;
@@ -22,8 +23,6 @@ public class RestaurantChangedListener {
     @EventListener(RestaurantCreatedEvent.class)
     public void onRestaurantCreated(RestaurantCreatedEvent event) {
         logger.debug("Restaurant Created Event");
-        var openingHoursProjection = OpeningHoursProjectionMapper.fromJson(event.openingHours());
-
         projector.projectCreatedRestaurant(new CreatedRestaurantProjectionCommand(
                 event.restaurantId(),
                 event.ownerId(),
@@ -33,7 +32,7 @@ public class RestaurantChangedListener {
                 event.city(),
                 event.country(),
                 event.pictureUrls(),
-                openingHoursProjection,
+                new OpeningHoursProjection(event.openingHours()),
                 event.typeOfCuisine(),
                 event.contactEmail(),
                 event.defaultPreparationTimeInMinutes(),

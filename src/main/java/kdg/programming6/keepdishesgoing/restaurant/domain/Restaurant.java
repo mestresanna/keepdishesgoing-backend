@@ -55,7 +55,10 @@ public class Restaurant {
                 openingHours,
                 owner,
                 priceRange);
+        restaurant.recordEvent(new RestaurantUpdatedEvent(restaurant.restaurantId.restaurantId(), restaurant.owner.ownerId(), restaurant.getName(), restaurant.getAddress().street(), restaurant.getAddress().number(), restaurant.getAddress().city(),  restaurant.getAddress().country(),restaurant.getPictureUrls(), restaurant.getOpeningHours().toString(), restaurant.getTypeOfCuisine().toString(), restaurant.getContactEmail(), restaurant.getDefaultPreparationTimeInMinutes(), restaurant.getPriceRange().toString()));
+
         return restaurant;
+
     }
     public static Restaurant create(String name, Address address, String contactEmail,
                                     String pictureUrls, int defaultPreparationTimeInMinutes,
@@ -71,6 +74,7 @@ public class Restaurant {
                 openingHours,
                 owner,
                 PriceRange.NONE);
+        restaurant.recordEvent(new RestaurantCreatedEvent(restaurant.restaurantId.restaurantId(), restaurant.owner.ownerId(), restaurant.getName(), restaurant.getAddress().street(), restaurant.getAddress().number(), restaurant.getAddress().city(),  restaurant.getAddress().country(),restaurant.getPictureUrls(), openingHours.hoursPerDay() , restaurant.getTypeOfCuisine().toString(), restaurant.getContactEmail(), restaurant.getDefaultPreparationTimeInMinutes(), restaurant.getPriceRange().toString()));
         return restaurant;
     }
         public static Restaurant create(String name, Address address, String contactEmail,
@@ -87,8 +91,7 @@ public class Restaurant {
                     owner,
                     priceRange
             );
-        restaurant.recordEvent(new RestaurantCreatedEvent(restaurant.restaurantId.restaurantId(), restaurant.owner.ownerId(), restaurant.getName(), restaurant.getAddress().street(), restaurant.getAddress().number(), restaurant.getAddress().city(),  restaurant.getAddress().country(),restaurant.getPictureUrls(), restaurant.getOpeningHours().toString(), restaurant.getTypeOfCuisine().toString(), restaurant.getContactEmail(), restaurant.getDefaultPreparationTimeInMinutes(), restaurant.getPriceRange().toString()));
-
+        restaurant.recordEvent(new RestaurantCreatedEvent(restaurant.restaurantId.restaurantId(), restaurant.owner.ownerId(), restaurant.getName(), restaurant.getAddress().street(), restaurant.getAddress().number(), restaurant.getAddress().city(),  restaurant.getAddress().country(),restaurant.getPictureUrls(), openingHours.hoursPerDay(), restaurant.getTypeOfCuisine().toString(), restaurant.getContactEmail(), restaurant.getDefaultPreparationTimeInMinutes(), restaurant.getPriceRange().toString()));
                 return restaurant;
     }
     public UUID getRestaurantId() { return restaurantId.restaurantId(); }
@@ -115,6 +118,7 @@ public class Restaurant {
         } else {
             this.priceRange = PriceRange.PREMIUM;
         }
+        recordEvent(new RestaurantUpdatedEvent(restaurantId.restaurantId(), owner.ownerId(), getName(), getAddress().street(), getAddress().number(), getAddress().city(),  getAddress().country(),getPictureUrls(), openingHours.toString(), getTypeOfCuisine().toString(), getContactEmail(), getDefaultPreparationTimeInMinutes(), getPriceRange().toString()));
     }
     public void changeOpeningHours(OpeningHours newOpeningHours) {
         if (newOpeningHours == null || newOpeningHours.hoursPerDay() == null) {
@@ -124,7 +128,7 @@ public class Restaurant {
             return;
         }
         this.openingHours = newOpeningHours;
-        recordEvent(new RestaurantCreatedEvent(restaurantId.restaurantId(), owner.ownerId(), getName(), getAddress().street(), getAddress().number(), getAddress().city(),  getAddress().country(),getPictureUrls(), openingHours.toString(), getTypeOfCuisine().toString(), getContactEmail(), getDefaultPreparationTimeInMinutes(), getPriceRange().toString()));
+        recordEvent(new RestaurantUpdatedEvent(restaurantId.restaurantId(), owner.ownerId(), getName(), getAddress().street(), getAddress().number(), getAddress().city(),  getAddress().country(),getPictureUrls(), openingHours.toString(), getTypeOfCuisine().toString(), getContactEmail(), getDefaultPreparationTimeInMinutes(), getPriceRange().toString()));
     }
 
     private void recordEvent(DomainEvent event) {
