@@ -29,7 +29,7 @@ public class RestaurantController {
 
     @PostMapping
     public ResponseEntity<Void> createRestaurant(@RequestBody CreateRestaurantRequest request) {
-        createRestaurant.handle(request.toCommand());
+        createRestaurant.createRestaurant(request.toCommand());
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 

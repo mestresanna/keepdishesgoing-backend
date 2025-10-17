@@ -48,8 +48,20 @@ public class DishMapper {
                 .map(tagEntity -> new FoodTag(tagEntity.getName()))
                 .collect(Collectors.toSet());
 
-        return Dish.create(
-                DishId.of(entity.getId() != null ? entity.getId() : UUID.randomUUID()),
+        if (entity.getId() == null) {
+            return Dish.create(
+                    entity.getName(),
+                    new RestaurantId(entity.getRestaurantId()),
+                    DishType.valueOf(entity.getType()),
+                    tags,
+                    entity.getDescription(),
+                    entity.getPrice().floatValue(),
+                    entity.getPictureUrl(),
+                    DishState.valueOf(entity.getState())
+            );
+        } else {
+        return Dish.rehydrate(
+                DishId.of(entity.getId()),
                 entity.getName(),
                 new RestaurantId(entity.getRestaurantId()),
                 DishType.valueOf(entity.getType()),
@@ -59,5 +71,6 @@ public class DishMapper {
                 entity.getPictureUrl(),
                 DishState.valueOf(entity.getState())
         );
+        }
     }
 }

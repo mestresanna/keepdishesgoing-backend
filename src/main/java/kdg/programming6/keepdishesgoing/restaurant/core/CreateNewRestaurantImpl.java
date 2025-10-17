@@ -6,17 +6,19 @@ import kdg.programming6.keepdishesgoing.restaurant.port.in.CreateRestaurantUseCa
 import kdg.programming6.keepdishesgoing.restaurant.port.out.RestaurantPort;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class CreateNewRestaurantImpl implements CreateRestaurantUseCase {
 
-    private final RestaurantPort repository;
+    private final List<RestaurantPort> repository;
 
-    public CreateNewRestaurantImpl(RestaurantPort repository) {
+    public CreateNewRestaurantImpl(List<RestaurantPort> repository) {
         this.repository = repository;
     }
 
     @Override
-    public void handle(CreateRestaurantCommand command) {
+    public void createRestaurant(CreateRestaurantCommand command) {
         Restaurant restaurant = Restaurant.create(
                 command.name(),
                 command.address(),
@@ -26,6 +28,6 @@ public class CreateNewRestaurantImpl implements CreateRestaurantUseCase {
                 command.typeOfCuisine(),
                 command.openingHours(),
                 command.owner());
-        repository.save(restaurant);
+        repository.forEach(port -> port.save(restaurant));
     }
 }

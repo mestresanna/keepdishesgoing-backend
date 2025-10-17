@@ -6,10 +6,10 @@ import kdg.programming6.keepdishesgoing.restaurant.domain.ov.DishId;
 import kdg.programming6.keepdishesgoing.restaurant.domain.ov.FoodTag;
 import kdg.programming6.keepdishesgoing.restaurant.domain.ov.RestaurantId;
 
-import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
+import java.util.UUID;
 
 public class Dish {
     private DishId id;
@@ -41,8 +41,11 @@ public class Dish {
         }
     }
 
-    public static Dish create(DishId id, String name,RestaurantId restaurantId, DishType type, Set<FoodTag> tags, String description, Float price, String pictureUrl, DishState state){
-        return new Dish(id, name, restaurantId, type, tags, description, price, pictureUrl, state);
+    public static Dish create(String name,RestaurantId restaurantId, DishType type, Set<FoodTag> tags, String description, Float price, String pictureUrl, DishState state){
+        return new Dish(new DishId(UUID.randomUUID()), name, restaurantId, type, tags, description, price, pictureUrl, state);
+    }
+    public static Dish rehydrate(DishId dishId, String name, RestaurantId restaurantId, DishType type, Set<FoodTag> tags, String description, Float price, String pictureUrl, DishState state){
+        return new Dish(dishId, name, restaurantId, type, tags, description, price, pictureUrl, state);
     }
 
     public DishId getId() {

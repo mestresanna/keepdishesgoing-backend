@@ -23,12 +23,12 @@ public class UnpublishDishImpl implements UnpublishDishUseCase {
     private final LoadMenuPort loadMenuPort;
     private final SaveMenuPort saveMenuPort;
     private final LoadRestaurantPort loadRestaurantPort;
-    private final RestaurantPort restaurantPort;
+    private final List<RestaurantPort> restaurantPort;
 
     private static final Logger logger = LoggerFactory.getLogger(UnpublishDishImpl.class);
 
 
-    public UnpublishDishImpl(LoadDishPort loadDishPort, SaveDishPort saveDishPort, LoadMenuPort loadMenuPort, SaveMenuPort saveMenuPort, LoadRestaurantPort loadRestaurantPort, RestaurantPort restaurantPort) {
+    public UnpublishDishImpl(LoadDishPort loadDishPort, SaveDishPort saveDishPort, LoadMenuPort loadMenuPort, SaveMenuPort saveMenuPort, LoadRestaurantPort loadRestaurantPort, List<RestaurantPort> restaurantPort) {
         this.loadDishPort = loadDishPort;
         this.saveDishPort = saveDishPort;
         this.loadMenuPort = loadMenuPort;
@@ -40,7 +40,7 @@ public class UnpublishDishImpl implements UnpublishDishUseCase {
 
     @Override
     @Transactional
-    public void handle(UUID dishId) {
+    public void unplublishDish(UUID dishId) {
         Dish dish =loadDishPort.loadById(dishId).orElseThrow(() -> new DishNotFoundException("Dish with id " + dishId + " not found"));
         Menu menu = loadMenuPort.loadMenuByRestaurantId(dish.getRestaurantId()).orElseThrow(() -> new RestaurantNotFoundException("Menu with id " + dish.getRestaurantId() + " not found"));
         Restaurant restaurant =  loadRestaurantPort.loadById(dish.getRestaurantId().restaurantId()).orElseThrow(() -> new RestaurantNotFoundException("Restaurant not found: " + dish.getRestaurantId()));
@@ -51,7 +51,7 @@ public class UnpublishDishImpl implements UnpublishDishUseCase {
         saveMenuPort.save(menu);
         logger.info("Uncommitted events: {}", menu.getUncommittedEvents());
         restaurant.setPriceRange(menu.updateAvgPrice());
-        restaurantPort.save(restaurant);
+        restaurantPort.forEach(port -> port.save(restaurant));
         menu.commitEvents();
     }
 }

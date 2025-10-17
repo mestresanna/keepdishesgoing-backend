@@ -27,25 +27,25 @@ public class DishController {
 
     @PostMapping
     public ResponseEntity<Void> createDish(@RequestBody CreateDishRequest request) {
-        createDishUseCase.handle(request.toCommand());
+        createDishUseCase.createDish(request.toCommand());
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
     @PostMapping("/{dishId}/publish")
     public ResponseEntity<Void> publishDish(@PathVariable UUID dishId) {
-        publishDishUseCase.handle(dishId);
+        publishDishUseCase.publishDish(dishId);
         return ResponseEntity.ok().build();
     }
 
     @PostMapping("/{dishId}/unpublish")
     public ResponseEntity<Void> unpublishDish(@PathVariable UUID dishId) {
-        unpublishDishUseCase.handle(dishId);
+        unpublishDishUseCase.unplublishDish(dishId);
         return ResponseEntity.noContent().build();
     }
 
     @PatchMapping("/{dishId}")
     public ResponseEntity<Void> editDish(@PathVariable UUID dishId, @RequestBody EditDishRequest request) {
-        editDishUseCase.handle(request.toCommand(dishId));
+        editDishUseCase.editDish(request.toCommand(dishId));
         return ResponseEntity.ok().build();
     }
 

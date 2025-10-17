@@ -23,14 +23,14 @@ public class PublishDishImpl implements PublishDishUseCase {
     private final LoadMenuPort loadMenuPort;
     private final SaveMenuPort saveMenuPort;
     private final LoadRestaurantPort loadRestaurantPort;
-    private final RestaurantPort restaurantPort;
+    private final List<RestaurantPort> restaurantPort;
     private static final Logger logger = LoggerFactory.getLogger(PublishDishImpl.class);
 
 
     public PublishDishImpl(LoadDishPort loadDishPort,
                            SaveDishPort saveDishPort,
                            LoadMenuPort loadMenuPort,
-                           SaveMenuPort saveMenuPort, LoadRestaurantPort loadRestaurantPort, RestaurantPort restaurantPort) {
+                           SaveMenuPort saveMenuPort, LoadRestaurantPort loadRestaurantPort, List<RestaurantPort> restaurantPort) {
         this.loadDishPort = loadDishPort;
         this.saveDishPort = saveDishPort;
         this.loadMenuPort = loadMenuPort;
@@ -41,7 +41,7 @@ public class PublishDishImpl implements PublishDishUseCase {
 
     @Override
     @Transactional
-    public void handle(UUID dishId) {
+    public void publishDish(UUID dishId) {
         Dish dish = loadDishPort.loadById(dishId).orElseThrow(() -> new DishNotFoundException("Dish not found: " + dishId));
         Menu menu = loadMenuPort.loadMenuByRestaurantId(dish.getRestaurantId())
                 .orElseGet(() -> new Menu(UUID.randomUUID(), dish.getRestaurantId()));
@@ -53,7 +53,7 @@ public class PublishDishImpl implements PublishDishUseCase {
         saveMenuPort.save(menu);
         logger.info("Uncommitted events: {}", menu.getUncommittedEvents());
         restaurant.setPriceRange(menu.updateAvgPrice());
-        restaurantPort.save(restaurant);
+        restaurantPort.forEach(port -> port.save(restaurant));
         menu.commitEvents();
     }
 }

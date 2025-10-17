@@ -74,8 +74,7 @@ public class Restaurant {
         return restaurant;
     }
         public static Restaurant create(String name, Address address, String contactEmail,
-                String pictureUrls, int defaultPreparationTimeInMinutes,
-        TypeOfCuisine typeOfCuisine, OpeningHours openingHours, OwnerId owner, PriceRange priceRange) {
+                String pictureUrls, int defaultPreparationTimeInMinutes, TypeOfCuisine typeOfCuisine, OpeningHours openingHours, OwnerId owner, PriceRange priceRange) {
             Restaurant restaurant = new Restaurant(
                     new RestaurantId(UUID.randomUUID()),
                     name,
@@ -88,8 +87,9 @@ public class Restaurant {
                     owner,
                     priceRange
             );
-        restaurant.recordEvent(new RestaurantCreatedEvent(restaurant.restaurantId.restaurantId()));
-        return restaurant;
+        restaurant.recordEvent(new RestaurantCreatedEvent(restaurant.restaurantId.restaurantId(), restaurant.owner.ownerId(), restaurant.getName(), restaurant.getAddress().street(), restaurant.getAddress().number(), restaurant.getAddress().city(),  restaurant.getAddress().country(),restaurant.getPictureUrls(), restaurant.getOpeningHours().toString(), restaurant.getTypeOfCuisine().toString(), restaurant.getContactEmail(), restaurant.getDefaultPreparationTimeInMinutes(), restaurant.getPriceRange().toString()));
+
+                return restaurant;
     }
     public UUID getRestaurantId() { return restaurantId.restaurantId(); }
     public OwnerId getOwner() { return owner; }
@@ -124,7 +124,7 @@ public class Restaurant {
             return;
         }
         this.openingHours = newOpeningHours;
-        recordEvent(new RestaurantUpdatedEvent(restaurantId.restaurantId()));
+        recordEvent(new RestaurantCreatedEvent(restaurantId.restaurantId(), owner.ownerId(), getName(), getAddress().street(), getAddress().number(), getAddress().city(),  getAddress().country(),getPictureUrls(), openingHours.toString(), getTypeOfCuisine().toString(), getContactEmail(), getDefaultPreparationTimeInMinutes(), getPriceRange().toString()));
     }
 
     private void recordEvent(DomainEvent event) {

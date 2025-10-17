@@ -18,9 +18,8 @@ public class CreateNewDishImpl implements CreateDishUseCase {
     }
 
     @Override
-    public void handle(CreateDishCommand command) {
+    public void createDish(CreateDishCommand command) {
         Dish dish = Dish.create(
-                command.dishId(),
                 command.name(),
                 command.restaurantId(),
                 command.type(),
@@ -30,8 +29,6 @@ public class CreateNewDishImpl implements CreateDishUseCase {
                 command.pictureUrl(),
                 command.state()
         );
-
-        dish.setId(new DishId(UUID.randomUUID()));
         saveDishPort.save(dish);
     }
 }

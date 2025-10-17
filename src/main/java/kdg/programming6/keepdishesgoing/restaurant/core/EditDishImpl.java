@@ -19,7 +19,7 @@ public class EditDishImpl implements EditDishUseCase {
     }
 
     @Override
-    public void handle(EditDishCommand command) {
+    public void editDish(EditDishCommand command) {
         Dish dish = loadDishPort.loadById(command.dishId())
                 .orElseThrow(() -> new DishNotFoundException("Dish not found: " + command.dishId()));
 

@@ -5,6 +5,27 @@ GRANT ALL PRIVILEGES ON DATABASE prog6 TO kdg;
 \c prog6 kdg;
 CREATE SCHEMA restaurant AUTHORIZATION kdg;
 
+CREATE SCHEMA orders AUTHORIZATION kdg;
+
+ALTER DEFAULT PRIVILEGES IN SCHEMA orders
+    GRANT ALL PRIVILEGES ON TABLES TO kdg;
+DROP TABLE orders.restaurant_projection;
+CREATE TABLE orders.restaurant_projection (
+                                              restaurant_id UUID PRIMARY KEY,
+                                              owner_id UUID NOT NULL,
+                                              name VARCHAR(255) NOT NULL,
+                                              street VARCHAR(255) NOT NULL,
+                                              number INT NOT NULL,
+                                              city VARCHAR(255) NOT NULL,
+                                              country VARCHAR(255) NOT NULL,
+                                              picture_urls TEXT,
+                                              opening_hours_json TEXT,
+                                              type_of_cuisine VARCHAR(100),
+                                              contact_email VARCHAR(255),
+                                              default_preparation_time_in_minutes INT,
+                                              price_range VARCHAR(50)
+);
+
 ALTER DEFAULT PRIVILEGES IN SCHEMA restaurant
     GRANT ALL PRIVILEGES ON TABLES TO kdg;
 
