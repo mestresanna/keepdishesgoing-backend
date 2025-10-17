@@ -1,8 +1,8 @@
 package kdg.programming6.keepdishesgoing.restaurant.adapter.out.dish;
 
+import kdg.programming6.keepdishesgoing.common.vo.FoodTag;
 import kdg.programming6.keepdishesgoing.restaurant.domain.*;
 import kdg.programming6.keepdishesgoing.restaurant.domain.ov.DishId;
-import kdg.programming6.keepdishesgoing.restaurant.domain.ov.FoodTag;
 import kdg.programming6.keepdishesgoing.restaurant.domain.ov.RestaurantId;
 import org.springframework.stereotype.Component;
 

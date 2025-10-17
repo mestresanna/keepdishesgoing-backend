@@ -43,8 +43,6 @@ public class RestaurantChangedListener {
     @EventListener(RestaurantUpdatedEvent.class)
     public void onRestaurantUpdated(RestaurantUpdatedEvent event) {
         logger.debug("Restaurant Updated Event");
-        var openingHoursProjection = OpeningHoursProjectionMapper.fromJson(event.openingHours());
-
         projector.projectUpdatedRestaurant(new UpdatedRestaurantProjectionCommand(
                 event.restaurantId(),
                 event.ownerId(),
@@ -54,7 +52,7 @@ public class RestaurantChangedListener {
                 event.city(),
                 event.country(),
                 event.pictureUrls(),
-                openingHoursProjection,
+                new OpeningHoursProjection(event.openingHours()),
                 event.typeOfCuisine(),
                 event.contactEmail(),
                 event.defaultPreparationTimeInMinutes(),

@@ -1,6 +1,7 @@
 package kdg.programming6.keepdishesgoing.restaurant.domain;
 
 import kdg.programming6.keepdishesgoing.common.events.DomainEvent;
+import kdg.programming6.keepdishesgoing.common.events.MenuCreatedEvent;
 import kdg.programming6.keepdishesgoing.common.events.MenuUpdatedEvent;
 import kdg.programming6.keepdishesgoing.restaurant.domain.ov.RestaurantId;
 
@@ -22,6 +23,12 @@ public class Menu {
         this.restaurantId = restaurantId;
     }
 
+    public static Menu create(RestaurantId restaurantId){
+        Menu menu = new Menu(UUID.randomUUID(), restaurantId);
+        menu.eventStore.add(new MenuCreatedEvent(menu.id, menu.restaurantId.restaurantId()));
+        return menu;
+    }
+
     public void addDish(Dish dish) {
         if  (this.dishes != null) {
             if (dishes.stream().anyMatch(d -> d.getId().equals(dish.getId()))) {
@@ -35,7 +42,7 @@ public class Menu {
             this.dishes = new ArrayList<Dish>();
         }
         dishes.add(dish);
-        this.uncommittedEvents.add(new MenuUpdatedEvent(restaurantId.restaurantId()));
+        this.uncommittedEvents.add(new MenuUpdatedEvent(restaurantId.restaurantId() ));
     }
 
     public void removeDish(Dish dish) {

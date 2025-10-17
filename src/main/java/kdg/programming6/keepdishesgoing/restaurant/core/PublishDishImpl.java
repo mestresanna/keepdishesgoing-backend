@@ -44,7 +44,7 @@ public class PublishDishImpl implements PublishDishUseCase {
     public void publishDish(UUID dishId) {
         Dish dish = loadDishPort.loadById(dishId).orElseThrow(() -> new DishNotFoundException("Dish not found: " + dishId));
         Menu menu = loadMenuPort.loadMenuByRestaurantId(dish.getRestaurantId())
-                .orElseGet(() -> new Menu(UUID.randomUUID(), dish.getRestaurantId()));
+                .orElseGet(() -> Menu.create(dish.getRestaurantId()));
         Restaurant restaurant =  loadRestaurantPort.loadById(dish.getRestaurantId().restaurantId()).orElseThrow(() -> new RestaurantNotFoundException("Restaurant not found: " + dish.getRestaurantId()));
         dish.publish();
         saveDishPort.save(dish);

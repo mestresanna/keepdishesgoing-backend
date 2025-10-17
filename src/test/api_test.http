@@ -28,7 +28,7 @@ GET http://localhost:8080/api/restaurants
 Accept: application/json
 
 ### Update opening-hours of a restaurant
-PATCH http://localhost:8080/api/restaurants/839f80c6-2d35-473b-ae80-58f368bbeed0/opening-hours
+PATCH http://localhost:8080/api/restaurants/079a77cc-01d3-4c7a-ba5e-05008b2706ae/opening-hours
 Content-Type: application/json
 X-Owner-Id: 31e3a110-37f1-4185-8a55-4d0c57963439
 

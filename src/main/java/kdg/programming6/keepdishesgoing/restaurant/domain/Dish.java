@@ -1,9 +1,10 @@
 package kdg.programming6.keepdishesgoing.restaurant.domain;
 
 import kdg.programming6.keepdishesgoing.common.events.DishPublishedEvent;
+import kdg.programming6.keepdishesgoing.common.events.DishUnpublishedEvent;
 import kdg.programming6.keepdishesgoing.common.events.DomainEvent;
+import kdg.programming6.keepdishesgoing.common.vo.FoodTag;
 import kdg.programming6.keepdishesgoing.restaurant.domain.ov.DishId;
-import kdg.programming6.keepdishesgoing.restaurant.domain.ov.FoodTag;
 import kdg.programming6.keepdishesgoing.restaurant.domain.ov.RestaurantId;
 
 import java.util.ArrayList;
@@ -151,7 +152,7 @@ public class Dish {
             case DRAFT -> {
                 this.state = DishState.PUBLISHED;
                 this.hasPendingChanges = false;
-                recordEvent(new DishPublishedEvent(this.id.dishId()));
+                recordEvent(new DishPublishedEvent(this.id.dishId(), this.name, this.restaurantId.restaurantId(), this.type.toString(), this.tags,this.description, this.price, this.pictureUrl));
 
             }
             case PUBLISHED -> {
@@ -163,7 +164,7 @@ public class Dish {
             }
             case UNPUBLISHED -> {
                 this.state = DishState.PUBLISHED;
-                recordEvent(new DishPublishedEvent(this.id.dishId()));
+                recordEvent(new DishPublishedEvent(this.id.dishId(), this.name, this.restaurantId.restaurantId(), this.type.toString(), this.tags,this.description, this.price, this.pictureUrl));
 
             }
             case OUT_OF_STOCK -> {
@@ -177,6 +178,7 @@ public class Dish {
         if (state != DishState.PUBLISHED)
             throw new IllegalStateException("Only published dishes can be unpublished");
         this.state = DishState.UNPUBLISHED;
+        recordEvent(new DishUnpublishedEvent(this.id.dishId()));
     }
 
     public void markOutOfStock() {

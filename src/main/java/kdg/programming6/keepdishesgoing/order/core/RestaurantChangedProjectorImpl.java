@@ -32,6 +32,7 @@ public class RestaurantChangedProjectorImpl implements RestaurantChangedProjecto
     @Override
     @Transactional
     public void projectUpdatedRestaurant(UpdatedRestaurantProjectionCommand command) {
-
+        RestaurantProjection restaurant = new RestaurantProjection(command.restaurantId(), command.ownerId(), command.name(), command.street(), command.number(), command.city(), command.country(), command.pictureUrls(), command.openingHours(), command.typeOfCuisine(), command.contactEmail(), command.defaultPreparationTimeInMinutes(), command.priceRange());
+        saveRestaurantProjectionPorts.save(restaurant);
     }
 }

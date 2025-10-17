@@ -38,7 +38,7 @@ public class RestaurantProjectionJpaAdapter implements SaveRestaurantProjectionP
 
         this.restaurantProjectionJpaRepository.save(restaurantProjectionEntity);
 
-        return new RestaurantProjection( restaurantProjection.getRestaurantId(),
+        return new RestaurantProjection(restaurantProjection.getRestaurantId(),
                 restaurantProjection.getOwner(),
                 restaurantProjection.getName(),
                 restaurantProjection.getStreet(),

@@ -1,7 +1,7 @@
 package kdg.programming6.keepdishesgoing.restaurant.port.in;
 
+import kdg.programming6.keepdishesgoing.common.vo.FoodTag;
 import kdg.programming6.keepdishesgoing.restaurant.domain.DishType;
-import kdg.programming6.keepdishesgoing.restaurant.domain.ov.FoodTag;
 
 import java.util.Set;
 import java.util.UUID;
