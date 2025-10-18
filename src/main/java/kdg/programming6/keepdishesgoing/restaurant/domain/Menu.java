@@ -49,20 +49,6 @@ public class Menu {
         if (this.dishes != null) {
             this.dishes.removeIf(d -> d.getId().equals(dish.getId()));
             this.updateAvgPrice();
-//            List<PublishedDishDto> publishedDishes = this.dishes.stream()
-//                    .filter(d -> d.getState() == DishState.PUBLISHED || d.getState() == DishState.OUT_OF_STOCK)
-//                    .map(d -> new PublishedDishDto(
-//                            d.getId().dishId(),
-//                            d.getName(),
-//                            d.getRestaurantId().restaurantId(),
-//                            d.getType().toString(),
-//                            d.getTags(),
-//                            d.getDescription(),
-//                            d.getPrice(),
-//                            d.getPictureUrl(),
-//                            d.getState().toString()
-//                    ))
-//                    .collect(Collectors.toList());
            recordEvent(new MenuUpdatedEvent(id, restaurantId.restaurantId(), this.avgPrice ));
         }
     }

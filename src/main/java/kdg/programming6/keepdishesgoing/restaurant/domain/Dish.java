@@ -130,11 +130,11 @@ public class Dish {
     }
 
     public void changeStateDish() {
-        if (state == DishState.UNPUBLISHED || state == DishState.DRAFT) {
+        if (this.state == DishState.UNPUBLISHED || this.state == DishState.DRAFT) {
             throw new IllegalStateException("Dish is not published, cannot change state to out of stock.");
-        } if  (state == DishState.OUT_OF_STOCK) {
+        } if  (this.state == DishState.OUT_OF_STOCK) {
             markBackInStock();
-        } if  (state == DishState.PUBLISHED) {
+        } else if  (this.state == DishState.PUBLISHED) {
             markOutOfStock();
         }
     }

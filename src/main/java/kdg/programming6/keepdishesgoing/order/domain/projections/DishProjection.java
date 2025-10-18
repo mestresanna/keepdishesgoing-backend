@@ -67,9 +67,9 @@ public class DishProjection {
     }
 
     public void changeStateDish() {
-   if  (status == StatusDish.OUT_OF_STOCK) {
+        if  (status == StatusDish.OUT_OF_STOCK) {
             markBackInStock();
-        } if  (status == StatusDish.PUBLISHED) {
+        } else if  (status == StatusDish.PUBLISHED) {
             markOutOfStock();
         }
     }
