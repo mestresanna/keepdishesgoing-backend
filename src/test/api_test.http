@@ -93,3 +93,6 @@ Content-Type: application/json
     { "tag": "dairy" }
   ]
 }
+
+### Change state dish, out of stok or back on stock
+POST http://localhost:8080/api/dishes/dc6460d3-7ce9-4b2f-ae20-302ebaad1693/changeState

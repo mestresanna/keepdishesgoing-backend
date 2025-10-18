@@ -129,16 +129,24 @@ public class Dish {
         this.state = DishState.UNPUBLISHED;
     }
 
+    public void changeStateDish() {
+        if (state == DishState.UNPUBLISHED || state == DishState.DRAFT) {
+            throw new IllegalStateException("Dish is not published, cannot change state to out of stock.");
+        } if  (state == DishState.OUT_OF_STOCK) {
+            markBackInStock();
+        } if  (state == DishState.PUBLISHED) {
+            markOutOfStock();
+        }
+    }
+
     public void markOutOfStock() {
         if (state != DishState.PUBLISHED) throw new IllegalStateException("Only published dishes can go out of stock.");
         this.state = DishState.OUT_OF_STOCK;
-        //TODO implement the event
     }
 
     public void markBackInStock() {
         if (state != DishState.OUT_OF_STOCK) throw new IllegalStateException("Dish must be out of stock.");
         this.state = DishState.PUBLISHED;
-        //TODO implement the event5
     }
 
     public void editAsDraft(String newName, String newDescription, Float newPrice, String newPictureUrl, DishType newType, Set<FoodTag> newtags) {

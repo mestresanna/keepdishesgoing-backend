@@ -1,5 +1,6 @@
 package kdg.programming6.keepdishesgoing.restaurant.adapter.in;
 
+import kdg.programming6.keepdishesgoing.restaurant.adapter.in.request.ChangeStateDishRequest;
 import kdg.programming6.keepdishesgoing.restaurant.adapter.in.request.CreateDishRequest;
 import kdg.programming6.keepdishesgoing.restaurant.adapter.in.request.EditDishRequest;
 import kdg.programming6.keepdishesgoing.restaurant.port.in.*;
@@ -17,12 +18,14 @@ public class DishController {
     private final PublishDishUseCase publishDishUseCase;
     private final UnpublishDishUseCase unpublishDishUseCase;
     private final EditDishUseCase editDishUseCase;
+    private final ChangeStateDishUseCase changeStateDishUseCase;
 
-    public DishController(CreateDishUseCase createDishUseCase, PublishDishUseCase publishDishUseCase, UnpublishDishUseCase unpublishDishUseCase, EditDishUseCase editDishUseCase) {
+    public DishController(CreateDishUseCase createDishUseCase, PublishDishUseCase publishDishUseCase, UnpublishDishUseCase unpublishDishUseCase, EditDishUseCase editDishUseCase, ChangeStateDishUseCase changeStateDishUseCase) {
         this.createDishUseCase = createDishUseCase;
         this.publishDishUseCase = publishDishUseCase;
         this.unpublishDishUseCase = unpublishDishUseCase;
         this.editDishUseCase = editDishUseCase;
+        this.changeStateDishUseCase = changeStateDishUseCase;
     }
 
     @PostMapping
@@ -49,5 +52,9 @@ public class DishController {
         return ResponseEntity.ok().build();
     }
 
-
+    @PostMapping("/{dishId}/changeState")
+    public ResponseEntity<Void> changeDish(@PathVariable UUID dishId) {
+        changeStateDishUseCase.changeStateDish(dishId);
+        return ResponseEntity.ok().build();
+    }
 }

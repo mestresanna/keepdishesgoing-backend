@@ -65,4 +65,23 @@ public class DishProjection {
     public String getPictureUrl() {
         return pictureUrl;
     }
+
+    public void changeStateDish() {
+   if  (status == StatusDish.OUT_OF_STOCK) {
+            markBackInStock();
+        } if  (status == StatusDish.PUBLISHED) {
+            markOutOfStock();
+        }
+    }
+
+    public void markOutOfStock() {
+        if (status != StatusDish.PUBLISHED) throw new IllegalStateException("Only published dishes can go out of stock.");
+        this.status = StatusDish.OUT_OF_STOCK;
+    }
+
+    public void markBackInStock() {
+        if (status != StatusDish.OUT_OF_STOCK) throw new IllegalStateException("Dish must be out of stock.");
+        this.status = StatusDish.PUBLISHED;
+    }
+
 }

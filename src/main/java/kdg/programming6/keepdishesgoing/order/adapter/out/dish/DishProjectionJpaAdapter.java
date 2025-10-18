@@ -9,6 +9,7 @@ import kdg.programming6.keepdishesgoing.order.port.out.LoadDishProjectionPort;
 import kdg.programming6.keepdishesgoing.order.port.out.SaveDishProjectionPort;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -37,12 +38,20 @@ public class DishProjectionJpaAdapter implements SaveDishProjectionPort, DeleteD
     }
 
     @Override
-    public Optional<DishProjection> loadbyId(UUID dishProjectionId, UUID menuProjection) {
+    public Optional<DishProjection> loadbyIdByMenu(UUID dishProjectionId, UUID menuProjection) {
         DishProjectionId dishId = new DishProjectionId(menuProjection, dishProjectionId);
         DishProjectionJpaEntity dish = dishProjectionJpaRepository.findById(dishId)
                 .orElseThrow(() -> new IllegalStateException("Dish not found for dish: " + dishProjectionId));
         return dishProjectionJpaRepository.findById(dishId).map(DishProjectionMapper::toDomain);
     }
+
+    @Override
+    public List<DishProjection> loadAllWithDishId(UUID dishId) {
+        return dishProjectionJpaRepository.findById_DishId(dishId).stream()
+                .map(DishProjectionMapper::toDomain)
+                .toList();
+    }
+
 
     @Override
     public DishProjection saveDishProjection(DishProjection dishProjection, UUID menuProjection) {
@@ -75,5 +84,18 @@ public class DishProjectionJpaAdapter implements SaveDishProjectionPort, DeleteD
 
         dishProjectionJpaRepository.save(dish);
         return dishProjection;
+    }
+
+    @Override
+    public List<DishProjection> saveDishProjections(List<DishProjection> dishProjections) {
+        for (DishProjection dish : dishProjections) {
+            List<DishProjectionJpaEntity> entities = dishProjectionJpaRepository.findById_DishId(dish.getDishId());
+
+            for (DishProjectionJpaEntity entity : entities) {
+                entity.setStatus(dish.getStatus().name());
+            }
+            dishProjectionJpaRepository.saveAll(entities);
+        }
+        return dishProjections;
     }
 }

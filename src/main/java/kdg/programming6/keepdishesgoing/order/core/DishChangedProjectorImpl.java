@@ -8,23 +8,22 @@ import kdg.programming6.keepdishesgoing.order.port.in.dish.CreatedDishProjection
 import kdg.programming6.keepdishesgoing.order.port.in.dish.DishChangedProjector;
 import kdg.programming6.keepdishesgoing.order.port.in.dish.UnpublishDishProjectionCommand;
 import kdg.programming6.keepdishesgoing.order.port.in.dish.UpdatedDishProjectionCommand;
-import kdg.programming6.keepdishesgoing.order.port.in.menu.MenuChangedProjector;
 import kdg.programming6.keepdishesgoing.order.port.out.*;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 public class DishChangedProjectorImpl implements DishChangedProjector {
     private final SaveDishProjectionPort saveDishProjectionPort;
     private final DeleteDishProjectionPort deleteDishProjectionPort;
     private final LoadMenuProjectionPort loadMenuProjectionPort;
-    private final SaveMenuProjectionPort saveMenuProjectionPort;
     private final LoadDishProjectionPort loadDishProjectionPort;
 
-    public DishChangedProjectorImpl(SaveDishProjectionPort saveDishProjectionPort, DeleteDishProjectionPort deleteDishProjectionPort, LoadMenuProjectionPort loadMenuProjectionPort, SaveMenuProjectionPort saveMenuProjectionPort, LoadDishProjectionPort loadDishProjectionPort) {
+    public DishChangedProjectorImpl(SaveDishProjectionPort saveDishProjectionPort, DeleteDishProjectionPort deleteDishProjectionPort, LoadMenuProjectionPort loadMenuProjectionPort,LoadDishProjectionPort loadDishProjectionPort) {
         this.saveDishProjectionPort = saveDishProjectionPort;
         this.deleteDishProjectionPort = deleteDishProjectionPort;
         this.loadMenuProjectionPort = loadMenuProjectionPort;
-        this.saveMenuProjectionPort = saveMenuProjectionPort;
         this.loadDishProjectionPort = loadDishProjectionPort;
     }
 
@@ -42,13 +41,18 @@ public class DishChangedProjectorImpl implements DishChangedProjector {
     @Override
     @Transactional
     public void projectUnpublishDish(UnpublishDishProjectionCommand command) {
-        DishProjection dishProjection = loadDishProjectionPort.loadbyId(command.dishId(), command.menuId()).orElseThrow(IllegalStateException::new);
+        DishProjection dishProjection = loadDishProjectionPort.loadbyIdByMenu(command.dishId(), command.menuId()).orElseThrow(IllegalStateException::new);
         deleteDishProjectionPort.deleteDishProjection(dishProjection, command.menuId());
     }
 
     @Override
     @Transactional
     public void projectChangedStateDish(UpdatedDishProjectionCommand command) {
-        //TODO: outOfStock or backInStock implementations
+        List<DishProjection> dishProjection = loadDishProjectionPort.loadAllWithDishId(command.dishId());
+
+        for (DishProjection dish : dishProjection) {
+            dish.changeStateDish();
+        }
+        saveDishProjectionPort.saveDishProjections(dishProjection);
     }
 }

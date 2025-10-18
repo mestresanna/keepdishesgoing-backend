@@ -1,6 +1,7 @@
 package kdg.programming6.keepdishesgoing.order.adapter.in;
 
 import kdg.programming6.keepdishesgoing.common.events.DishPublishedEvent;
+import kdg.programming6.keepdishesgoing.common.events.DishStateChangedEvent;
 import kdg.programming6.keepdishesgoing.common.events.DishUnpublishedEvent;
 import kdg.programming6.keepdishesgoing.common.vo.FoodTag;
 import kdg.programming6.keepdishesgoing.order.port.in.dish.CreatedDishProjectionCommand;
@@ -36,10 +37,9 @@ public class DishChangedListener {
         dishChangedProjector.projectUnpublishDish(new UnpublishDishProjectionCommand(event.dishId(), event.menuId()));
     }
 
-    // TODO: implement Out Of stock event
-//    @EventListener(DishStateChangedEvent.class)
-//    public void onDishStateChanged(DishStateChangedEvent event){
-//        logger.debug("Dish State Changed Event received");
-//        dishChangedProjector.projectChengedStateDish(new UpdatedDishProjectionCommand(event.dishId(), event.menuId(), event.state()));
-//    }
+    @EventListener(DishStateChangedEvent.class)
+    public void onDishStateChanged(DishStateChangedEvent event){
+        logger.debug("Dish State Changed Event received");
+        dishChangedProjector.projectChangedStateDish(new UpdatedDishProjectionCommand(event.dishId(), event.state()));
+    }
 }
