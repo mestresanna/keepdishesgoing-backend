@@ -1,4 +1,4 @@
-package kdg.programming6.keepdishesgoing.order.adapter.out;
+package kdg.programming6.keepdishesgoing.order.adapter.out.dish;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;

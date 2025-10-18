@@ -41,14 +41,14 @@ public class Menu {
             this.dishes = new ArrayList<Dish>();
         }
         this.dishes.add(dish);
-        this.setAvgPrice();
+        this.updateAvgPrice();
         recordEvent(new MenuUpdatedEvent(id, restaurantId.restaurantId(),  this.avgPrice ));
     }
 
     public void removeDish(Dish dish) {
         if (this.dishes != null) {
             this.dishes.removeIf(d -> d.getId().equals(dish.getId()));
-            this.setAvgPrice();
+            this.updateAvgPrice();
 //            List<PublishedDishDto> publishedDishes = this.dishes.stream()
 //                    .filter(d -> d.getState() == DishState.PUBLISHED || d.getState() == DishState.OUT_OF_STOCK)
 //                    .map(d -> new PublishedDishDto(
@@ -68,7 +68,7 @@ public class Menu {
     }
 
     public Double updateAvgPrice() {
-        Double avgPrice = this.getDishes().stream()
+        this.avgPrice = this.getDishes().stream()
                 .mapToDouble(Dish::getPrice)
                 .average()
                 .orElse(0.0);
@@ -77,10 +77,6 @@ public class Menu {
 
     public Double getAvgPrice() {
         return avgPrice;
-    }
-
-    public void setAvgPrice() {
-        this.avgPrice = this.updateAvgPrice();
     }
 
     public UUID getId() {

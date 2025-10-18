@@ -7,13 +7,14 @@ import kdg.programming6.keepdishesgoing.restaurant.port.in.CreateDishUseCase;
 import kdg.programming6.keepdishesgoing.restaurant.port.out.SaveDishPort;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.UUID;
 
 @Service
 public class CreateNewDishImpl implements CreateDishUseCase {
-    private final SaveDishPort saveDishPort;
+    private final List<SaveDishPort> saveDishPort;
 
-    public CreateNewDishImpl(SaveDishPort saveDishPort) {
+    public CreateNewDishImpl(List<SaveDishPort> saveDishPort) {
         this.saveDishPort = saveDishPort;
     }
 
@@ -29,6 +30,6 @@ public class CreateNewDishImpl implements CreateDishUseCase {
                 command.pictureUrl(),
                 command.state()
         );
-        saveDishPort.save(dish);
+        saveDishPort.forEach(port -> port.save(dish));
     }
 }

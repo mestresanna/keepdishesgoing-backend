@@ -1,7 +1,4 @@
 package kdg.programming6.keepdishesgoing.restaurant.domain;
-
-import kdg.programming6.keepdishesgoing.common.events.DishPublishedEvent;
-import kdg.programming6.keepdishesgoing.common.events.DishUnpublishedEvent;
 import kdg.programming6.keepdishesgoing.common.events.DomainEvent;
 import kdg.programming6.keepdishesgoing.common.vo.FoodTag;
 import kdg.programming6.keepdishesgoing.restaurant.domain.ov.DishId;
@@ -53,88 +50,44 @@ public class Dish {
         return id;
     }
 
-    public void setId(DishId id) {
-        this.id = id;
-    }
-
     public String getName() {
         return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
     }
 
     public DishType getType() {
         return type;
     }
 
-    public void setType(DishType type) {
-        this.type = type;
-    }
-
     public Set<FoodTag> getTags() {
         return tags;
-    }
-
-    public void setTags(Set<FoodTag> tags) {
-        this.tags = tags;
     }
 
     public String getDescription() {
         return description;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
     public RestaurantId getRestaurantId() {
         return restaurantId;
-    }
-
-    public void setRestaurantId(RestaurantId restaurantId) {
-        this.restaurantId = restaurantId;
     }
 
     public Float getPrice() {
         return price;
     }
 
-    public void setPrice(Float price) {
-        this.price = price;
-    }
-
     public String getPictureUrl() {
         return pictureUrl;
-    }
-
-    public void setPictureUrl(String pictureUrl) {
-        this.pictureUrl = pictureUrl;
     }
 
     public DishState getState() {
         return state;
     }
 
-    public void setState(DishState state) {
-        this.state = state;
-    }
-
     public boolean isHasPendingChanges() {
         return hasPendingChanges;
     }
 
-    public void setHasPendingChanges(boolean hasPendingChanges) {
-        this.hasPendingChanges = hasPendingChanges;
-    }
-
     public PublishDishesSchedule getScheduledChange() {
         return scheduledChange;
-    }
-
-    public void setScheduledChange(PublishDishesSchedule scheduledChange) {
-        this.scheduledChange = scheduledChange;
     }
 
     public void editAsDraft(String name, String description, Float price, Set<FoodTag> tags) {
@@ -152,8 +105,6 @@ public class Dish {
             case DRAFT -> {
                 this.state = DishState.PUBLISHED;
                 this.hasPendingChanges = false;
-                recordEvent(new DishPublishedEvent(this.id.dishId(), this.name, this.restaurantId.restaurantId(), this.type.toString(), this.tags,this.description, this.price, this.pictureUrl));
-
             }
             case PUBLISHED -> {
                 if (this.hasPendingChanges) {
@@ -164,8 +115,6 @@ public class Dish {
             }
             case UNPUBLISHED -> {
                 this.state = DishState.PUBLISHED;
-                recordEvent(new DishPublishedEvent(this.id.dishId(), this.name, this.restaurantId.restaurantId(), this.type.toString(), this.tags,this.description, this.price, this.pictureUrl));
-
             }
             case OUT_OF_STOCK -> {
                 throw new IllegalStateException("Cannot publish dish that is out of stock.");
@@ -178,17 +127,18 @@ public class Dish {
         if (state != DishState.PUBLISHED)
             throw new IllegalStateException("Only published dishes can be unpublished");
         this.state = DishState.UNPUBLISHED;
-        recordEvent(new DishUnpublishedEvent(this.id.dishId()));
     }
 
     public void markOutOfStock() {
         if (state != DishState.PUBLISHED) throw new IllegalStateException("Only published dishes can go out of stock.");
         this.state = DishState.OUT_OF_STOCK;
+        //TODO implement the event
     }
 
     public void markBackInStock() {
         if (state != DishState.OUT_OF_STOCK) throw new IllegalStateException("Dish must be out of stock.");
         this.state = DishState.PUBLISHED;
+        //TODO implement the event5
     }
 
     public void editAsDraft(String newName, String newDescription, Float newPrice, String newPictureUrl, DishType newType, Set<FoodTag> newtags) {
@@ -222,7 +172,7 @@ public class Dish {
         //change schedules, check method later
         this.scheduledChange = schedule;
     }
-    private void recordEvent(DomainEvent event) {
+    public void recordEvent(DomainEvent event) {
         domainEvents.add(event);
     }
 

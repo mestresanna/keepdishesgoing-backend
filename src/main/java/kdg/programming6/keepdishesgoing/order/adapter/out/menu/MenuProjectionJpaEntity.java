@@ -1,6 +1,8 @@
-package kdg.programming6.keepdishesgoing.order.adapter.out;
+package kdg.programming6.keepdishesgoing.order.adapter.out.menu;
 
 import jakarta.persistence.*;
+import kdg.programming6.keepdishesgoing.order.adapter.out.dish.DishProjectionJpaEntity;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;

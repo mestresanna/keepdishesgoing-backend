@@ -1,4 +1,4 @@
-package kdg.programming6.keepdishesgoing.order.adapter.out;
+package kdg.programming6.keepdishesgoing.order.adapter.out.restaurant;
 
 import jakarta.persistence.*;
 import java.util.UUID;

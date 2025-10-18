@@ -8,12 +8,14 @@ import kdg.programming6.keepdishesgoing.restaurant.port.out.LoadDishPort;
 import kdg.programming6.keepdishesgoing.restaurant.port.out.SaveDishPort;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class EditDishImpl implements EditDishUseCase {
     private final LoadDishPort loadDishPort;
-    private final SaveDishPort saveDishPort;
+    private final List<SaveDishPort> saveDishPort;
 
-    public EditDishImpl(LoadDishPort loadDishPort, SaveDishPort saveDishPort) {
+    public EditDishImpl(LoadDishPort loadDishPort, List<SaveDishPort>  saveDishPort) {
         this.loadDishPort = loadDishPort;
         this.saveDishPort = saveDishPort;
     }
@@ -25,6 +27,6 @@ public class EditDishImpl implements EditDishUseCase {
 
         dish.editAsDraft(command.name(), command.description(), command.price(), command.pictureUrl(), command.type(),  command.tags());
 
-        saveDishPort.save(dish);
+        saveDishPort.forEach(port-> port.save(dish));
     }
 }

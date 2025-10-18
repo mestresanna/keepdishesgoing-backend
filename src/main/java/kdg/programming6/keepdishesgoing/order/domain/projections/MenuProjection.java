@@ -1,5 +1,6 @@
 package kdg.programming6.keepdishesgoing.order.domain.projections;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -33,5 +34,18 @@ public class MenuProjection {
     }
     public List<DishProjection> getDishes() {
         return dishes;
+    }
+
+    public void addDish(DishProjection dishProjection) {
+        if (dishes == null) {
+            dishes = new ArrayList<>();
+        }
+        dishes.add(dishProjection);
+    }
+
+    public void deleteDish(DishProjection dishProjection) {
+        if (dishes != null) {
+            dishes.remove(dishProjection);
+        }
     }
 }

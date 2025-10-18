@@ -1,12 +1,9 @@
-package kdg.programming6.keepdishesgoing.order.adapter.out;
+package kdg.programming6.keepdishesgoing.order.adapter.out.restaurant;
 
 import kdg.programming6.keepdishesgoing.order.adapter.out.mapper.OpeningHoursProjectionMapper;
 import kdg.programming6.keepdishesgoing.order.domain.projections.RestaurantProjection;
 import kdg.programming6.keepdishesgoing.order.port.out.SaveRestaurantProjectionPort;
-import kdg.programming6.keepdishesgoing.restaurant.adapter.out.restaurant.OpeningHoursMapper;
 import org.springframework.stereotype.Repository;
-
-import java.util.UUID;
 
 @Repository
 public class RestaurantProjectionJpaAdapter implements SaveRestaurantProjectionPort {

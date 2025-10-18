@@ -1,6 +1,7 @@
 package kdg.programming6.keepdishesgoing.restaurant.core;
 
 import jakarta.transaction.Transactional;
+import kdg.programming6.keepdishesgoing.common.events.DishUnpublishedEvent;
 import kdg.programming6.keepdishesgoing.common.events.DomainEvent;
 import kdg.programming6.keepdishesgoing.restaurant.domain.Dish;
 import kdg.programming6.keepdishesgoing.restaurant.domain.Menu;
@@ -19,7 +20,7 @@ import java.util.UUID;
 @Service
 public class UnpublishDishImpl implements UnpublishDishUseCase {
     private final LoadDishPort loadDishPort;
-    private final SaveDishPort saveDishPort;
+    private final List<SaveDishPort> saveDishPort;
     private final LoadMenuPort loadMenuPort;
     private final List<SaveMenuPort> saveMenuPort;
     private final LoadRestaurantPort loadRestaurantPort;
@@ -28,7 +29,7 @@ public class UnpublishDishImpl implements UnpublishDishUseCase {
     private static final Logger logger = LoggerFactory.getLogger(UnpublishDishImpl.class);
 
 
-    public UnpublishDishImpl(LoadDishPort loadDishPort, SaveDishPort saveDishPort, LoadMenuPort loadMenuPort, List<SaveMenuPort> saveMenuPort, LoadRestaurantPort loadRestaurantPort, List<RestaurantPort> restaurantPort) {
+    public UnpublishDishImpl(LoadDishPort loadDishPort, List<SaveDishPort>  saveDishPort, LoadMenuPort loadMenuPort, List<SaveMenuPort> saveMenuPort, LoadRestaurantPort loadRestaurantPort, List<RestaurantPort> restaurantPort) {
         this.loadDishPort = loadDishPort;
         this.saveDishPort = saveDishPort;
         this.loadMenuPort = loadMenuPort;
@@ -45,7 +46,8 @@ public class UnpublishDishImpl implements UnpublishDishUseCase {
         Menu menu = loadMenuPort.loadMenuByRestaurantId(dish.getRestaurantId()).orElseThrow(() -> new RestaurantNotFoundException("Menu with id " + dish.getRestaurantId() + " not found"));
         Restaurant restaurant =  loadRestaurantPort.loadById(dish.getRestaurantId().restaurantId()).orElseThrow(() -> new RestaurantNotFoundException("Restaurant not found: " + dish.getRestaurantId()));
         dish.unpublish();
-        saveDishPort.save(dish);
+        dish.recordEvent(new DishUnpublishedEvent(dish.getId().dishId(), menu.getId()));
+        saveDishPort.forEach(port-> port.save(dish));
         menu.removeDish(dish);
         saveMenuPort.forEach(port-> port.save(menu));
         restaurant.setPriceRange(menu.updateAvgPrice());

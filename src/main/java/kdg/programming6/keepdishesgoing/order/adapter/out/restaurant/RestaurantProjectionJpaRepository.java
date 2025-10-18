@@ -1,4 +1,4 @@
-package kdg.programming6.keepdishesgoing.order.adapter.out;
+package kdg.programming6.keepdishesgoing.order.adapter.out.restaurant;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 

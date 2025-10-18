@@ -1,6 +1,8 @@
-package kdg.programming6.keepdishesgoing.order.adapter.out;
+package kdg.programming6.keepdishesgoing.order.adapter.out.dish;
 
 import jakarta.persistence.*;
+import kdg.programming6.keepdishesgoing.order.adapter.out.menu.MenuProjectionJpaEntity;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -32,7 +34,20 @@ public class DishProjectionJpaEntity {
     private List<FoodTagProjectionJpaEntity> foodTags = new ArrayList<>();
 
 
-    protected DishProjectionJpaEntity() {}
+    public DishProjectionJpaEntity() {}
+
+    public DishProjectionJpaEntity(DishProjectionId id, MenuProjectionJpaEntity menu, UUID restaurantId, String name, String type, String description, Float price, String pictureUrl, String status, List<FoodTagProjectionJpaEntity> foodTags) {
+        this.id = id;
+        this.menu = menu;
+        this.restaurantId = restaurantId;
+        this.name = name;
+        this.type = type;
+        this.description = description;
+        this.price = price;
+        this.pictureUrl = pictureUrl;
+        this.status = status;
+        this.foodTags = foodTags;
+    }
 
     // --- Getters ---
     public DishProjectionId getId() { return id; }
@@ -44,6 +59,7 @@ public class DishProjectionJpaEntity {
     public Float getPrice() { return price; }
     public String getPictureUrl() { return pictureUrl; }
     public String getStatus() { return status; }
+    public UUID getRestaurantId() {return restaurantId;}
     public List<FoodTagProjectionJpaEntity> getFoodTags() { return foodTags; }
 
     // ----Setters---

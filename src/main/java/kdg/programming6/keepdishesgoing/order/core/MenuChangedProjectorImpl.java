@@ -1,11 +1,10 @@
 package kdg.programming6.keepdishesgoing.order.core;
 
 import jakarta.transaction.Transactional;
-import kdg.programming6.keepdishesgoing.order.adapter.in.MenuChangedListener;
 import kdg.programming6.keepdishesgoing.order.domain.projections.MenuProjection;
-import kdg.programming6.keepdishesgoing.order.port.in.CreatedMenuProjectionCommand;
-import kdg.programming6.keepdishesgoing.order.port.in.MenuChangedProjector;
-import kdg.programming6.keepdishesgoing.order.port.in.UpdatedMenuProjectionCommand;
+import kdg.programming6.keepdishesgoing.order.port.in.menu.CreatedMenuProjectionCommand;
+import kdg.programming6.keepdishesgoing.order.port.in.menu.MenuChangedProjector;
+import kdg.programming6.keepdishesgoing.order.port.in.menu.UpdatedMenuProjectionCommand;
 import kdg.programming6.keepdishesgoing.order.port.out.SaveMenuProjectionPort;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -23,6 +22,7 @@ public class MenuChangedProjectorImpl implements MenuChangedProjector {
     @Override
     @Transactional
     public void projectCreatedMenu(CreatedMenuProjectionCommand command) {
+        logger.debug("Projecting created menu");
         MenuProjection menu = new MenuProjection(
                 command.id(), command.restaurantId(), null, 0.0
         );
@@ -32,6 +32,7 @@ public class MenuChangedProjectorImpl implements MenuChangedProjector {
     @Override
     @Transactional
     public void projectUpdatedMenu(UpdatedMenuProjectionCommand command) {
+        logger.debug("Projecting updated menu");
         MenuProjection menu = new MenuProjection(
                 command.id(), command.restaurantId(), command.avgPrice()
         );
