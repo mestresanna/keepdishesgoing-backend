@@ -5,12 +5,4 @@ public enum DishState {
     PUBLISHED,
     UNPUBLISHED,
     OUT_OF_STOCK;
-
-    public boolean isPublished() {
-        if (this.equals(PUBLISHED)) {
-            return true;
-        } else  {
-            return false;
-        }
-    }
 }

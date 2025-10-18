@@ -21,7 +21,7 @@ public class PublishDishImpl implements PublishDishUseCase {
     private final LoadDishPort loadDishPort;
     private final SaveDishPort saveDishPort;
     private final LoadMenuPort loadMenuPort;
-    private final SaveMenuPort saveMenuPort;
+    private final List<SaveMenuPort> saveMenuPort;
     private final LoadRestaurantPort loadRestaurantPort;
     private final List<RestaurantPort> restaurantPort;
     private static final Logger logger = LoggerFactory.getLogger(PublishDishImpl.class);
@@ -30,7 +30,7 @@ public class PublishDishImpl implements PublishDishUseCase {
     public PublishDishImpl(LoadDishPort loadDishPort,
                            SaveDishPort saveDishPort,
                            LoadMenuPort loadMenuPort,
-                           SaveMenuPort saveMenuPort, LoadRestaurantPort loadRestaurantPort, List<RestaurantPort> restaurantPort) {
+                           List<SaveMenuPort> saveMenuPort, LoadRestaurantPort loadRestaurantPort, List<RestaurantPort> restaurantPort) {
         this.loadDishPort = loadDishPort;
         this.saveDishPort = saveDishPort;
         this.loadMenuPort = loadMenuPort;
@@ -50,10 +50,8 @@ public class PublishDishImpl implements PublishDishUseCase {
         saveDishPort.save(dish);
         menu.addDish(dish);
         menu.setAvgPrice();
-        saveMenuPort.save(menu);
-        logger.info("Uncommitted events: {}", menu.getUncommittedEvents());
+        saveMenuPort.forEach(port -> port.save(menu));
         restaurant.setPriceRange(menu.updateAvgPrice());
         restaurantPort.forEach(port -> port.save(restaurant));
-        menu.commitEvents();
     }
 }

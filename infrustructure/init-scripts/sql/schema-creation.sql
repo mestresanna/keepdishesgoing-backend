@@ -3,8 +3,8 @@ CREATE DATABASE prog6;
 GRANT ALL PRIVILEGES ON DATABASE prog6 TO kdg;
 
 \c prog6 kdg;
-CREATE SCHEMA restaurant AUTHORIZATION kdg;
 
+-- Schema Orders
 CREATE SCHEMA orders AUTHORIZATION kdg;
 
 ALTER DEFAULT PRIVILEGES IN SCHEMA orders
@@ -25,6 +25,45 @@ CREATE TABLE orders.restaurant_projection (
                                               default_preparation_time_in_minutes INT,
                                               price_range VARCHAR(50)
 );
+
+CREATE TABLE orders.menu_projections (
+                                         menu_id UUID PRIMARY KEY,
+                                         restaurant_id UUID NOT NULL,
+                                         avg_price DOUBLE PRECISION
+);
+
+CREATE TABLE orders.dish_projections (
+                                         menu_id UUID NOT NULL,
+                                         dish_id UUID NOT NULL,
+                                         restaurant_id UUID NOT NULL,
+                                         name VARCHAR(255),
+                                         type VARCHAR(100),
+                                         description TEXT,
+                                         price REAL,
+                                         picture_url VARCHAR(500),
+                                         status VARCHAR(50),
+                                         PRIMARY KEY (menu_id, dish_id),
+                                         CONSTRAINT fk_menu
+                                             FOREIGN KEY (menu_id)
+                                                 REFERENCES orders.menu_projections(menu_id)
+                                                 ON DELETE CASCADE
+);
+
+CREATE TABLE orders.food_tags (
+                                  id UUID PRIMARY KEY,
+                                  name VARCHAR(100) NOT NULL,
+                                  menu_id UUID NOT NULL,
+                                  dish_id UUID NOT NULL,
+                                  CONSTRAINT fk_dish
+                                      FOREIGN KEY (menu_id, dish_id)
+                                          REFERENCES orders.dish_projections(menu_id, dish_id)
+                                          ON DELETE CASCADE
+);
+
+
+-- Schema Restaurant
+
+CREATE SCHEMA restaurant AUTHORIZATION kdg;
 
 ALTER DEFAULT PRIVILEGES IN SCHEMA restaurant
     GRANT ALL PRIVILEGES ON TABLES TO kdg;

@@ -16,8 +16,9 @@ public class DishProjection {
     String description;
     Float price;
     String pictureUrl;
+    StatusDish status;
 
-    public DishProjection(UUID dishId, String name, UUID restaurantId, String type, Set<FoodTag> tags, String description, Float price, String pictureUrl) {
+    public DishProjection(UUID dishId, String name, UUID restaurantId, String type, Set<FoodTag> tags, String description, Float price, String pictureUrl, StatusDish status) {
         this.dishId = dishId;
         this.name = name;
         this.restaurantId = restaurantId;
@@ -26,6 +27,11 @@ public class DishProjection {
         this.description = description;
         this.price = price;
         this.pictureUrl = pictureUrl;
+        this.status = status;
+    }
+
+    public StatusDish getStatus() {
+        return status;
     }
 
     public UUID getDishId() {

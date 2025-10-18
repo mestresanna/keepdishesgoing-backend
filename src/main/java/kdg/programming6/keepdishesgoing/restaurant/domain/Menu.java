@@ -15,8 +15,7 @@ public class Menu {
     private List<Dish> dishes;
     private Double avgPrice;
 
-    private final List<DomainEvent> eventStore = new ArrayList<>();
-    private final List<DomainEvent> uncommittedEvents = new ArrayList<>();
+    private final List<DomainEvent> domainEvents = new ArrayList<>();
 
     public Menu(UUID id, RestaurantId restaurantId) {
         this.id = id;
@@ -25,7 +24,7 @@ public class Menu {
 
     public static Menu create(RestaurantId restaurantId){
         Menu menu = new Menu(UUID.randomUUID(), restaurantId);
-        menu.eventStore.add(new MenuCreatedEvent(menu.id, menu.restaurantId.restaurantId()));
+        menu.recordEvent(new MenuCreatedEvent(menu.id, menu.restaurantId.restaurantId()));
         return menu;
     }
 
@@ -41,14 +40,30 @@ public class Menu {
         if (this.dishes == null) {
             this.dishes = new ArrayList<Dish>();
         }
-        dishes.add(dish);
-        this.uncommittedEvents.add(new MenuUpdatedEvent(restaurantId.restaurantId() ));
+        this.dishes.add(dish);
+        this.setAvgPrice();
+        recordEvent(new MenuUpdatedEvent(id, restaurantId.restaurantId(),  this.avgPrice ));
     }
 
     public void removeDish(Dish dish) {
         if (this.dishes != null) {
             this.dishes.removeIf(d -> d.getId().equals(dish.getId()));
-            this.uncommittedEvents.add(new MenuUpdatedEvent(restaurantId.restaurantId()));
+            this.setAvgPrice();
+//            List<PublishedDishDto> publishedDishes = this.dishes.stream()
+//                    .filter(d -> d.getState() == DishState.PUBLISHED || d.getState() == DishState.OUT_OF_STOCK)
+//                    .map(d -> new PublishedDishDto(
+//                            d.getId().dishId(),
+//                            d.getName(),
+//                            d.getRestaurantId().restaurantId(),
+//                            d.getType().toString(),
+//                            d.getTags(),
+//                            d.getDescription(),
+//                            d.getPrice(),
+//                            d.getPictureUrl(),
+//                            d.getState().toString()
+//                    ))
+//                    .collect(Collectors.toList());
+           recordEvent(new MenuUpdatedEvent(id, restaurantId.restaurantId(), this.avgPrice ));
         }
     }
 
@@ -92,15 +107,13 @@ public class Menu {
         this.dishes = new ArrayList<>(dishes);
     }
 
-    public void commitEvents() {
-        eventStore.addAll(uncommittedEvents);
-        uncommittedEvents.clear();
+    private void recordEvent(DomainEvent event) {
+        domainEvents.add(event);
     }
 
-    public List<DomainEvent> getUncommittedEvents() {
-        return new ArrayList<>(uncommittedEvents);
+    public List<DomainEvent> getDomainEvents() {
+        return List.copyOf(domainEvents);
     }
-
 
     private long getPublishedCount() {
         if (dishes == null) {

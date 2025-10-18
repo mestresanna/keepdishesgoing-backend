@@ -61,7 +61,7 @@ Content-Type: application/json
 
 {
   "name": "Paella",
-  "restaurantId": "839f80c6-2d35-473b-ae80-58f368bbeed0",
+  "restaurantId": "03080bb4-f5c9-464e-bf00-217d045af233",
   "type": "ENTREE",
   "tags": ["egg", "lactose"],
   "description": "Rice with seafood and chicken and beans.",
@@ -71,11 +71,11 @@ Content-Type: application/json
 }
 
 ### Publish a dish
-POST http://localhost:8080/api/dishes/7fb8b264-5049-463b-894f-01fcd653bfc1/publish
+POST http://localhost:8080/api/dishes/dc6460d3-7ce9-4b2f-ae20-302ebaad1693/publish
 # TODO: apply security
 
 ### Unpublish a dish
-POST http://localhost:8080/api/dishes/8490c201-d893-4169-90aa-90cd770beb58/unpublish
+POST http://localhost:8080/api/dishes/dc6460d3-7ce9-4b2f-ae20-302ebaad1693/unpublish
 # TODO: apply security
 
 ### Edit a dish

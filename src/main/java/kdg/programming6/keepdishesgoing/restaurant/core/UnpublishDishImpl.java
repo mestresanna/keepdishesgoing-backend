@@ -21,14 +21,14 @@ public class UnpublishDishImpl implements UnpublishDishUseCase {
     private final LoadDishPort loadDishPort;
     private final SaveDishPort saveDishPort;
     private final LoadMenuPort loadMenuPort;
-    private final SaveMenuPort saveMenuPort;
+    private final List<SaveMenuPort> saveMenuPort;
     private final LoadRestaurantPort loadRestaurantPort;
     private final List<RestaurantPort> restaurantPort;
 
     private static final Logger logger = LoggerFactory.getLogger(UnpublishDishImpl.class);
 
 
-    public UnpublishDishImpl(LoadDishPort loadDishPort, SaveDishPort saveDishPort, LoadMenuPort loadMenuPort, SaveMenuPort saveMenuPort, LoadRestaurantPort loadRestaurantPort, List<RestaurantPort> restaurantPort) {
+    public UnpublishDishImpl(LoadDishPort loadDishPort, SaveDishPort saveDishPort, LoadMenuPort loadMenuPort, List<SaveMenuPort> saveMenuPort, LoadRestaurantPort loadRestaurantPort, List<RestaurantPort> restaurantPort) {
         this.loadDishPort = loadDishPort;
         this.saveDishPort = saveDishPort;
         this.loadMenuPort = loadMenuPort;
@@ -47,11 +47,8 @@ public class UnpublishDishImpl implements UnpublishDishUseCase {
         dish.unpublish();
         saveDishPort.save(dish);
         menu.removeDish(dish);
-        menu.setAvgPrice();
-        saveMenuPort.save(menu);
-        logger.info("Uncommitted events: {}", menu.getUncommittedEvents());
+        saveMenuPort.forEach(port-> port.save(menu));
         restaurant.setPriceRange(menu.updateAvgPrice());
         restaurantPort.forEach(port -> port.save(restaurant));
-        menu.commitEvents();
     }
 }

@@ -13,7 +13,7 @@ public class DishesInMenuJpaEntity implements Serializable {
     private MenuDishId id;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @MapsId("menuId")  // vincula amb la part del composite key
+    @MapsId("menuId")
     @JoinColumn(name = "menu_id")
     private MenuJpaEntity menu;
 
