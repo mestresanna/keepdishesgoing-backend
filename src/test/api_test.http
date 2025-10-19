@@ -46,7 +46,7 @@ Content-Type: application/json
 
 {
   "name": "Pasta Carbonara",
-  "restaurantId": "839f80c6-2d35-473b-ae80-58f368bbeed0",
+  "restaurantId": "03080bb4-f5c9-464e-bf00-217d045af233",
   "type": "ENTREE",
   "tags": ["gluten", "dairy"],
   "description": "Classic creamy Italian pasta.",
@@ -83,8 +83,11 @@ PATCH http://localhost:8080/api/dishes/4e36477a-b5fc-4b4b-a51a-9111471e52e5
 Content-Type: application/json
 
 {
+  "name": "Paella",
+  "description": "Rice with seafood and chicken and beans.",
+  "price": 30.5,
   "pictureUrl": "https://i.ytimg.com/vi/1MzMde4FzBM/hq720.jpg?sqp=-oaymwEhCK4FEIIDSFryq4qpAxMIARUAAAAAGAElAADIQj0AgKJD&rs=AOn4CLCq_CZLPwDzuIgbMYWTlK3Sz-ifxQ",
-  "type": "ENTREE",
+  "type": "SPECIALS",
   "tags": [
     { "tag": "gluten" },
     { "tag": "seafood" }
@@ -107,6 +110,12 @@ Content-Type: application/json
 
 ### Get all restaurants projections
 GET http://localhost:8080/api/orders/restaurants
+Accept: application/json
 
 ### Get a restaurant with its details
 GET http://localhost:8080/api/orders/restaurants/03080bb4-f5c9-464e-bf00-217d045af233
+Accept: application/json
+
+### Filter dishes with tags and type
+GET http://localhost:8080/api/orders/restaurants/03080bb4-f5c9-464e-bf00-217d045af233/dishes?type=&tags=gluten
+Accept: application/json

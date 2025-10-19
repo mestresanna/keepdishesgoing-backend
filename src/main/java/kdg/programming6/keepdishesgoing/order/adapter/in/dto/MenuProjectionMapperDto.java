@@ -15,6 +15,13 @@ public class MenuProjectionMapperDto {
         this.dishMapper = dishMapper;
     }
 
+    public MenuProjectionDto toDtoWithDishes(MenuProjection menu, List<DishProjection> dishes) {
+        var dishDtos = dishes.stream()
+                .map(dishMapper::toDto)
+                .toList();
+
+        return new MenuProjectionDto(dishDtos);
+    }
 
     public MenuProjectionDto toDto(MenuProjection menu) {
         var dishDtos = menu.getDishes().stream()

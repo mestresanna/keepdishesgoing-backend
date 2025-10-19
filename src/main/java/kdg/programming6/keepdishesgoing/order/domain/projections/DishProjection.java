@@ -6,6 +6,7 @@ import kdg.programming6.keepdishesgoing.restaurant.domain.DishType;
 
 import java.util.Set;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 public class DishProjection {
     UUID dishId;
@@ -82,6 +83,16 @@ public class DishProjection {
     public void markBackInStock() {
         if (status != StatusDish.OUT_OF_STOCK) throw new IllegalStateException("Dish must be out of stock.");
         this.status = StatusDish.PUBLISHED;
+    }
+
+    public boolean matches(String typeFilter, Set<String> tagFilters) {
+        boolean typeMatches = typeFilter == null || typeFilter.isBlank() || type.equalsIgnoreCase(typeFilter);
+        boolean tagsMatch = tagFilters == null || tagFilters.isEmpty() ||
+                tags.stream()
+                        .map(FoodTag::tag)
+                        .collect(Collectors.toSet())
+                        .containsAll(tagFilters);
+        return typeMatches && tagsMatch;
     }
 
 }

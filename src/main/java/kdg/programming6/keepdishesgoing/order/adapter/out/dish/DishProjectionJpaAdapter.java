@@ -53,6 +53,13 @@ public class DishProjectionJpaAdapter implements SaveDishProjectionPort, DeleteD
     }
 
     @Override
+    public List<DishProjection> loadAllDishProjections(UUID menuId) {
+        return dishProjectionJpaRepository.findById_MenuId(menuId).stream()
+                .map(DishProjectionMapper::toDomain)
+                .toList();
+    }
+
+    @Override
     public DishProjection saveDishProjection(DishProjection dishProjection, UUID menuProjection) {
         MenuProjectionJpaEntity menu = menuProjectionJpaRepository.findById(menuProjection)
                 .orElseThrow(() -> new IllegalStateException("Menu not found for dish: " + dishProjection.getDishId()));
