@@ -3,6 +3,7 @@ package kdg.programming6.keepdishesgoing.order.adapter.in;
 import kdg.programming6.keepdishesgoing.order.adapter.in.dto.*;
 import kdg.programming6.keepdishesgoing.order.domain.projections.DishProjection;
 import kdg.programming6.keepdishesgoing.order.port.in.dish.FilterDishesUseCase;
+import kdg.programming6.keepdishesgoing.order.port.in.restaurant.FilterRestaurantsUseCase;
 import kdg.programming6.keepdishesgoing.order.port.in.restaurant.FindAllRestaurantsProjectionsUseCase;
 import kdg.programming6.keepdishesgoing.order.port.in.restaurant.FindRestaurantDetailsUseCase;
 import org.springframework.http.ResponseEntity;
@@ -18,16 +19,18 @@ public class RestaurantProjectionController {
 
     private final FindAllRestaurantsProjectionsUseCase findAllRestaurants;
     private final FindRestaurantDetailsUseCase findRestaurantDetails;
+    private final FilterRestaurantsUseCase filterRestaurants;
     private final FilterDishesUseCase filterDishes;
     private final RestaurantMapperDto restaurantMapper;
     private final MenuProjectionMapperDto menuMapper;
 
-    public RestaurantProjectionController(FindAllRestaurantsProjectionsUseCase findAllRestaurants, FindRestaurantDetailsUseCase findRestaurantDetails, FilterDishesUseCase filterDishes, RestaurantMapperDto restaurantMapper, MenuProjectionMapperDto menuMapper) {
+    public RestaurantProjectionController(FindAllRestaurantsProjectionsUseCase findAllRestaurants, FindRestaurantDetailsUseCase findRestaurantDetails, FilterDishesUseCase filterDishes, RestaurantMapperDto restaurantMapper, MenuProjectionMapperDto menuMapper, FilterRestaurantsUseCase filterRestaurants) {
         this.findAllRestaurants = findAllRestaurants;
         this.findRestaurantDetails = findRestaurantDetails;
         this.filterDishes = filterDishes;
         this.restaurantMapper = restaurantMapper;
         this.menuMapper = menuMapper;
+        this.filterRestaurants = filterRestaurants;
     }
 
     @GetMapping
@@ -62,6 +65,17 @@ public class RestaurantProjectionController {
         var restaurantDetailsDto = restaurantMapper.toDetailsDto(restaurantProjection, menuDtos);
 
         return ResponseEntity.ok(restaurantDetailsDto);
+    }
+
+    @GetMapping("/filter")
+    public ResponseEntity<List<RestaurantProjectionDto>> filterRestaurants(
+            @RequestParam(required = false) String cuisine,
+            @RequestParam(required = false) String priceRange
+    ) {
+        var restaurants = filterRestaurants.filterRestaurants(cuisine, priceRange).stream()
+                .map(restaurantMapper::toDto)
+                .toList();
+        return ResponseEntity.ok(restaurants);
     }
 
 }

@@ -103,4 +103,13 @@ public class RestaurantProjection {
 
         return now.isAfter(todayRange.open()) && now.isBefore(todayRange.close());
     }
+
+    public boolean matches(String cuisineFilter, String priceRangeFilter) {
+        boolean cuisineMatches = cuisineFilter == null || cuisineFilter.isBlank()
+                || typeOfCuisine.equalsIgnoreCase(cuisineFilter);
+        boolean priceMatches = priceRangeFilter == null || priceRangeFilter.isBlank()
+                || priceRange.equalsIgnoreCase(priceRangeFilter);
+        return cuisineMatches && priceMatches;
+    }
+
 }
