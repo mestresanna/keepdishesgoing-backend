@@ -1,4 +1,5 @@
 package kdg.programming6.keepdishesgoing.restaurant.domain;
 
-public enum DIshAction {
+public enum DishAction {
+    PUBLISHED, UNPUBLISHED
 }

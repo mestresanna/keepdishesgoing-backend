@@ -4,22 +4,28 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
 
-public class ScheduledDishChange {
+public class ScheduledDish {
 
     private final UUID id;
     private final List<UUID> dishIds;
     private DishAction action;
     private final LocalDateTime scheduledAt;
+    private boolean executed;
 
-    public ScheduledDishChange(UUID id, List<UUID> dishIds, DishAction action, LocalDateTime scheduledAt) {
+
+    public ScheduledDish(UUID id, List<UUID> dishIds, DishAction action, LocalDateTime scheduledAt) {
         this.id = id;
         this.dishIds = dishIds;
         this.action = action;
         this.scheduledAt = scheduledAt;
+        this.executed = false;
     }
 
-    public static ScheduledDishChange schedule(List<UUID> dishIds, DishAction action, LocalDateTime when) {
-        return new ScheduledDishChange(UUID.randomUUID(), dishIds, action, when);
+    public static ScheduledDish schedule(List<UUID> dishIds, DishAction action, LocalDateTime when) {
+        return new ScheduledDish(UUID.randomUUID(), dishIds, action, when);
+    }
+    public void markExecuted() {
+        this.executed = true;
     }
 
     public boolean isDue(LocalDateTime now) {
@@ -30,4 +36,6 @@ public class ScheduledDishChange {
     public List<UUID> getDishIds() { return dishIds; }
     public DishAction getAction() { return action; }
     public LocalDateTime getScheduledAt() { return scheduledAt; }
+    public boolean isExecuted() { return executed; }
+
 }

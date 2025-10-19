@@ -60,13 +60,13 @@ POST http://localhost:8080/api/dishes
 Content-Type: application/json
 
 {
-  "name": "Paella",
+  "name": "Arros Negre",
   "restaurantId": "03080bb4-f5c9-464e-bf00-217d045af233",
   "type": "ENTREE",
   "tags": ["egg", "lactose"],
-  "description": "Rice with seafood and chicken and beans.",
-  "price": 30.5,
-  "pictureUrl": "https://cdn.example.com/pasta.jpg",
+  "description": "Rice with seafood and ink from squid.",
+  "price": 40,
+  "pictureUrl": "https://cuinatsjotri.cat/files/productes/arros-negre-470x470.jpg",
   "state": "DRAFT"
 }
 
@@ -75,24 +75,31 @@ POST http://localhost:8080/api/dishes/dc6460d3-7ce9-4b2f-ae20-302ebaad1693/publi
 # TODO: apply security
 
 ### Unpublish a dish
-POST http://localhost:8080/api/dishes/dc6460d3-7ce9-4b2f-ae20-302ebaad1693/unpublish
+POST http://localhost:8080/api/dishes/dcb7058b-992c-46cd-a338-25bb27f4cab0/unpublish
 # TODO: apply security
 
 ### Edit a dish
-PATCH http://localhost:8080/api/dishes/8490c201-d893-4169-90aa-90cd770beb58
+PATCH http://localhost:8080/api/dishes/4e36477a-b5fc-4b4b-a51a-9111471e52e5
 Content-Type: application/json
 
 {
-  "name": "Pasta Carbonara Deluxe",
-  "description": "Rich and creamy Italian pasta with pancetta and extra parmesan.",
-  "price": 35.75,
-  "pictureUrl": "https://cdn.example.com/pasta-deluxe.jpg",
+  "pictureUrl": "https://i.ytimg.com/vi/1MzMde4FzBM/hq720.jpg?sqp=-oaymwEhCK4FEIIDSFryq4qpAxMIARUAAAAAGAElAADIQj0AgKJD&rs=AOn4CLCq_CZLPwDzuIgbMYWTlK3Sz-ifxQ",
   "type": "ENTREE",
   "tags": [
     { "tag": "gluten" },
-    { "tag": "dairy" }
+    { "tag": "seafood" }
   ]
 }
 
 ### Change state dish, out of stok or back on stock
 POST http://localhost:8080/api/dishes/dc6460d3-7ce9-4b2f-ae20-302ebaad1693/changeState
+
+### Schedule Publish a group of dishes
+POST http://localhost:8080/api/schedules
+Content-Type: application/json
+
+{
+  "dishIds": ["4e36477a-b5fc-4b4b-a51a-9111471e52e5", "dcb7058b-992c-46cd-a338-25bb27f4cab0"],
+  "action": "PUBLISHED",
+  "scheduledTime": "2025-10-19T11:45:00"
+}

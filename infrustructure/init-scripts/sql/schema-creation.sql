@@ -25,13 +25,13 @@ CREATE TABLE orders.restaurant_projection (
                                               default_preparation_time_in_minutes INT,
                                               price_range VARCHAR(50)
 );
-
+DROP TABLE orders.menu_projections;
 CREATE TABLE orders.menu_projections (
                                          menu_id UUID PRIMARY KEY,
                                          restaurant_id UUID NOT NULL,
                                          avg_price DOUBLE PRECISION
 );
-
+DROP TABLE orders.dish_projections;
 CREATE TABLE orders.dish_projections (
                                          menu_id UUID NOT NULL,
                                          dish_id UUID NOT NULL,
@@ -48,7 +48,7 @@ CREATE TABLE orders.dish_projections (
                                                  REFERENCES orders.menu_projections(menu_id)
                                                  ON DELETE CASCADE
 );
-
+DROP TABLE orders.food_tags;
 CREATE TABLE orders.food_tags (
                                   id UUID PRIMARY KEY,
                                   name VARCHAR(100) NOT NULL,
@@ -117,8 +117,6 @@ CREATE TABLE restaurant.dishes (
                                    price DECIMAL(10,2) NOT NULL,
                                    picture_url TEXT,
                                    state VARCHAR(50) NOT NULL, -- DRAFT, PUBLISHED, OUT_OF_STOCK, UNPUBLISHED
-                                   scheduled_at TIMESTAMP NULL, -- when publish/unpublish is planned
-                                   has_pending_changes BOOLEAN NOT NULL,
                                    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
                                    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
@@ -131,4 +129,24 @@ CREATE TABLE restaurant.food_tags (
                                           FOREIGN KEY (dish_id)
                                               REFERENCES restaurant.dishes (id)
                                               ON DELETE CASCADE
+);
+
+-- Main table: stores each schedule
+CREATE TABLE restaurant.scheduled_dish_changes (
+                                                   id UUID PRIMARY KEY,
+                                                   action VARCHAR(50) NOT NULL,
+                                                   scheduled_at TIMESTAMP NOT NULL,
+                                                   executed BOOLEAN NOT NULL DEFAULT FALSE,
+                                                   executed_at TIMESTAMP NULL
+);
+
+-- Secondary table: stores the list of dishes linked to a schedule
+CREATE TABLE restaurant.scheduled_dish_change_dishes (
+                                                         schedule_id UUID NOT NULL,
+                                                         dish_id UUID NOT NULL,
+                                                         PRIMARY KEY (schedule_id, dish_id),
+                                                         CONSTRAINT fk_schedule
+                                                             FOREIGN KEY (schedule_id)
+                                                                 REFERENCES restaurant.scheduled_dish_changes (id)
+                                                                 ON DELETE CASCADE
 );

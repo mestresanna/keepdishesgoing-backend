@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 import java.util.UUID;
+import java.util.stream.Stream;
 
 public class Dish {
     private DishId id;
@@ -19,9 +20,9 @@ public class Dish {
     private Float price;
     private String pictureUrl;
     private DishState state;
-    private boolean hasPendingChanges;
     private PublishDishesSchedule scheduledChange;
     private final List<DomainEvent> domainEvents = new ArrayList<>();
+    private final List<DomainEvent> uncommittedEvents = new ArrayList<>();
 
     public Dish(DishId id, String name,RestaurantId restaurantId, DishType type, Set<FoodTag> tags, String description, Float price, String pictureUrl, DishState state) {
         this.id = id;
@@ -33,10 +34,6 @@ public class Dish {
         this.price = price;
         this.pictureUrl = pictureUrl;
         this.state = state;
-        if (this.state == DishState.DRAFT || this.state == DishState.UNPUBLISHED){
-        this.hasPendingChanges = true;} else  {
-        this.hasPendingChanges = false;
-        }
     }
 
     public static Dish create(String name,RestaurantId restaurantId, DishType type, Set<FoodTag> tags, String description, Float price, String pictureUrl, DishState state){
@@ -81,37 +78,18 @@ public class Dish {
     public DishState getState() {
         return state;
     }
-
-    public boolean isHasPendingChanges() {
-        return hasPendingChanges;
-    }
-
     public PublishDishesSchedule getScheduledChange() {
         return scheduledChange;
     }
 
-    public void editAsDraft(String name, String description, Float price, Set<FoodTag> tags) {
-        if (state == DishState.PUBLISHED || state == DishState.OUT_OF_STOCK) {
-            this.hasPendingChanges = true;
-        }
-        this.name = name;
-        this.description = description;
-        this.price = price;
-        this.tags = tags;
-    }
 
     public void publish() {
         switch (this.state) {
             case DRAFT -> {
                 this.state = DishState.PUBLISHED;
-                this.hasPendingChanges = false;
             }
             case PUBLISHED -> {
-                if (this.hasPendingChanges) {
-                    this.hasPendingChanges = false;
-                } else {
                     throw new IllegalStateException("Dish is already published and has no pending changes.");
-                }
             }
             case UNPUBLISHED -> {
                 this.state = DishState.PUBLISHED;
@@ -154,7 +132,6 @@ public class Dish {
             this.name = newName;
             this.description = newDescription;
             this.price = newPrice;
-            this.hasPendingChanges = true;
             this.state = DishState.DRAFT;
             this.tags = newtags;
             this.pictureUrl = newPictureUrl;
@@ -171,21 +148,22 @@ public class Dish {
         }
     }
 
-
-    public boolean hasPendingChanges(){
-        return state == DishState.DRAFT && hasPendingChanges;
-    }
-    public void scheduleChange(PublishDishesSchedule  schedule){
-        //TODO
-        //change schedules, check method later
-        this.scheduledChange = schedule;
-    }
     public void recordEvent(DomainEvent event) {
         domainEvents.add(event);
     }
 
+    public void commitEvents() {
+        domainEvents.addAll(uncommittedEvents);
+        uncommittedEvents.clear();
+    }
+
+    public List<DomainEvent> getUncommittedEvents() {
+        return new ArrayList<>(uncommittedEvents);
+    }
+
+
     public List<DomainEvent> getDomainEvents() {
-        return List.copyOf(domainEvents);
+        return new ArrayList<>(Stream.concat(domainEvents.stream(), uncommittedEvents.stream()).toList());
     }
 
 }

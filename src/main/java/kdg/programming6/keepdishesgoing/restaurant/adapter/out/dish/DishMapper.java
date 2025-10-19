@@ -23,10 +23,6 @@ public class DishMapper {
         entity.setPrice(BigDecimal.valueOf(dish.getPrice()));
         entity.setPictureUrl(dish.getPictureUrl());
         entity.setState(dish.getState().name());
-        entity.setHasPendingChanges(dish.isHasPendingChanges());
-        if (dish.getScheduledChange() != null) {
-            entity.setScheduledAt(dish.getScheduledChange().scheduledAt());
-        }
         if (dish.getTags() != null) {
             Set<FoodTagJpaEntity> tagEntities = dish.getTags().stream()
                     .map(tag -> {

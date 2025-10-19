@@ -20,8 +20,6 @@ public class DishJpaEntity {
     private String type;
     private BigDecimal price;
     private String state;
-    private boolean hasPendingChanges;
-    private LocalDateTime scheduledAt;
     public UUID getId() { return id; }
     public void setId(UUID id) { this.id = id; }
 
@@ -53,12 +51,6 @@ public class DishJpaEntity {
 
     public String getState() { return state; }
     public void setState(String state) { this.state = state; }
-
-    public boolean isHasPendingChanges() { return hasPendingChanges; }
-    public void setHasPendingChanges(boolean hasPendingChanges) { this.hasPendingChanges = hasPendingChanges; }
-
-    public LocalDateTime getScheduledAt() { return scheduledAt; }
-    public void setScheduledAt(LocalDateTime scheduledAt) { this.scheduledAt = scheduledAt; }
 
     public List<FoodTagJpaEntity> getFoodTags() { return foodTags; }
     public void setFoodTags(List<FoodTagJpaEntity> foodTags) { this.foodTags = foodTags; }

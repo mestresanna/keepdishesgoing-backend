@@ -7,18 +7,36 @@ import java.util.List;
 import java.util.UUID;
 
 @Entity
-@Table(name = "scheduled_dish_changes")
-public class ScheduledDishChangeJpaEntity {
+@Table(name = "scheduled_dish_changes", schema = "restaurant")
+public class ScheduledDishJpaEntity {
 
     @Id
     private UUID id;
 
     @ElementCollection
-    @CollectionTable(name = "scheduled_dish_change_dishes", joinColumns = @JoinColumn(name = "schedule_id"))
+    @CollectionTable(name = "scheduled_dish_change_dishes", joinColumns = @JoinColumn(name = "schedule_id"), schema = "restaurant")
     @Column(name = "dish_id")
     private List<UUID> dishIds;
     private String action;
     private LocalDateTime scheduledAt;
+    private boolean executed;
+    private LocalDateTime executedAt;
+
+    public boolean isExecuted() {
+        return executed;
+    }
+
+    public void setExecuted(boolean executed) {
+        this.executed = executed;
+    }
+
+    public LocalDateTime getExecutedAt() {
+        return executedAt;
+    }
+
+    public void setExecutedAt(LocalDateTime executedAt) {
+        this.executedAt = executedAt;
+    }
 
     public UUID getId() {
         return id;

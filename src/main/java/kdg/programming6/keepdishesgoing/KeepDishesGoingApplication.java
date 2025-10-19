@@ -11,6 +11,7 @@ import org.springframework.modulith.core.ApplicationModules;
 import org.springframework.scheduling.annotation.EnableScheduling;
 
 @Modulith
+@EnableScheduling
 public class KeepDishesGoingApplication {
 
     private static final Logger log = LoggerFactory.getLogger(KeepDishesGoingApplication.class);
