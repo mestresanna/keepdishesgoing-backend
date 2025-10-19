@@ -14,7 +14,7 @@ import java.util.stream.Collectors;
 public class MenuProjectionMapper {
 
 
-    public static MenuProjection toDomain(MenuProjectionJpaEntity entity) {
+    public MenuProjection toDomain(MenuProjectionJpaEntity entity) {
         if (entity == null) return null;
 
         List<DishProjection> dishes = entity.getDishes() != null
@@ -31,7 +31,7 @@ public class MenuProjectionMapper {
         );
     }
 
-    public static MenuProjectionJpaEntity toJpa(MenuProjection domain) {
+    public MenuProjectionJpaEntity toJpa(MenuProjection domain) {
         if (domain == null) return null;
 
         MenuProjectionJpaEntity entity = new MenuProjectionJpaEntity(

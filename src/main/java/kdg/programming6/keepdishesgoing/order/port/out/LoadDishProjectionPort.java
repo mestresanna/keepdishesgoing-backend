@@ -9,6 +9,5 @@ import java.util.UUID;
 public interface LoadDishProjectionPort {
     Optional<DishProjection> loadbyIdByMenu(UUID dishId, UUID  menuId);
     List<DishProjection> loadAllWithDishId(UUID dishId);
-
 }
 

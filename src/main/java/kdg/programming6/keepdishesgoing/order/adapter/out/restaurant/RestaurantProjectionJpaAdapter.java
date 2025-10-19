@@ -2,14 +2,16 @@ package kdg.programming6.keepdishesgoing.order.adapter.out.restaurant;
 
 import kdg.programming6.keepdishesgoing.order.adapter.out.mapper.OpeningHoursProjectionMapper;
 import kdg.programming6.keepdishesgoing.order.domain.projections.RestaurantProjection;
-import kdg.programming6.keepdishesgoing.order.port.out.LoadAllRestaurantsProjectionsPort;
+import kdg.programming6.keepdishesgoing.order.port.out.LoadRestaurantsProjectionsPort;
 import kdg.programming6.keepdishesgoing.order.port.out.SaveRestaurantProjectionPort;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
+import java.util.UUID;
 
 @Repository
-public class RestaurantProjectionJpaAdapter implements SaveRestaurantProjectionPort, LoadAllRestaurantsProjectionsPort {
+public class RestaurantProjectionJpaAdapter implements SaveRestaurantProjectionPort, LoadRestaurantsProjectionsPort {
     private final RestaurantProjectionJpaRepository restaurantProjectionJpaRepository;
     private final OpeningHoursProjectionMapper openingHoursMapper;
 
@@ -69,5 +71,23 @@ public class RestaurantProjectionJpaAdapter implements SaveRestaurantProjectionP
                 entity.getContactEmail(),
                 entity.getDefaultPreparationTimeInMinutes(),
                 entity.getPriceRange())).toList();
+    }
+
+    @Override
+    public Optional<RestaurantProjection> loadbyId(UUID restaurantId) {
+        return restaurantProjectionJpaRepository.findByRestaurantId(restaurantId).map(entity -> new RestaurantProjection(
+                entity.getRestaurantId(),
+                entity.getOwnerId(),
+                entity.getName(),
+                entity.getStreet(),
+                entity.getNumber(),
+                entity.getCity(),
+                entity.getCountry(),
+                entity.getPictureUrls(),
+                openingHoursMapper.fromJson(entity.getOpeningHoursJson()),
+                entity.getTypeOfCuisine(),
+                entity.getContactEmail(),
+                entity.getDefaultPreparationTimeInMinutes(),
+                entity.getPriceRange()));
     }
 }

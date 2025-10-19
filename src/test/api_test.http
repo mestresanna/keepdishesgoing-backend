@@ -107,3 +107,6 @@ Content-Type: application/json
 
 ### Get all restaurants projections
 GET http://localhost:8080/api/orders/restaurants
+
+### Get a restaurant with its details
+GET http://localhost:8080/api/orders/restaurants/03080bb4-f5c9-464e-bf00-217d045af233

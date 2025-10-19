@@ -52,7 +52,6 @@ public class DishProjectionJpaAdapter implements SaveDishProjectionPort, DeleteD
                 .toList();
     }
 
-
     @Override
     public DishProjection saveDishProjection(DishProjection dishProjection, UUID menuProjection) {
         MenuProjectionJpaEntity menu = menuProjectionJpaRepository.findById(menuProjection)
