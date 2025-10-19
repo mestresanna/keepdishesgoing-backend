@@ -7,5 +7,5 @@ import java.util.Set;
 import java.util.UUID;
 
 public interface FilterDishesUseCase {
-    List<DishProjection> filterDishes(UUID menuId, String type, Set<String> tags);
+    List<DishProjection> filterDishes(UUID menuId, String type, Set<String> tags, String sortBy, String direction);
 }
