@@ -1,9 +1,8 @@
-package kdg.programming6.keepdishesgoing.order.adapter.in;
+package kdg.programming6.keepdishesgoing.order.adapter.in.listeners;
 
 import kdg.programming6.keepdishesgoing.common.events.DishPublishedEvent;
 import kdg.programming6.keepdishesgoing.common.events.DishStateChangedEvent;
 import kdg.programming6.keepdishesgoing.common.events.DishUnpublishedEvent;
-import kdg.programming6.keepdishesgoing.common.vo.FoodTag;
 import kdg.programming6.keepdishesgoing.order.port.in.dish.CreatedDishProjectionCommand;
 import kdg.programming6.keepdishesgoing.order.port.in.dish.DishChangedProjector;
 import kdg.programming6.keepdishesgoing.order.port.in.dish.UnpublishDishProjectionCommand;
@@ -12,9 +11,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Component;
-
-import java.util.Set;
-import java.util.UUID;
 
 @Component
 public class DishChangedListener {

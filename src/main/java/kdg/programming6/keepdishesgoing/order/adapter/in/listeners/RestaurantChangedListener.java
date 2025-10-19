@@ -1,4 +1,4 @@
-package kdg.programming6.keepdishesgoing.order.adapter.in;
+package kdg.programming6.keepdishesgoing.order.adapter.in.listeners;
 
 import kdg.programming6.keepdishesgoing.common.events.RestaurantCreatedEvent;
 import kdg.programming6.keepdishesgoing.common.events.RestaurantUpdatedEvent;

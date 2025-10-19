@@ -71,7 +71,7 @@ Content-Type: application/json
 }
 
 ### Publish a dish
-POST http://localhost:8080/api/dishes/dc6460d3-7ce9-4b2f-ae20-302ebaad1693/publish
+POST http://localhost:8080/api/dishes/4e36477a-b5fc-4b4b-a51a-9111471e52e5/publish
 # TODO: apply security
 
 ### Unpublish a dish
@@ -103,3 +103,7 @@ Content-Type: application/json
   "action": "PUBLISHED",
   "scheduledTime": "2025-10-19T11:45:00"
 }
+
+
+### Get all restaurants projections
+GET http://localhost:8080/api/orders/restaurants
