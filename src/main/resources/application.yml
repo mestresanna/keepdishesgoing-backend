@@ -3,4 +3,8 @@ spring:
     oauth2:
       resourceserver:
         jwt:
-          jwk-set-uri: http://localhost:8180/realms/keepdishesgoing
+          issuer-uri: http://localhost:8180/realms/keepdishesgoing
+          jwk-set-uri: http://localhost:8180/realms/keepdishesgoing/protocol/openid-connect/certs
+
+server:
+  port: 8080

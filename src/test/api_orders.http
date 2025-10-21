@@ -1,0 +1,19 @@
+### Get all restaurants projections
+GET http://localhost:8080/api/orders/restaurants
+Accept: application/json
+
+### Get a restaurant with its details
+GET http://localhost:8080/api/orders/restaurants/03080bb4-f5c9-464e-bf00-217d045af233
+Accept: application/json
+
+### Filter restaurants by cuisine and price
+GET http://localhost:8080/api/orders/restaurants/filter?cuisine=Italian&priceRange=Regular
+Accept: application/json
+
+### Filter dishes with tags and type
+GET http://localhost:8080/api/orders/dishes/03080bb4-f5c9-464e-bf00-217d045af233/filter?type=&tags=gluten
+Accept: application/json
+
+### Get vegan desserts sorted by name descending
+GET http://localhost:8080/api/orders/dishes/03080bb4-f5c9-464e-bf00-217d045af233/filter?type=entree&tags=&sortBy=name&direction=desc
+Accept: application/json
