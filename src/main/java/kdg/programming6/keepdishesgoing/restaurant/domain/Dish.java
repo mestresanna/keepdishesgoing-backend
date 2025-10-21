@@ -20,7 +20,6 @@ public class Dish {
     private Float price;
     private String pictureUrl;
     private DishState state;
-    private PublishDishesSchedule scheduledChange;
     private final List<DomainEvent> domainEvents = new ArrayList<>();
     private final List<DomainEvent> uncommittedEvents = new ArrayList<>();
 
@@ -77,9 +76,6 @@ public class Dish {
 
     public DishState getState() {
         return state;
-    }
-    public PublishDishesSchedule getScheduledChange() {
-        return scheduledChange;
     }
 
 

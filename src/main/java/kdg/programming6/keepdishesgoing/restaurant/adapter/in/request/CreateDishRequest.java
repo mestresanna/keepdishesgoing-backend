@@ -10,7 +10,6 @@ import java.util.UUID;
 
 public record CreateDishRequest(
         String name,
-        UUID restaurantId,
         String type,
         Set<String> tags,
         String description,
@@ -18,7 +17,7 @@ public record CreateDishRequest(
         String pictureUrl,
         String state
 ) {
-    public CreateDishCommand toCommand() {
+    public CreateDishCommand toCommand(UUID restaurantId) {
         return new CreateDishCommand(
                 name,
                 new RestaurantId(restaurantId),

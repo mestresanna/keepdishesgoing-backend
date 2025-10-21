@@ -77,7 +77,6 @@ Authorization: Bearer {{access_token}}
 
 {
   "name": "Arros Negre",
-  "restaurantId": "03080bb4-f5c9-464e-bf00-217d045af233",
   "type": "ENTREE",
   "tags": ["egg", "lactose"],
   "description": "Rice with seafood and ink from squid.",
@@ -91,7 +90,7 @@ POST http://localhost:8080/api/dishes/2b197fda-85e3-4f47-a040-47031a849ae3/publi
 Authorization: Bearer {{access_token}}
 
 ### Unpublish a dish
-POST http://localhost:8080/api/dishes/dcb7058b-992c-46cd-a338-25bb27f4cab0/unpublish HTTP/1.1
+POST http://localhost:8080/api/dishes/2b197fda-85e3-4f47-a040-47031a849ae3/unpublish HTTP/1.1
 Authorization: Bearer {{access_token}}
 
 ### Edit a dish
@@ -125,3 +124,8 @@ Authorization: Bearer {{access_token}}
   "action": "UNPUBLISHED",
   "scheduledTime": "2025-10-21T09:45:00"
 }
+
+### Get all dishes from a restaurant
+GET http://localhost:8080/api/dishes
+Accept: application/json
+Authorization: Bearer {{access_token}}

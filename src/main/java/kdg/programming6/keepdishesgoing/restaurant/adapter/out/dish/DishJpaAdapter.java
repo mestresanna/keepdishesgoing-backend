@@ -5,6 +5,7 @@ import kdg.programming6.keepdishesgoing.restaurant.port.out.LoadDishPort;
 import kdg.programming6.keepdishesgoing.restaurant.port.out.SaveDishPort;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -22,6 +23,12 @@ public class DishJpaAdapter implements SaveDishPort, LoadDishPort {
         return jpaRepo.findById(dishId)
                 .map(mapper::toDomain);
     }
+
+    @Override
+    public List<Dish> loadAllDishesByRestaurant(UUID restaurantId) {
+        return jpaRepo.findAllByRestaurantId(restaurantId).stream().map(mapper::toDomain).toList();
+    }
+
     @Override
     public void save(Dish dish) {
         DishJpaEntity entity = mapper.toEntity(dish);
