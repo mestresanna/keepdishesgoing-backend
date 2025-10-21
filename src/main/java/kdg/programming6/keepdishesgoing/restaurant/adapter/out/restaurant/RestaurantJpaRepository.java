@@ -10,5 +10,6 @@ import java.util.UUID;
 public interface RestaurantJpaRepository extends JpaRepository<RestaurantJpaEntity, UUID>{
     List<RestaurantJpaEntity> findAll();
     Optional<RestaurantJpaEntity> findById(UUID id);
+    List<RestaurantJpaEntity> findAllByOwner(UUID owner);
     void save(Restaurant restaurant);
 }

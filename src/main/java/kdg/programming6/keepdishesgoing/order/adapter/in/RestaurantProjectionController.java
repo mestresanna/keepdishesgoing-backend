@@ -8,7 +8,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Set;
 import java.util.UUID;
 
 @RestController
@@ -18,10 +17,10 @@ public class RestaurantProjectionController {
     private final FindAllRestaurantsProjectionsUseCase findAllRestaurants;
     private final FindRestaurantDetailsUseCase findRestaurantDetails;
     private final FilterRestaurantsUseCase filterRestaurants;
-    private final RestaurantMapperDto restaurantMapper;
+    private final RestaurantProjectionMapperDto restaurantMapper;
     private final MenuProjectionMapperDto menuMapper;
 
-    public RestaurantProjectionController(FindAllRestaurantsProjectionsUseCase findAllRestaurants, FindRestaurantDetailsUseCase findRestaurantDetails, RestaurantMapperDto restaurantMapper, MenuProjectionMapperDto menuMapper, FilterRestaurantsUseCase filterRestaurants) {
+    public RestaurantProjectionController(FindAllRestaurantsProjectionsUseCase findAllRestaurants, FindRestaurantDetailsUseCase findRestaurantDetails, RestaurantProjectionMapperDto restaurantMapper, MenuProjectionMapperDto menuMapper, FilterRestaurantsUseCase filterRestaurants) {
         this.findAllRestaurants = findAllRestaurants;
         this.findRestaurantDetails = findRestaurantDetails;
         this.restaurantMapper = restaurantMapper;

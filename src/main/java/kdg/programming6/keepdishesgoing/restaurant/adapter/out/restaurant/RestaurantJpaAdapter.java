@@ -49,7 +49,7 @@ public class RestaurantJpaAdapter implements SaveRestaurantPort, LoadRestaurantP
     }
 
     @Override
-    public List<Restaurant> loadAll() {
-        return jpaRepo.findAll().stream().map(mapper::toDomain).toList();
+    public List<Restaurant> loadAllByOwner(UUID ownerId) {
+        return jpaRepo.findAllByOwner(ownerId).stream().map(mapper::toDomain).toList();
     }
 }

@@ -23,11 +23,6 @@ public class RestaurantMapper {
     public static RestaurantJpaEntity toEntity(Restaurant restaurant) {
         RestaurantJpaEntity entity = new RestaurantJpaEntity();
         entity.setRestaurantId(restaurant.getRestaurantId());
-
-//        OwnerJpaEntity ownerEntity = new OwnerJpaEntity();
-//        ownerEntity.setOwnerId(restaurant.getOwner().getOwnerId());
-//        ownerEntity.setName(restaurant.getOwner().getName());
-//        ownerEntity.setSurname(restaurant.getOwner().getSurname());
         entity.setOwner(restaurant.getOwner().ownerId());
 
         entity.setName(restaurant.getName());
@@ -54,11 +49,6 @@ public class RestaurantMapper {
     }
 
     public Restaurant toDomain(RestaurantJpaEntity entity) {
-//        Owner owner = new Owner(
-//                entity.getOwner().getOwnerId(),
-//                entity.getOwner().getName(),
-//                entity.getOwner().getSurname()
-//        );
         OwnerId orderId = OwnerId.of(entity.getOwner());
         Address address = new Address(
                 entity.getStreet(), entity.getNumber(), entity.getCity(), entity.getCountry()

@@ -17,8 +17,9 @@ public class FindAllRestaurantsImpl implements FindAllRestaurantsUseCase {
     public FindAllRestaurantsImpl(LoadAllRestaurantsPort repository) {
         this.repository = repository;}
 
+
     @Override
-    public List<Restaurant> findAll() {
-        return repository.loadAll();
+    public List<Restaurant> findAllByOwner(UUID ownerId) {
+        return repository.loadAllByOwner(ownerId);
     }
 }

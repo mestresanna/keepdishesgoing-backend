@@ -5,12 +5,12 @@ import java.util.List;
 public record RestaurantDetailsDto(
         String restaurantId,
         String name,
-        AddressDto address,
+        AddressProjectionDto address,
         String contactEmail,
         String pictureUrls,
         int defaultPreparationTimeInMinutes,
         String typeOfCuisine,
-        OpeningHourDto openingHours,
+        OpeningHourProjectionDto openingHours,
         String priceRange,
         List<MenuProjectionDto> menus
 ) {}

@@ -6,9 +6,9 @@ import org.springframework.stereotype.Component;
 import java.util.List;
 
 @Component
-public class RestaurantMapperDto {
+public class RestaurantProjectionMapperDto {
     public RestaurantProjectionDto toDto(RestaurantProjection restaurant) {
-        AddressDto address = new AddressDto(
+        AddressProjectionDto address = new AddressProjectionDto(
                 restaurant.getStreet(),
                 restaurant.getNumber(),
                 restaurant.getCity(),
@@ -16,11 +16,11 @@ public class RestaurantMapperDto {
         );
 
 
-        OpeningHourDto openingHours = new OpeningHourDto(
+        OpeningHourProjectionDto openingHours = new OpeningHourProjectionDto(
                 restaurant.getOpeningHours().hoursPerDay().entrySet().stream()
                         .collect(java.util.stream.Collectors.toMap(
                                 e -> e.getKey().name(),
-                                e -> new DayHoursDto(e.getValue().open(), e.getValue().close())
+                                e -> new DayHoursProjectionDto(e.getValue().open(), e.getValue().close())
                         ))
         );
 
@@ -39,18 +39,18 @@ public class RestaurantMapperDto {
 
     public RestaurantDetailsDto toDetailsDto(RestaurantProjection restaurant, List<MenuProjectionDto> menuDtos) {
 
-        AddressDto address = new AddressDto(
+        AddressProjectionDto address = new AddressProjectionDto(
                 restaurant.getStreet(),
                 restaurant.getNumber(),
                 restaurant.getCity(),
                 restaurant.getCountry()
         );
 
-        OpeningHourDto openingHours = new OpeningHourDto(
+        OpeningHourProjectionDto openingHours = new OpeningHourProjectionDto(
                 restaurant.getOpeningHours().hoursPerDay().entrySet().stream()
                         .collect(java.util.stream.Collectors.toMap(
                                 e -> e.getKey().name(),
-                                e -> new DayHoursDto(e.getValue().open(), e.getValue().close())
+                                e -> new DayHoursProjectionDto(e.getValue().open(), e.getValue().close())
                         ))
         );
 

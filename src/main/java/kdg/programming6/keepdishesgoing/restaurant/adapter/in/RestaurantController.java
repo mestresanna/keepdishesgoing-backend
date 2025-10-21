@@ -1,6 +1,8 @@
 package kdg.programming6.keepdishesgoing.restaurant.adapter.in;
 
 import kdg.programming6.keepdishesgoing.restaurant.adapter.in.request.CreateRestaurantRequest;
+import kdg.programming6.keepdishesgoing.restaurant.adapter.in.response.RestaurantDto;
+import kdg.programming6.keepdishesgoing.restaurant.adapter.in.response.RestaurantMapperDto;
 import kdg.programming6.keepdishesgoing.restaurant.domain.ov.OpeningHours;
 import kdg.programming6.keepdishesgoing.restaurant.domain.Restaurant;
 import kdg.programming6.keepdishesgoing.restaurant.port.in.*;
@@ -25,12 +27,14 @@ public class RestaurantController {
     private final FindRestaurantUseCase findRestaurant;
     private final FindAllRestaurantsUseCase findAllRestaurants;
     private final SetOpeningHoursUseCase setOpeningHours;
+    private final RestaurantMapperDto restaurantMapperDto;
 
-    public RestaurantController(CreateRestaurantUseCase createRestaurant, FindRestaurantUseCase findRestaurant, FindAllRestaurantsUseCase findAllRestaurants, SetOpeningHoursUseCase setOpeningHours) {
+    public RestaurantController(CreateRestaurantUseCase createRestaurant, FindRestaurantUseCase findRestaurant, FindAllRestaurantsUseCase findAllRestaurants, SetOpeningHoursUseCase setOpeningHours, RestaurantMapperDto restaurantMapperDto) {
         this.createRestaurant = createRestaurant;
         this.findRestaurant = findRestaurant;
         this.findAllRestaurants = findAllRestaurants;
         this.setOpeningHours = setOpeningHours;
+        this.restaurantMapperDto = restaurantMapperDto;
     }
 
     @PostMapping
@@ -49,8 +53,14 @@ public class RestaurantController {
     }
 
     @GetMapping
-    public ResponseEntity<List<Restaurant>> getAllRestaurant() {
-        return ResponseEntity.ok(findAllRestaurants.findAll());
+    @PreAuthorize("hasAuthority('owner')")
+    public ResponseEntity<List<RestaurantDto>> getAllRestaurant(@AuthenticationPrincipal Jwt token) {
+        String subject = token.getClaimAsString("sub");
+        UUID ownerId = UUID.fromString(subject);
+        var restaurants = findAllRestaurants.findAllByOwner(ownerId).stream()
+                .map(restaurantMapperDto::toDto)
+                .toList();;
+        return ResponseEntity.ok(restaurants);
     }
 
     @PatchMapping("/{restaurantId}/opening-hours")

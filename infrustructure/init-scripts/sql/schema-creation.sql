@@ -70,12 +70,6 @@ ALTER DEFAULT PRIVILEGES IN SCHEMA restaurant
 
 GRANT ALL PRIVILEGES ON ALL TABLES IN SCHEMA restaurant TO kdg;
 GRANT ALL PRIVILEGES ON ALL SEQUENCES IN SCHEMA restaurant TO kdg;
-DROP TABLE restaurant.restaurants;
-CREATE TABLE restaurant.owners (
-                        owner_id UUID PRIMARY KEY,
-                        name VARCHAR(100) NOT NULL,
-                        surname VARCHAR(100) NOT NULL
-);
 
 CREATE TABLE restaurant.restaurants (
                              restaurant_id UUID PRIMARY KEY,
@@ -91,8 +85,8 @@ CREATE TABLE restaurant.restaurants (
                              default_preparation_time_in_minutes INT NOT NULL,
                              opening_hours_json TEXT,
                              price_range VARCHAR
---                              CONSTRAINT fk_owner FOREIGN KEY (owner_id) REFERENCES restaurant.owners(owner_id)
 );
+
 DROP TABLE restaurant.menus;
 CREATE TABLE restaurant.menus (
                                 menu_id UUID PRIMARY KEY,
