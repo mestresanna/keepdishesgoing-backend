@@ -30,6 +30,8 @@ public class FindRestaurantsProjectionWithDetailsImpl implements FindRestaurantD
     }
 
     @Override
+    @Transactional
+
     public List<MenuProjection> findAllMenusForRestaurant(UUID restaurantId) {
        return loadMenuProjectionPort.loadAllMenuProjections(restaurantId).orElseThrow();
     }

@@ -1,5 +1,6 @@
 package kdg.programming6.keepdishesgoing.restaurant.core;
 
+import jakarta.transaction.Transactional;
 import kdg.programming6.keepdishesgoing.restaurant.domain.Dish;
 import kdg.programming6.keepdishesgoing.restaurant.domain.ov.DishId;
 import kdg.programming6.keepdishesgoing.restaurant.port.in.CreateDishCommand;
@@ -19,6 +20,7 @@ public class CreateNewDishImpl implements CreateDishUseCase {
     }
 
     @Override
+    @Transactional
     public void createDish(CreateDishCommand command) {
         Dish dish = Dish.create(
                 command.name(),

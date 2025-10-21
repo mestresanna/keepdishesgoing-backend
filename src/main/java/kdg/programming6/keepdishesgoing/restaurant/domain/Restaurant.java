@@ -77,7 +77,7 @@ public class Restaurant {
         restaurant.recordEvent(new RestaurantCreatedEvent(restaurant.restaurantId.restaurantId(), restaurant.owner.ownerId(), restaurant.getName(), restaurant.getAddress().street(), restaurant.getAddress().number(), restaurant.getAddress().city(),  restaurant.getAddress().country(),restaurant.getPictureUrls(), openingHours.hoursPerDay() , restaurant.getTypeOfCuisine().toString(), restaurant.getContactEmail(), restaurant.getDefaultPreparationTimeInMinutes(), restaurant.getPriceRange().toString()));
         return restaurant;
     }
-        public static Restaurant create(String name, Address address, String contactEmail,
+    public static Restaurant create(String name, Address address, String contactEmail,
                 String pictureUrls, int defaultPreparationTimeInMinutes, TypeOfCuisine typeOfCuisine, OpeningHours openingHours, OwnerId owner, PriceRange priceRange) {
             Restaurant restaurant = new Restaurant(
                     new RestaurantId(UUID.randomUUID()),

@@ -22,7 +22,7 @@ public class RestaurantChangedListener {
 
     @ApplicationModuleListener
     public void onRestaurantCreated(RestaurantCreatedEvent event) {
-        logger.debug("Restaurant Created Event");
+        logger.info("Restaurant Created Event");
         projector.projectCreatedRestaurant(new CreatedRestaurantProjectionCommand(
                 event.restaurantId(),
                 event.ownerId(),
@@ -42,7 +42,7 @@ public class RestaurantChangedListener {
 
     @ApplicationModuleListener
     public void onRestaurantUpdated(RestaurantUpdatedEvent event) {
-        logger.debug("Restaurant Updated Event");
+        logger.info("Restaurant Updated Event");
         projector.projectUpdatedRestaurant(new UpdatedRestaurantProjectionCommand(
                 event.restaurantId(),
                 event.ownerId(),

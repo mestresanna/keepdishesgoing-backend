@@ -1,5 +1,5 @@
 package kdg.programming6.keepdishesgoing.restaurant.domain;
 
 public enum TypeOfCuisine {
-    JAPANESE, ITALIAN, FRENCH, SPANISH, 
+    JAPANESE, ITALIAN, FRENCH, SPANISH, BELGIAN
 }

@@ -3,17 +3,19 @@ package kdg.programming6.keepdishesgoing.restaurant.core;
 import kdg.programming6.keepdishesgoing.restaurant.domain.Restaurant;
 import kdg.programming6.keepdishesgoing.restaurant.port.in.CreateRestaurantCommand;
 import kdg.programming6.keepdishesgoing.restaurant.port.in.CreateRestaurantUseCase;
-import kdg.programming6.keepdishesgoing.restaurant.port.out.RestaurantPort;
+import kdg.programming6.keepdishesgoing.restaurant.port.out.SaveRestaurantPort;
 import org.springframework.stereotype.Service;
+import jakarta.transaction.Transactional;
 
 import java.util.List;
 
 @Service
+@Transactional
 public class CreateNewRestaurantImpl implements CreateRestaurantUseCase {
 
-    private final List<RestaurantPort> repository;
+    private final List<SaveRestaurantPort> repository;
 
-    public CreateNewRestaurantImpl(List<RestaurantPort> repository) {
+    public CreateNewRestaurantImpl(List<SaveRestaurantPort> repository) {
         this.repository = repository;
     }
 

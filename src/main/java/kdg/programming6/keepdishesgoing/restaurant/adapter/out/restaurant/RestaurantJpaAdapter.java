@@ -3,7 +3,7 @@ package kdg.programming6.keepdishesgoing.restaurant.adapter.out.restaurant;
 import kdg.programming6.keepdishesgoing.restaurant.domain.Restaurant;
 import kdg.programming6.keepdishesgoing.restaurant.port.out.LoadAllRestaurantsPort;
 import kdg.programming6.keepdishesgoing.restaurant.port.out.LoadRestaurantPort;
-import kdg.programming6.keepdishesgoing.restaurant.port.out.RestaurantPort;
+import kdg.programming6.keepdishesgoing.restaurant.port.out.SaveRestaurantPort;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
@@ -13,7 +13,7 @@ import java.util.Optional;
 import java.util.UUID;
 
 @Repository
-public class RestaurantJpaAdapter implements RestaurantPort, LoadRestaurantPort, LoadAllRestaurantsPort {
+public class RestaurantJpaAdapter implements SaveRestaurantPort, LoadRestaurantPort, LoadAllRestaurantsPort {
     private final RestaurantJpaRepository jpaRepo;
     private final RestaurantMapper mapper;
     private final OpeningHoursMapper openingHoursMapper;

@@ -4,8 +4,13 @@ import kdg.programming6.keepdishesgoing.restaurant.adapter.in.request.CreateRest
 import kdg.programming6.keepdishesgoing.restaurant.domain.ov.OpeningHours;
 import kdg.programming6.keepdishesgoing.restaurant.domain.Restaurant;
 import kdg.programming6.keepdishesgoing.restaurant.port.in.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.oauth2.jwt.Jwt;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -14,6 +19,7 @@ import java.util.UUID;
 @RestController
 @RequestMapping("/api/restaurants")
 public class RestaurantController {
+    private static final Logger logger = LoggerFactory.getLogger(RestaurantController.class);
 
     private final CreateRestaurantUseCase createRestaurant;
     private final FindRestaurantUseCase findRestaurant;
@@ -28,8 +34,12 @@ public class RestaurantController {
     }
 
     @PostMapping
-    public ResponseEntity<Void> createRestaurant(@RequestBody CreateRestaurantRequest request) {
-        createRestaurant.createRestaurant(request.toCommand());
+    @PreAuthorize("hasAuthority('owner')")
+    public ResponseEntity<Void> createRestaurant(@RequestBody CreateRestaurantRequest request, @AuthenticationPrincipal Jwt token) {
+        String subject = token.getClaimAsString("sub");
+        UUID ownerId = UUID.fromString(subject);
+        logger.info("createRestaurant request ownerId: " + ownerId);
+        createRestaurant.createRestaurant(request.toCommand(ownerId));
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
@@ -44,11 +54,15 @@ public class RestaurantController {
     }
 
     @PatchMapping("/{restaurantId}/opening-hours")
+    @PreAuthorize("hasAuthority('owner')")
     public ResponseEntity<Void> setOpeningHours(
             @PathVariable UUID restaurantId,
-            @RequestBody OpeningHours newOpeningHours
-            ,@RequestHeader("X-Owner-Id") UUID ownerId
+            @RequestBody OpeningHours newOpeningHours,
+            @AuthenticationPrincipal Jwt token
     ) {
+        String subject = token.getClaimAsString("sub");
+        UUID ownerId = UUID.fromString(subject);
+        logger.info("createRestaurant request ownerId: " + ownerId);
         SetOpeningHoursCommand command = new SetOpeningHoursCommand(restaurantId, ownerId, newOpeningHours);
         setOpeningHours.setOpeningHours(command);
         return ResponseEntity.noContent().build();

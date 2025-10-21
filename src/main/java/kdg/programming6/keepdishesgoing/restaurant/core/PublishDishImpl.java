@@ -23,20 +23,20 @@ public class PublishDishImpl implements PublishDishUseCase {
     private final LoadMenuPort loadMenuPort;
     private final List<SaveMenuPort> saveMenuPort;
     private final LoadRestaurantPort loadRestaurantPort;
-    private final List<RestaurantPort> restaurantPort;
+    private final List<SaveRestaurantPort> saveRestaurantPort;
     private static final Logger logger = LoggerFactory.getLogger(PublishDishImpl.class);
 
 
     public PublishDishImpl(LoadDishPort loadDishPort,
                            List<SaveDishPort>  saveDishPort,
                            LoadMenuPort loadMenuPort,
-                           List<SaveMenuPort> saveMenuPort, LoadRestaurantPort loadRestaurantPort, List<RestaurantPort> restaurantPort) {
+                           List<SaveMenuPort> saveMenuPort, LoadRestaurantPort loadRestaurantPort, List<SaveRestaurantPort> saveRestaurantPort) {
         this.loadDishPort = loadDishPort;
         this.saveDishPort = saveDishPort;
         this.loadMenuPort = loadMenuPort;
         this.saveMenuPort = saveMenuPort;
         this.loadRestaurantPort = loadRestaurantPort;
-        this.restaurantPort = restaurantPort;
+        this.saveRestaurantPort = saveRestaurantPort;
     }
 
     @Override
@@ -53,6 +53,6 @@ public class PublishDishImpl implements PublishDishUseCase {
         saveMenuPort.forEach(port -> port.save(menu));
         saveDishPort.forEach(port-> port.save(dish));
         restaurant.setPriceRange(menu.getAvgPrice());
-        restaurantPort.forEach(port -> port.save(restaurant));
+        saveRestaurantPort.forEach(port -> port.save(restaurant));
     }
 }

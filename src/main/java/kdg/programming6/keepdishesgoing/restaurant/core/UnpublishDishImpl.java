@@ -2,7 +2,6 @@ package kdg.programming6.keepdishesgoing.restaurant.core;
 
 import jakarta.transaction.Transactional;
 import kdg.programming6.keepdishesgoing.common.events.DishUnpublishedEvent;
-import kdg.programming6.keepdishesgoing.common.events.DomainEvent;
 import kdg.programming6.keepdishesgoing.restaurant.domain.Dish;
 import kdg.programming6.keepdishesgoing.restaurant.domain.Menu;
 import kdg.programming6.keepdishesgoing.restaurant.domain.Restaurant;
@@ -24,18 +23,18 @@ public class UnpublishDishImpl implements UnpublishDishUseCase {
     private final LoadMenuPort loadMenuPort;
     private final List<SaveMenuPort> saveMenuPort;
     private final LoadRestaurantPort loadRestaurantPort;
-    private final List<RestaurantPort> restaurantPort;
+    private final List<SaveRestaurantPort> saveRestaurantPort;
 
     private static final Logger logger = LoggerFactory.getLogger(UnpublishDishImpl.class);
 
 
-    public UnpublishDishImpl(LoadDishPort loadDishPort, List<SaveDishPort>  saveDishPort, LoadMenuPort loadMenuPort, List<SaveMenuPort> saveMenuPort, LoadRestaurantPort loadRestaurantPort, List<RestaurantPort> restaurantPort) {
+    public UnpublishDishImpl(LoadDishPort loadDishPort, List<SaveDishPort>  saveDishPort, LoadMenuPort loadMenuPort, List<SaveMenuPort> saveMenuPort, LoadRestaurantPort loadRestaurantPort, List<SaveRestaurantPort> saveRestaurantPort) {
         this.loadDishPort = loadDishPort;
         this.saveDishPort = saveDishPort;
         this.loadMenuPort = loadMenuPort;
         this.saveMenuPort = saveMenuPort;
         this.loadRestaurantPort = loadRestaurantPort;
-        this.restaurantPort = restaurantPort;
+        this.saveRestaurantPort = saveRestaurantPort;
     }
 
 
@@ -51,6 +50,6 @@ public class UnpublishDishImpl implements UnpublishDishUseCase {
         menu.removeDish(dish);
         saveMenuPort.forEach(port-> port.save(menu));
         restaurant.setPriceRange(menu.updateAvgPrice());
-        restaurantPort.forEach(port -> port.save(restaurant));
+        saveRestaurantPort.forEach(port -> port.save(restaurant));
     }
 }

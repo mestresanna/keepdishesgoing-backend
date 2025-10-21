@@ -9,6 +9,7 @@ import kdg.programming6.keepdishesgoing.restaurant.port.in.CreateRestaurantComma
 
 import java.time.DayOfWeek;
 import java.util.Map;
+import java.util.UUID;
 
 public record CreateRestaurantRequest(String name,
                                       String street,
@@ -22,10 +23,10 @@ public record CreateRestaurantRequest(String name,
                                       Map<DayOfWeek, TimeRange> openingHours,
                                       OwnerId owner) {
 
-    public CreateRestaurantCommand toCommand() {
+    public CreateRestaurantCommand toCommand(UUID ownerId) {
         return new CreateRestaurantCommand(
                 name,
-                owner,
+                new OwnerId(ownerId),
                 new Address(street, number, city, country),
                 contactEmail,
                 pictureUrls,

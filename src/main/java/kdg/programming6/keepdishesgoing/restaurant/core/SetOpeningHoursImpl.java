@@ -6,22 +6,24 @@ import kdg.programming6.keepdishesgoing.restaurant.domain.exceptions.RestaurantN
 import kdg.programming6.keepdishesgoing.restaurant.port.in.SetOpeningHoursCommand;
 import kdg.programming6.keepdishesgoing.restaurant.port.in.SetOpeningHoursUseCase;
 import kdg.programming6.keepdishesgoing.restaurant.port.out.LoadRestaurantPort;
-import kdg.programming6.keepdishesgoing.restaurant.port.out.RestaurantPort;
+import kdg.programming6.keepdishesgoing.restaurant.port.out.SaveRestaurantPort;
 import org.springframework.stereotype.Service;
+import jakarta.transaction.Transactional;
 
 import java.util.List;
 
 @Service
 public class SetOpeningHoursImpl implements SetOpeningHoursUseCase {
     private final LoadRestaurantPort repository;
-    private final List<RestaurantPort> restaurantPort;
+    private final List<SaveRestaurantPort> saveRestaurantPort;
 
-    public SetOpeningHoursImpl(LoadRestaurantPort repository, List<RestaurantPort> restaurantPort) {
+    public SetOpeningHoursImpl(LoadRestaurantPort repository, List<SaveRestaurantPort> saveRestaurantPort) {
         this.repository = repository;
-        this.restaurantPort = restaurantPort;
+        this.saveRestaurantPort = saveRestaurantPort;
     }
 
     @Override
+    @Transactional
     public Restaurant setOpeningHours(SetOpeningHoursCommand command) throws RestaurantNotFoundException, OwnerNotFoundException {
         Restaurant restaurant = repository.loadById(command.restaurantId())
                 .orElseThrow(() -> new RestaurantNotFoundException("Restaurant not found: " + command.restaurantId()));
@@ -31,7 +33,7 @@ public class SetOpeningHoursImpl implements SetOpeningHoursUseCase {
         }
 
         restaurant.changeOpeningHours(command.openingHours());
-        restaurantPort.forEach(port -> port.save(restaurant));
+        saveRestaurantPort.forEach(port -> port.save(restaurant));
         return restaurant;
     }
 }

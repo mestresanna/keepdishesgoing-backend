@@ -3,6 +3,7 @@ package kdg.programming6.keepdishesgoing.restaurant.adapter.in;
 import kdg.programming6.keepdishesgoing.restaurant.adapter.in.request.ScheduleRequest;
 import kdg.programming6.keepdishesgoing.restaurant.port.in.ScheduleDishChangeCommand;
 import kdg.programming6.keepdishesgoing.restaurant.port.in.ScheduleDishChangeUseCase;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -16,6 +17,7 @@ public class ScheduleDishChangeController {
     }
 
     @PostMapping
+    @PreAuthorize("hasAuthority('owner')")
     public void scheduleChange(@RequestBody ScheduleRequest request) {
         scheduleDishChangeUseCase.scheduleDishChange( new ScheduleDishChangeCommand(
                 request.dishIds(),
