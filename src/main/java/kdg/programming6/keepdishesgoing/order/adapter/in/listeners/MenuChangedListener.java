@@ -8,6 +8,7 @@ import kdg.programming6.keepdishesgoing.order.port.in.menu.UpdatedMenuProjection
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.event.EventListener;
+import org.springframework.modulith.events.ApplicationModuleListener;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -18,7 +19,7 @@ public class MenuChangedListener {
         this.menuChangedProjector = menuChangedProjector;
     }
 
-    @EventListener(MenuCreatedEvent.class)
+    @ApplicationModuleListener
     public void onMenuCreated(MenuCreatedEvent event) {
         logger.debug("MenuCreatedEvent");
 
@@ -27,7 +28,7 @@ public class MenuChangedListener {
                 event.restaurantId()));
     }
 
-    @EventListener(MenuUpdatedEvent.class)
+    @ApplicationModuleListener
     public void onMenuUpdated(MenuUpdatedEvent event) {
         logger.debug("MenuUpdatedEvent");
 

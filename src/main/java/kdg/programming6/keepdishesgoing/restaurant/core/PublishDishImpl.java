@@ -52,7 +52,7 @@ public class PublishDishImpl implements PublishDishUseCase {
         menu.updateAvgPrice();
         saveMenuPort.forEach(port -> port.save(menu));
         saveDishPort.forEach(port-> port.save(dish));
-        restaurant.setPriceRange(menu.updateAvgPrice());
+        restaurant.setPriceRange(menu.getAvgPrice());
         restaurantPort.forEach(port -> port.save(restaurant));
     }
 }

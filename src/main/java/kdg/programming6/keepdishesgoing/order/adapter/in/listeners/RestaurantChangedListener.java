@@ -9,6 +9,7 @@ import kdg.programming6.keepdishesgoing.order.port.in.restaurant.UpdatedRestaura
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.event.EventListener;
+import org.springframework.modulith.events.ApplicationModuleListener;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -19,7 +20,7 @@ public class RestaurantChangedListener {
         this.projector = projector;
     }
 
-    @EventListener(RestaurantCreatedEvent.class)
+    @ApplicationModuleListener
     public void onRestaurantCreated(RestaurantCreatedEvent event) {
         logger.debug("Restaurant Created Event");
         projector.projectCreatedRestaurant(new CreatedRestaurantProjectionCommand(
@@ -39,7 +40,7 @@ public class RestaurantChangedListener {
                 ));
     }
 
-    @EventListener(RestaurantUpdatedEvent.class)
+    @ApplicationModuleListener
     public void onRestaurantUpdated(RestaurantUpdatedEvent event) {
         logger.debug("Restaurant Updated Event");
         projector.projectUpdatedRestaurant(new UpdatedRestaurantProjectionCommand(

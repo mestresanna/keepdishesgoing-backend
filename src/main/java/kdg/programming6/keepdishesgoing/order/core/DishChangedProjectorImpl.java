@@ -9,6 +9,7 @@ import kdg.programming6.keepdishesgoing.order.port.in.dish.DishChangedProjector;
 import kdg.programming6.keepdishesgoing.order.port.in.dish.UnpublishDishProjectionCommand;
 import kdg.programming6.keepdishesgoing.order.port.in.dish.UpdatedDishProjectionCommand;
 import kdg.programming6.keepdishesgoing.order.port.out.*;
+import kdg.programming6.keepdishesgoing.restaurant.port.out.SaveMenuPort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -17,12 +18,14 @@ import java.util.List;
 public class DishChangedProjectorImpl implements DishChangedProjector {
     private final SaveDishProjectionPort saveDishProjectionPort;
     private final DeleteDishProjectionPort deleteDishProjectionPort;
+    private final SaveMenuProjectionPort saveMenuProjectionPort;
     private final LoadMenuProjectionPort loadMenuProjectionPort;
     private final LoadDishProjectionPort loadDishProjectionPort;
 
-    public DishChangedProjectorImpl(SaveDishProjectionPort saveDishProjectionPort, DeleteDishProjectionPort deleteDishProjectionPort, LoadMenuProjectionPort loadMenuProjectionPort,LoadDishProjectionPort loadDishProjectionPort) {
+    public DishChangedProjectorImpl(SaveDishProjectionPort saveDishProjectionPort, DeleteDishProjectionPort deleteDishProjectionPort, SaveMenuProjectionPort saveMenuProjectionPort, LoadMenuProjectionPort loadMenuProjectionPort, LoadDishProjectionPort loadDishProjectionPort) {
         this.saveDishProjectionPort = saveDishProjectionPort;
         this.deleteDishProjectionPort = deleteDishProjectionPort;
+        this.saveMenuProjectionPort = saveMenuProjectionPort;
         this.loadMenuProjectionPort = loadMenuProjectionPort;
         this.loadDishProjectionPort = loadDishProjectionPort;
     }
@@ -33,9 +36,9 @@ public class DishChangedProjectorImpl implements DishChangedProjector {
     public void projectPublishedDish(CreatedDishProjectionCommand command) {
         MenuProjection menuProjection = loadMenuProjectionPort.loadbyId(command.menuId()).orElseThrow(IllegalStateException::new);
         DishProjection dishProjection = new DishProjection(command.dishId(), command.name(), command.restaurantId(), command.type(), command.tags(), command.description(), command.price(), command.pictureUrl(), StatusDish.valueOf(command.status().toUpperCase()));
-
-        menuProjection.addDish(dishProjection);
         saveDishProjectionPort.saveDishProjection(dishProjection, menuProjection.getId());
+        menuProjection.addDish(dishProjection);
+        saveMenuProjectionPort.save(menuProjection);
     }
 
     @Override
@@ -43,6 +46,9 @@ public class DishChangedProjectorImpl implements DishChangedProjector {
     public void projectUnpublishDish(UnpublishDishProjectionCommand command) {
         DishProjection dishProjection = loadDishProjectionPort.loadbyIdByMenu(command.dishId(), command.menuId()).orElseThrow(IllegalStateException::new);
         deleteDishProjectionPort.deleteDishProjection(dishProjection, command.menuId());
+        MenuProjection menuProjection = loadMenuProjectionPort.loadbyId(command.menuId()).orElseThrow(IllegalStateException::new);
+        menuProjection.deleteDish(dishProjection);
+        saveMenuProjectionPort.save(menuProjection);
     }
 
     @Override

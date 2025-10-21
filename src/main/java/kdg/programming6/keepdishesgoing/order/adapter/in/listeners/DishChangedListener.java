@@ -10,6 +10,7 @@ import kdg.programming6.keepdishesgoing.order.port.in.dish.UpdatedDishProjection
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.event.EventListener;
+import org.springframework.modulith.events.ApplicationModuleListener;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -21,19 +22,19 @@ public class DishChangedListener {
         this.dishChangedProjector = dishChangedProjector;
     }
 
-    @EventListener(DishPublishedEvent.class)
+    @ApplicationModuleListener
     public void onDishPublished(DishPublishedEvent event) {
-        logger.debug("Dish Published Event received");
+        logger.info("Dish Published Event received");
         dishChangedProjector.projectPublishedDish(new CreatedDishProjectionCommand(event.dishId(), event.menuId(), event.name(), event.restaurantId(), event.type(), event.tags(), event.description(), event.price(), event.pictureUrl(), event.status()));
     }
 
-    @EventListener(DishUnpublishedEvent.class)
+    @ApplicationModuleListener
     public void onDishUnpublished(DishUnpublishedEvent event) {
-        logger.debug("Dish Unpublished Event received");
+        logger.info("Dish Unpublished Event received");
         dishChangedProjector.projectUnpublishDish(new UnpublishDishProjectionCommand(event.dishId(), event.menuId()));
     }
 
-    @EventListener(DishStateChangedEvent.class)
+    @ApplicationModuleListener
     public void onDishStateChanged(DishStateChangedEvent event){
         logger.debug("Dish State Changed Event received");
         dishChangedProjector.projectChangedStateDish(new UpdatedDishProjectionCommand(event.dishId(), event.state()));

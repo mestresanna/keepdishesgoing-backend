@@ -32,6 +32,12 @@ dependencies {
     implementation("org.springframework.modulith:spring-modulith-core")
     implementation("org.springframework.boot:spring-boot-starter-data-jpa")
     implementation("org.postgresql:postgresql:42.7.3")
+    implementation ("org.springframework.boot:spring-boot-starter-security")
+    implementation ("org.springframework.boot:spring-boot-starter-oauth2-resource-server")
+    testImplementation ("org.springframework.security:spring-security-test")
+    implementation ("org.apache.logging.log4j:log4j-api:2.13.3")
+    testImplementation ("org.springframework.security:spring-security-test")
+    implementation("org.springframework.modulith:spring-modulith-events-api")
 }
 
 dependencyManagement {

@@ -36,16 +36,26 @@ public class MenuProjection {
         return dishes;
     }
 
+
     public void addDish(DishProjection dishProjection) {
+        if (dishProjection == null) {
+            throw new IllegalArgumentException("DishProjection cannot be null");}
         if (dishes == null) {
-            dishes = new ArrayList<>();
+            dishes = new ArrayList<>();}
+        boolean exists = dishes.stream()
+                .anyMatch(d -> d.getDishId().equals(dishProjection.getDishId()));
+        if (exists) {
+            // Optional: log a warning or update existing dish if needed
+            return;
         }
         dishes.add(dishProjection);
     }
 
     public void deleteDish(DishProjection dishProjection) {
-        if (dishes != null) {
-            dishes.remove(dishProjection);
+        if (dishProjection == null || dishes == null || dishes.isEmpty()) {
+            return;
         }
+        boolean removed = dishes.removeIf(d -> d.getDishId().equals(dishProjection.getDishId()));
     }
+
 }

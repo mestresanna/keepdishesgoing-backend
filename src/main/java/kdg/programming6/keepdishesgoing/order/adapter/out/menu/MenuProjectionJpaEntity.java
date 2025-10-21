@@ -21,7 +21,7 @@ public class MenuProjectionJpaEntity {
     @Column(name = "avg_price")
     private Double avgPrice;
 
-    @OneToMany(mappedBy = "menu", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "menu", cascade = CascadeType.ALL, orphanRemoval = false, fetch = FetchType.EAGER)
     private List<DishProjectionJpaEntity> dishes = new ArrayList<>();
 
     protected MenuProjectionJpaEntity() {}
