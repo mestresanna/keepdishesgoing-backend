@@ -1,35 +1,36 @@
 package kdg.programming6.keepdishesgoing.order.domain.projections;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
 public class MenuProjection {
     private UUID id;
-    private UUID restaurantId;
+    private RestaurantProjectionId restaurantId;
     private List<DishProjection> dishes;
-    private Double avgPrice;
+    private BigDecimal avgPrice;
 
-    public MenuProjection(UUID id, UUID restaurantId, List<DishProjection> dishes, Double avgPrice) {
+    public MenuProjection(UUID id, RestaurantProjectionId restaurantId, List<DishProjection> dishes, BigDecimal avgPrice) {
         this.id = id;
         this.restaurantId = restaurantId;
         this.dishes = dishes;
         this.avgPrice = avgPrice;
     }
-    public MenuProjection(UUID id, UUID restaurantId, Double avgPrice) {
+    public MenuProjection(UUID id, RestaurantProjectionId restaurantId, BigDecimal avgPrice) {
         this.id = id;
         this.restaurantId = restaurantId;
         this.avgPrice = avgPrice;
     }
 
-    public Double getAvgPrice() {
+    public BigDecimal getAvgPrice() {
         return avgPrice;
     }
 
     public UUID getId() {
         return id;
     }
-    public UUID getRestaurantId() {
+    public RestaurantProjectionId getRestaurantId() {
         return restaurantId;
     }
     public List<DishProjection> getDishes() {

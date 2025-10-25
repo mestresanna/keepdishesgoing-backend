@@ -4,6 +4,7 @@ import kdg.programming6.keepdishesgoing.common.vo.FoodTag;
 import kdg.programming6.keepdishesgoing.restaurant.domain.ov.DishId;
 import kdg.programming6.keepdishesgoing.restaurant.domain.ov.RestaurantId;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
@@ -17,13 +18,13 @@ public class Dish {
     private DishType type;
     private Set<FoodTag> tags;
     private String description;
-    private Float price;
+    private BigDecimal price;
     private String pictureUrl;
     private DishState state;
     private final List<DomainEvent> domainEvents = new ArrayList<>();
     private final List<DomainEvent> uncommittedEvents = new ArrayList<>();
 
-    public Dish(DishId id, String name,RestaurantId restaurantId, DishType type, Set<FoodTag> tags, String description, Float price, String pictureUrl, DishState state) {
+    public Dish(DishId id, String name, RestaurantId restaurantId, DishType type, Set<FoodTag> tags, String description, BigDecimal price, String pictureUrl, DishState state) {
         this.id = id;
         this.name = name;
         this.restaurantId = restaurantId;
@@ -35,10 +36,10 @@ public class Dish {
         this.state = state;
     }
 
-    public static Dish create(String name,RestaurantId restaurantId, DishType type, Set<FoodTag> tags, String description, Float price, String pictureUrl, DishState state){
+    public static Dish create(String name, RestaurantId restaurantId, DishType type, Set<FoodTag> tags, String description, BigDecimal price, String pictureUrl, DishState state){
         return new Dish(new DishId(UUID.randomUUID()), name, restaurantId, type, tags, description, price, pictureUrl, state);
     }
-    public static Dish rehydrate(DishId dishId, String name, RestaurantId restaurantId, DishType type, Set<FoodTag> tags, String description, Float price, String pictureUrl, DishState state){
+    public static Dish rehydrate(DishId dishId, String name, RestaurantId restaurantId, DishType type, Set<FoodTag> tags, String description, BigDecimal price, String pictureUrl, DishState state){
         return new Dish(dishId, name, restaurantId, type, tags, description, price, pictureUrl, state);
     }
 
@@ -66,7 +67,7 @@ public class Dish {
         return restaurantId;
     }
 
-    public Float getPrice() {
+    public BigDecimal getPrice() {
         return price;
     }
 
@@ -123,7 +124,7 @@ public class Dish {
         this.state = DishState.PUBLISHED;
     }
 
-    public void editAsDraft(String newName, String newDescription, Float newPrice, String newPictureUrl, DishType newType, Set<FoodTag> newtags) {
+    public void editAsDraft(String newName, String newDescription, BigDecimal newPrice, String newPictureUrl, DishType newType, Set<FoodTag> newtags) {
         if (state == DishState.PUBLISHED) {
             this.name = newName;
             this.description = newDescription;

@@ -8,7 +8,7 @@ import java.time.LocalTime;
 import java.util.UUID;
 
 public class RestaurantProjection {
-    private UUID restaurantId;
+    private RestaurantProjectionId restaurantId;
     private UUID owner;
     private String name;
 
@@ -23,7 +23,7 @@ public class RestaurantProjection {
     private int defaultPreparationTimeInMinutes;
     private String priceRange;
 
-    public RestaurantProjection(UUID restaurantId, UUID owner, String name, String street, int number, String city, String country, String pictureUrls, OpeningHoursProjection openingHours, String typeOfCuisine, String contactEmail, int defaultPreparationTimeInMinutes, String priceRange) {
+    public RestaurantProjection(RestaurantProjectionId restaurantId, UUID owner, String name, String street, int number, String city, String country, String pictureUrls, OpeningHoursProjection openingHours, String typeOfCuisine, String contactEmail, int defaultPreparationTimeInMinutes, String priceRange) {
         this.restaurantId = restaurantId;
         this.owner = owner;
         this.name = name;
@@ -87,7 +87,7 @@ public class RestaurantProjection {
         return owner;
     }
 
-    public UUID getRestaurantId() {
+    public RestaurantProjectionId getRestaurantId() {
         return restaurantId;
     }
 

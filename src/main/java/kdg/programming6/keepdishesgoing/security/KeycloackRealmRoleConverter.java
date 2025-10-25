@@ -1,4 +1,4 @@
-package kdg.programming6.keepdishesgoing.Security;
+package kdg.programming6.keepdishesgoing.security;
 
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.security.core.GrantedAuthority;

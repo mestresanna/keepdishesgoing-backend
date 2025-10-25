@@ -3,13 +3,13 @@ package kdg.programming6.keepdishesgoing.order.core;
 import jakarta.transaction.Transactional;
 import kdg.programming6.keepdishesgoing.order.domain.projections.DishProjection;
 import kdg.programming6.keepdishesgoing.order.domain.projections.MenuProjection;
+import kdg.programming6.keepdishesgoing.order.domain.projections.RestaurantProjectionId;
 import kdg.programming6.keepdishesgoing.order.domain.projections.StatusDish;
 import kdg.programming6.keepdishesgoing.order.port.in.dish.CreatedDishProjectionCommand;
 import kdg.programming6.keepdishesgoing.order.port.in.dish.DishChangedProjector;
 import kdg.programming6.keepdishesgoing.order.port.in.dish.UnpublishDishProjectionCommand;
 import kdg.programming6.keepdishesgoing.order.port.in.dish.UpdatedDishProjectionCommand;
 import kdg.programming6.keepdishesgoing.order.port.out.*;
-import kdg.programming6.keepdishesgoing.restaurant.port.out.SaveMenuPort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -35,7 +35,7 @@ public class DishChangedProjectorImpl implements DishChangedProjector {
     @Transactional
     public void projectPublishedDish(CreatedDishProjectionCommand command) {
         MenuProjection menuProjection = loadMenuProjectionPort.loadbyId(command.menuId()).orElseThrow(IllegalStateException::new);
-        DishProjection dishProjection = new DishProjection(command.dishId(), command.name(), command.restaurantId(), command.type(), command.tags(), command.description(), command.price(), command.pictureUrl(), StatusDish.valueOf(command.status().toUpperCase()));
+        DishProjection dishProjection = new DishProjection(command.dishId(), command.name(), new RestaurantProjectionId(command.restaurantId()), command.type(), command.tags(), command.description(), command.price(), command.pictureUrl(), StatusDish.valueOf(command.status().toUpperCase()));
         saveDishProjectionPort.saveDishProjection(dishProjection, menuProjection.getId());
         menuProjection.addDish(dishProjection);
         saveMenuProjectionPort.save(menuProjection);

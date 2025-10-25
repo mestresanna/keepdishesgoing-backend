@@ -1,12 +1,13 @@
 package kdg.programming6.keepdishesgoing.order.adapter.in.dto;
 
+import java.math.BigDecimal;
 import java.util.Set;
 
 public record DishProjectionDto(
         String dishId,
         String name,
         String description,
-        Float price,
+        BigDecimal price,
         String pictureUrl,
         String type,
         Set<String> tags

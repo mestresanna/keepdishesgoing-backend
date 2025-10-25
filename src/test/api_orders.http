@@ -3,7 +3,7 @@ GET http://localhost:8080/api/orders/restaurants
 Accept: application/json
 
 ### Get a restaurant with its details
-GET http://localhost:8080/api/orders/restaurants/03080bb4-f5c9-464e-bf00-217d045af233
+GET http://localhost:8080/api/orders/restaurants/1b918dcd-d3f0-4e32-977f-da2b8855a15d
 Accept: application/json
 
 ### Filter restaurants by cuisine and price
@@ -17,3 +17,14 @@ Accept: application/json
 ### Get vegan desserts sorted by name descending
 GET http://localhost:8080/api/orders/dishes/03080bb4-f5c9-464e-bf00-217d045af233/filter?type=entree&tags=&sortBy=name&direction=desc
 Accept: application/json
+
+### Add a dish to a basket
+PATCH  http://localhost:8080/api/orders/basket/9e559a19-e602-48aa-8d04-2e4cd55db725/items
+Content-Type: application/json
+
+{
+  "menuId": "737d691d-a14a-4bfe-bbad-51d407a0f79d",
+  "dishId": "6ac75718-d5cb-42f7-b3e3-65394050fc93",
+  "restaurantId": "1b918dcd-d3f0-4e32-977f-da2b8855a15d",
+  "quantity": 1
+}

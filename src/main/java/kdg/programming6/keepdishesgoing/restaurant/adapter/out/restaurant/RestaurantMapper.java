@@ -1,6 +1,7 @@
 package kdg.programming6.keepdishesgoing.restaurant.adapter.out.restaurant;
 
 import com.fasterxml.jackson.core.type.TypeReference;
+import kdg.programming6.keepdishesgoing.common.Address;
 import kdg.programming6.keepdishesgoing.common.vo.TimeRange;
 import kdg.programming6.keepdishesgoing.restaurant.domain.ov.*;
 import com.fasterxml.jackson.databind.ObjectMapper;

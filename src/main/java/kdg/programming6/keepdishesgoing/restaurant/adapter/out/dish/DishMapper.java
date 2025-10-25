@@ -21,7 +21,7 @@ public class DishMapper {
         entity.setName(dish.getName());
         entity.setDescription(dish.getDescription());
         entity.setType(dish.getType().name());
-        entity.setPrice(BigDecimal.valueOf(dish.getPrice()));
+        entity.setPrice(dish.getPrice());
         entity.setPictureUrl(dish.getPictureUrl());
         entity.setState(dish.getState().name());
         if (dish.getTags() != null) {
@@ -52,7 +52,7 @@ public class DishMapper {
                     DishType.valueOf(entity.getType()),
                     tags,
                     entity.getDescription(),
-                    entity.getPrice().floatValue(),
+                    entity.getPrice(),
                     entity.getPictureUrl(),
                     DishState.valueOf(entity.getState())
             );
@@ -64,7 +64,7 @@ public class DishMapper {
                 DishType.valueOf(entity.getType()),
                 tags,
                 entity.getDescription(),
-                entity.getPrice().floatValue(),
+                entity.getPrice(),
                 entity.getPictureUrl(),
                 DishState.valueOf(entity.getState())
         );

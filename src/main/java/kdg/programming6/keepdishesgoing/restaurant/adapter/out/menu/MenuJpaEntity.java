@@ -3,6 +3,7 @@ package kdg.programming6.keepdishesgoing.restaurant.adapter.out.menu;
 import jakarta.persistence.*;
 import kdg.programming6.keepdishesgoing.restaurant.adapter.out.dish.DishJpaEntity;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -16,16 +17,16 @@ public class MenuJpaEntity {
     @Column(nullable = false)
     private UUID restaurantId;
 
-    private Double avgPrice;
+    private BigDecimal avgPrice;
 
     @OneToMany(mappedBy = "menu", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<DishesInMenuJpaEntity> menuDishes = new ArrayList<>();
 
-    public Double getAvgPrice() {
+    public BigDecimal getAvgPrice() {
         return avgPrice;
     }
 
-    public void setAvgPrice(Double avgPrice) {
+    public void setAvgPrice(BigDecimal avgPrice) {
         this.avgPrice = avgPrice;
     }
 

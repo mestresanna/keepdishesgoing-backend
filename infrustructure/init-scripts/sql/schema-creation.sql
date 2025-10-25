@@ -29,7 +29,7 @@ DROP TABLE orders.menu_projections;
 CREATE TABLE orders.menu_projections (
                                          menu_id UUID PRIMARY KEY,
                                          restaurant_id UUID NOT NULL,
-                                         avg_price DOUBLE PRECISION
+                                         avg_price NUMERIC
 );
 DROP TABLE orders.dish_projections;
 CREATE TABLE orders.dish_projections (
@@ -39,7 +39,7 @@ CREATE TABLE orders.dish_projections (
                                          name VARCHAR(255),
                                          type VARCHAR(100),
                                          description TEXT,
-                                         price REAL,
+                                         price NUMERIC,
                                          picture_url VARCHAR(500),
                                          status VARCHAR(50),
                                          PRIMARY KEY (menu_id, dish_id),
@@ -60,6 +60,62 @@ CREATE TABLE orders.food_tags (
                                           ON DELETE CASCADE
 );
 
+
+DROP TABLE orders.baskets;
+CREATE TABLE orders.baskets (
+                                basket_id UUID PRIMARY KEY,
+                                restaurant_id UUID NOT NULL,
+                                total_price NUMERIC(12,2),
+                                status VARCHAR(50),
+                                message TEXT
+);
+DROP TABLE orders.basket_items;
+CREATE TABLE orders.basket_items (
+                                     basket_id UUID NOT NULL,
+                                     dish_id UUID NOT NULL,
+                                     menu_id UUID NOT NULL,
+                                     price_at_add NUMERIC(12,2) NOT NULL,
+                                     quantity INTEGER NOT NULL,
+                                     PRIMARY KEY (basket_id, dish_id),
+                                     CONSTRAINT fk_basket FOREIGN KEY (basket_id)
+                                         REFERENCES orders.baskets (basket_id)
+                                         ON DELETE CASCADE
+);
+DROP TABLE orders.orders;
+-- orders table (placed orders; snapshots)
+CREATE TABLE orders.orders (
+                               order_id UUID PRIMARY KEY,
+                               basket_id UUID NOT NULL,
+                               message TEXT,
+                               total_price NUMERIC(12,2),
+                               status VARCHAR(50),
+                               created_at TIMESTAMP WITH TIME ZONE DEFAULT now(),
+    -- customer fields flattened
+                               customer_first_name VARCHAR(200),
+                               customer_last_name VARCHAR(200),
+                               customer_email VARCHAR(255),
+                               delivery_street VARCHAR(255),
+                               delivery_number VARCHAR(50),
+                               delivery_postal_code VARCHAR(50),
+                               delivery_city VARCHAR(200),
+                               delivery_country VARCHAR(200)
+);
+DROP TABLE orders.order_items;
+-- order_items table (snapshot of basket items at checkout)
+CREATE TABLE orders.order_items (
+                                    order_item_id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+                                    order_id UUID NOT NULL,
+                                    dish_id UUID,
+                                    name VARCHAR(255),
+                                    price NUMERIC(12,2) NOT NULL,
+                                    quantity INT NOT NULL,
+                                    CONSTRAINT fk_order_items_order FOREIGN KEY (order_id) REFERENCES orders.orders(order_id) ON DELETE CASCADE
+);
+
+-- Optional indexes
+CREATE INDEX idx_baskets_restaurant ON orders.baskets (restaurant_id);
+CREATE INDEX idx_basket_items_basket ON orders.basket_items (basket_id);
+CREATE INDEX idx_order_items_order ON orders.order_items (order_id);
 
 -- Schema Restaurant
 
@@ -91,7 +147,7 @@ DROP TABLE restaurant.menus;
 CREATE TABLE restaurant.menus (
                                 menu_id UUID PRIMARY KEY,
                                 restaurant_id UUID NOT NULL,
-                                avg_price float
+                                avg_price NUMERIC
 );
 DROP TABLE restaurant.menu_dishes;
 CREATE TABLE restaurant.menu_dishes (

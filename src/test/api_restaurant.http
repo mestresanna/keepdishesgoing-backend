@@ -86,7 +86,7 @@ Authorization: Bearer {{access_token}}
 }
 
 ### Publish a dish
-POST http://localhost:8080/api/dishes/2b197fda-85e3-4f47-a040-47031a849ae3/publish HTTP/1.1
+POST http://localhost:8080/api/dishes/6ac75718-d5cb-42f7-b3e3-65394050fc93/publish HTTP/1.1
 Authorization: Bearer {{access_token}}
 
 ### Unpublish a dish

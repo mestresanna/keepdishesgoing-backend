@@ -3,6 +3,7 @@ package kdg.programming6.keepdishesgoing.order.adapter.out.dish;
 import jakarta.persistence.*;
 import kdg.programming6.keepdishesgoing.order.adapter.out.menu.MenuProjectionJpaEntity;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -25,7 +26,7 @@ public class DishProjectionJpaEntity {
     private String name;
     private String type;
     private String description;
-    private Float price;
+    private BigDecimal price;
     private String pictureUrl;
 
     private String status;
@@ -36,7 +37,7 @@ public class DishProjectionJpaEntity {
 
     public DishProjectionJpaEntity() {}
 
-    public DishProjectionJpaEntity(DishProjectionId id, MenuProjectionJpaEntity menu, UUID restaurantId, String name, String type, String description, Float price, String pictureUrl, String status, List<FoodTagProjectionJpaEntity> foodTags) {
+    public DishProjectionJpaEntity(DishProjectionId id, MenuProjectionJpaEntity menu, UUID restaurantId, String name, String type, String description, BigDecimal price, String pictureUrl, String status, List<FoodTagProjectionJpaEntity> foodTags) {
         this.id = id;
         this.menu = menu;
         this.restaurantId = restaurantId;
@@ -56,7 +57,7 @@ public class DishProjectionJpaEntity {
     public String getName() { return name; }
     public String getType() { return type; }
     public String getDescription() { return description; }
-    public Float getPrice() { return price; }
+    public BigDecimal getPrice() { return price; }
     public String getPictureUrl() { return pictureUrl; }
     public String getStatus() { return status; }
     public UUID getRestaurantId() {return restaurantId;}
@@ -84,7 +85,7 @@ public class DishProjectionJpaEntity {
         this.description = description;
     }
 
-    public void setPrice(Float price) {
+    public void setPrice(BigDecimal price) {
         this.price = price;
     }
 

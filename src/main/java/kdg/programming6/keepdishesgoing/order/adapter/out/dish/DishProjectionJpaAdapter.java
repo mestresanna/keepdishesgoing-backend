@@ -70,7 +70,7 @@ public class DishProjectionJpaAdapter implements SaveDishProjectionPort, DeleteD
 
         dish.setId(dishId);
         dish.setMenu(menu);
-        dish.setRestaurantId(dishProjection.getRestaurantId());
+        dish.setRestaurantId(dishProjection.getRestaurantId().restaurantId());
         dish.setName(dishProjection.getName());
         dish.setType(dishProjection.getType());
         dish.setDescription(dishProjection.getDescription());

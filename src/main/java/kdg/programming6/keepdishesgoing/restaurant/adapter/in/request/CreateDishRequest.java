@@ -5,6 +5,7 @@ import kdg.programming6.keepdishesgoing.restaurant.domain.*;
 import kdg.programming6.keepdishesgoing.restaurant.domain.ov.RestaurantId;
 import kdg.programming6.keepdishesgoing.restaurant.port.in.CreateDishCommand;
 
+import java.math.BigDecimal;
 import java.util.Set;
 import java.util.UUID;
 
@@ -13,7 +14,7 @@ public record CreateDishRequest(
         String type,
         Set<String> tags,
         String description,
-        Float price,
+        BigDecimal price,
         String pictureUrl,
         String state
 ) {

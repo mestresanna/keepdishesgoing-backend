@@ -4,6 +4,7 @@ import kdg.programming6.keepdishesgoing.common.vo.FoodTag;
 import kdg.programming6.keepdishesgoing.restaurant.domain.DishState;
 import kdg.programming6.keepdishesgoing.restaurant.domain.DishType;
 
+import java.math.BigDecimal;
 import java.util.Set;
 import java.util.UUID;
 import java.util.stream.Collectors;
@@ -11,15 +12,15 @@ import java.util.stream.Collectors;
 public class DishProjection {
     UUID dishId;
     String name;
-    UUID restaurantId;
+    RestaurantProjectionId restaurantId;
     String type;
     Set<FoodTag> tags;
     String description;
-    Float price;
+    BigDecimal price;
     String pictureUrl;
     StatusDish status;
 
-    public DishProjection(UUID dishId, String name, UUID restaurantId, String type, Set<FoodTag> tags, String description, Float price, String pictureUrl, StatusDish status) {
+    public DishProjection(UUID dishId, String name, RestaurantProjectionId restaurantId, String type, Set<FoodTag> tags, String description, BigDecimal price, String pictureUrl, StatusDish status) {
         this.dishId = dishId;
         this.name = name;
         this.restaurantId = restaurantId;
@@ -43,7 +44,7 @@ public class DishProjection {
         return name;
     }
 
-    public UUID getRestaurantId() {
+    public RestaurantProjectionId getRestaurantId() {
         return restaurantId;
     }
 
@@ -59,7 +60,7 @@ public class DishProjection {
         return description;
     }
 
-    public Float getPrice() {
+    public BigDecimal getPrice() {
         return price;
     }
 

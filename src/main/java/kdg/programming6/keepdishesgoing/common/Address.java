@@ -1,4 +1,4 @@
-package kdg.programming6.keepdishesgoing.restaurant.domain.ov;
+package kdg.programming6.keepdishesgoing.common;
 
 public record Address(String street, int number, String city, String country) {
 }

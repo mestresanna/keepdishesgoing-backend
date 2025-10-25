@@ -13,5 +13,4 @@ public interface DishProjectionJpaRepository extends JpaRepository<DishProjectio
     Optional<DishProjectionJpaEntity> findById(DishProjectionId dishId);
     List<DishProjectionJpaEntity> findById_DishId(UUID dishId);
     List<DishProjectionJpaEntity> findById_MenuId(UUID menuId);
-
 }

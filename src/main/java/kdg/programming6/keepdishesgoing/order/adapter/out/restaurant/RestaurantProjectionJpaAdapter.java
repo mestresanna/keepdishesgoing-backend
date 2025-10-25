@@ -2,6 +2,7 @@ package kdg.programming6.keepdishesgoing.order.adapter.out.restaurant;
 
 import kdg.programming6.keepdishesgoing.order.adapter.out.mapper.OpeningHoursProjectionMapper;
 import kdg.programming6.keepdishesgoing.order.domain.projections.RestaurantProjection;
+import kdg.programming6.keepdishesgoing.order.domain.projections.RestaurantProjectionId;
 import kdg.programming6.keepdishesgoing.order.port.out.LoadRestaurantsProjectionsPort;
 import kdg.programming6.keepdishesgoing.order.port.out.SaveRestaurantProjectionPort;
 import org.springframework.stereotype.Repository;
@@ -24,7 +25,7 @@ public class RestaurantProjectionJpaAdapter implements SaveRestaurantProjectionP
     public RestaurantProjection save(RestaurantProjection restaurantProjection) {
 
         RestaurantProjectionEntity restaurantProjectionEntity = new RestaurantProjectionEntity(
-                restaurantProjection.getRestaurantId(),
+                restaurantProjection.getRestaurantId().restaurantId(),
                 restaurantProjection.getOwner(),
                 restaurantProjection.getName(),
                 restaurantProjection.getStreet(),
@@ -58,7 +59,7 @@ public class RestaurantProjectionJpaAdapter implements SaveRestaurantProjectionP
     @Override
     public List<RestaurantProjection> loadAllRestaurants() {
         return restaurantProjectionJpaRepository.findAll().stream().map(entity -> new RestaurantProjection(
-                entity.getRestaurantId(),
+                new RestaurantProjectionId(entity.getRestaurantId()),
                 entity.getOwnerId(),
                 entity.getName(),
                 entity.getStreet(),
@@ -76,7 +77,7 @@ public class RestaurantProjectionJpaAdapter implements SaveRestaurantProjectionP
     @Override
     public Optional<RestaurantProjection> loadbyId(UUID restaurantId) {
         return restaurantProjectionJpaRepository.findByRestaurantId(restaurantId).map(entity -> new RestaurantProjection(
-                entity.getRestaurantId(),
+                new RestaurantProjectionId(entity.getRestaurantId()),
                 entity.getOwnerId(),
                 entity.getName(),
                 entity.getStreet(),

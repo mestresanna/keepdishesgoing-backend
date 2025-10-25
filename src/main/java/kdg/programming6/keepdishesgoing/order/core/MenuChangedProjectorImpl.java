@@ -2,6 +2,7 @@ package kdg.programming6.keepdishesgoing.order.core;
 
 import jakarta.transaction.Transactional;
 import kdg.programming6.keepdishesgoing.order.domain.projections.MenuProjection;
+import kdg.programming6.keepdishesgoing.order.domain.projections.RestaurantProjectionId;
 import kdg.programming6.keepdishesgoing.order.port.in.menu.CreatedMenuProjectionCommand;
 import kdg.programming6.keepdishesgoing.order.port.in.menu.MenuChangedProjector;
 import kdg.programming6.keepdishesgoing.order.port.in.menu.UpdatedMenuProjectionCommand;
@@ -24,7 +25,7 @@ public class MenuChangedProjectorImpl implements MenuChangedProjector {
     public void projectCreatedMenu(CreatedMenuProjectionCommand command) {
         logger.debug("Projecting created menu");
         MenuProjection menu = new MenuProjection(
-                command.id(), command.restaurantId(), null, 0.0
+                command.id(), new RestaurantProjectionId(command.restaurantId()), null, null
         );
         saveMenuProjectionPort.save(menu);
     }
@@ -34,7 +35,7 @@ public class MenuChangedProjectorImpl implements MenuChangedProjector {
     public void projectUpdatedMenu(UpdatedMenuProjectionCommand command) {
         logger.debug("Projecting updated menu");
         MenuProjection menu = new MenuProjection(
-                command.id(), command.restaurantId(), command.avgPrice()
+                command.id(), new RestaurantProjectionId(command.restaurantId()), command.avgPrice()
         );
         saveMenuProjectionPort.save(menu);
     }

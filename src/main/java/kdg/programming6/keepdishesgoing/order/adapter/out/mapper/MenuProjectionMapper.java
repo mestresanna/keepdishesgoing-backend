@@ -5,6 +5,7 @@ import kdg.programming6.keepdishesgoing.order.adapter.out.mapper.DishProjectionM
 import kdg.programming6.keepdishesgoing.order.adapter.out.menu.MenuProjectionJpaEntity;
 import kdg.programming6.keepdishesgoing.order.domain.projections.DishProjection;
 import kdg.programming6.keepdishesgoing.order.domain.projections.MenuProjection;
+import kdg.programming6.keepdishesgoing.order.domain.projections.RestaurantProjectionId;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -25,7 +26,7 @@ public class MenuProjectionMapper {
 
         return new MenuProjection(
                 entity.getMenuId(),
-                entity.getRestaurantId(),
+                new RestaurantProjectionId(entity.getRestaurantId()),
                 dishes,
                 entity.getAvgPrice()
         );
@@ -36,7 +37,7 @@ public class MenuProjectionMapper {
 
         MenuProjectionJpaEntity entity = new MenuProjectionJpaEntity(
                 domain.getId(),
-                domain.getRestaurantId(),
+                domain.getRestaurantId().restaurantId(),
                 domain.getAvgPrice()
         );
 

@@ -5,6 +5,8 @@ import kdg.programming6.keepdishesgoing.common.events.MenuCreatedEvent;
 import kdg.programming6.keepdishesgoing.common.events.MenuUpdatedEvent;
 import kdg.programming6.keepdishesgoing.restaurant.domain.ov.RestaurantId;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -13,7 +15,7 @@ public class Menu {
     private UUID id;
     private RestaurantId restaurantId;
     private List<Dish> dishes;
-    private Double avgPrice;
+    private BigDecimal avgPrice;
 
     private final List<DomainEvent> domainEvents = new ArrayList<>();
 
@@ -53,15 +55,24 @@ public class Menu {
         }
     }
 
-    public Double updateAvgPrice() {
-        this.avgPrice = this.getDishes().stream()
-                .mapToDouble(Dish::getPrice)
-                .average()
-                .orElse(0.0);
-        return avgPrice;
+
+    public BigDecimal updateAvgPrice() {
+        if (this.getDishes() == null || this.getDishes().isEmpty()) {
+            this.avgPrice = BigDecimal.ZERO;
+            return this.avgPrice;
+        }
+
+        BigDecimal total = this.getDishes().stream()
+                .map(Dish::getPrice)
+                .reduce(BigDecimal.ZERO, BigDecimal::add); // sum of prices
+
+        int count = this.getDishes().size();
+
+        this.avgPrice = total.divide(BigDecimal.valueOf(count), 2, RoundingMode.HALF_UP);
+        return this.avgPrice;
     }
 
-    public Double getAvgPrice() {
+    public BigDecimal getAvgPrice() {
         return avgPrice;
     }
 
