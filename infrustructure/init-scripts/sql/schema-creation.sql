@@ -9,7 +9,6 @@ CREATE SCHEMA orders AUTHORIZATION kdg;
 
 ALTER DEFAULT PRIVILEGES IN SCHEMA orders
     GRANT ALL PRIVILEGES ON TABLES TO kdg;
-DROP TABLE orders.restaurant_projection;
 CREATE TABLE orders.restaurant_projection (
                                               restaurant_id UUID PRIMARY KEY,
                                               owner_id UUID NOT NULL,
@@ -25,13 +24,11 @@ CREATE TABLE orders.restaurant_projection (
                                               default_preparation_time_in_minutes INT,
                                               price_range VARCHAR(50)
 );
-DROP TABLE orders.menu_projections;
 CREATE TABLE orders.menu_projections (
                                          menu_id UUID PRIMARY KEY,
                                          restaurant_id UUID NOT NULL,
                                          avg_price NUMERIC
 );
-DROP TABLE orders.dish_projections;
 CREATE TABLE orders.dish_projections (
                                          menu_id UUID NOT NULL,
                                          dish_id UUID NOT NULL,
@@ -48,7 +45,6 @@ CREATE TABLE orders.dish_projections (
                                                  REFERENCES orders.menu_projections(menu_id)
                                                  ON DELETE CASCADE
 );
-DROP TABLE orders.food_tags;
 CREATE TABLE orders.food_tags (
                                   id UUID PRIMARY KEY,
                                   name VARCHAR(100) NOT NULL,
@@ -61,7 +57,6 @@ CREATE TABLE orders.food_tags (
 );
 
 
-DROP TABLE orders.baskets;
 CREATE TABLE orders.baskets (
                                 basket_id UUID PRIMARY KEY,
                                 restaurant_id UUID NOT NULL,
@@ -69,7 +64,6 @@ CREATE TABLE orders.baskets (
                                 status VARCHAR(50),
                                 message TEXT
 );
-DROP TABLE orders.basket_items;
 CREATE TABLE orders.basket_items (
                                      basket_id UUID NOT NULL,
                                      dish_id UUID NOT NULL,
@@ -81,7 +75,10 @@ CREATE TABLE orders.basket_items (
                                          REFERENCES orders.baskets (basket_id)
                                          ON DELETE CASCADE
 );
-DROP TABLE orders.orders;
+
+
+-- Create index for faster queries
+CREATE INDEX idx_order_items_order_id ON orders.order_items(order_id);
 -- orders table (placed orders; snapshots)
 CREATE TABLE orders.orders (
                                order_id UUID PRIMARY KEY,
@@ -95,22 +92,31 @@ CREATE TABLE orders.orders (
                                customer_last_name VARCHAR(200),
                                customer_email VARCHAR(255),
                                delivery_street VARCHAR(255),
-                               delivery_number VARCHAR(50),
+                               delivery_number INTEGER,
                                delivery_postal_code VARCHAR(50),
                                delivery_city VARCHAR(200),
-                               delivery_country VARCHAR(200)
+                               delivery_country VARCHAR(200),
+                               restaurant_id UUID NOT NULL
 );
-DROP TABLE orders.order_items;
--- order_items table (snapshot of basket items at checkout)
+
+
+-- Create order_items table
 CREATE TABLE orders.order_items (
                                     order_item_id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
                                     order_id UUID NOT NULL,
-                                    dish_id UUID,
-                                    name VARCHAR(255),
-                                    price NUMERIC(12,2) NOT NULL,
-                                    quantity INT NOT NULL,
-                                    CONSTRAINT fk_order_items_order FOREIGN KEY (order_id) REFERENCES orders.orders(order_id) ON DELETE CASCADE
+                                    menu_id UUID NOT NULL,
+                                    dish_id UUID NOT NULL,
+                                    price_at_order NUMERIC(12,2) NOT NULL,
+                                    quantity INTEGER NOT NULL,
+                                    CONSTRAINT fk_order
+                                        FOREIGN KEY (order_id)
+                                            REFERENCES orders.orders(order_id)
+                                            ON DELETE CASCADE
 );
+
+-- Create index for faster queries
+CREATE INDEX idx_order_items_order_id ON orders.order_items(order_id);
+
 
 -- Optional indexes
 CREATE INDEX idx_baskets_restaurant ON orders.baskets (restaurant_id);
@@ -143,21 +149,11 @@ CREATE TABLE restaurant.restaurants (
                              price_range VARCHAR
 );
 
-DROP TABLE restaurant.menus;
 CREATE TABLE restaurant.menus (
                                 menu_id UUID PRIMARY KEY,
                                 restaurant_id UUID NOT NULL,
                                 avg_price NUMERIC
 );
-DROP TABLE restaurant.menu_dishes;
-CREATE TABLE restaurant.menu_dishes (
-                                        menu_id UUID REFERENCES restaurant.menus(menu_id) ON DELETE CASCADE,
-                                        dish_id UUID REFERENCES restaurant.dishes(id),
-                                        PRIMARY KEY (menu_id, dish_id),
-                                            FOREIGN KEY (menu_id) REFERENCES restaurant.menus(menu_id),
-                                            FOREIGN KEY (dish_id) REFERENCES restaurant.dishes(id)
-);
-DROP TABLE restaurant.dishes;
 CREATE TABLE restaurant.dishes (
                                    id UUID PRIMARY KEY,
                                    restaurant_id UUID NOT NULL,
@@ -170,7 +166,14 @@ CREATE TABLE restaurant.dishes (
                                    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
                                    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
-DROP TABLE restaurant.food_tags;
+CREATE TABLE restaurant.menu_dishes (
+                                        menu_id UUID REFERENCES restaurant.menus(menu_id) ON DELETE CASCADE,
+                                        dish_id UUID REFERENCES restaurant.dishes(id),
+                                        PRIMARY KEY (menu_id, dish_id),
+                                            FOREIGN KEY (menu_id) REFERENCES restaurant.menus(menu_id),
+                                            FOREIGN KEY (dish_id) REFERENCES restaurant.dishes(id)
+);
+
 CREATE TABLE restaurant.food_tags (
                                       id UUID PRIMARY KEY,
                                       dish_id UUID NOT NULL,
