@@ -1,16 +1,21 @@
 package kdg.programming6.keepdishesgoing.order.domain;
 
 import kdg.programming6.keepdishesgoing.common.events.DomainEvent;
+import kdg.programming6.keepdishesgoing.common.events.OrderCreatedEvent;
+import kdg.programming6.keepdishesgoing.common.vo.OrderItemDto;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 public class Order {
-    UUID orderId;
-    Basket basket;
-    Customer customer;
-    String message;
+    private UUID orderId;
+    private Basket basket;
+    private Customer customer;
+    private String message;
+    private OrderStatus status;
+    private String rejectionReason;
 
     private final List<DomainEvent> domainEvents = new ArrayList<>();
 
@@ -19,6 +24,36 @@ public class Order {
         this.basket = basket;
         this.customer = customer;
         this.message = message;
+        this.status = OrderStatus.PENDING; // Initial status
+        this.addDomainEvent(createOrderCreatedEvent());
+    }
+
+    private OrderCreatedEvent createOrderCreatedEvent() {
+        List<OrderItemDto> items = basket.getItems().stream()
+                .map(item -> new OrderItemDto(
+                        item.getDishId().dishId(),
+                        item.getQuantity(),
+                        item.getPriceAtAddition()
+                ))
+                .collect(Collectors.toList());
+
+        return new OrderCreatedEvent(
+                orderId,
+                basket.getRestaurantId(),
+                null, // customerId if you have it
+                customer.getName(),
+                customer.getEmail(),
+                customer.getAddress(),
+                items,
+                basket.getTotalPrice(),
+                message
+        );
+    }
+    public void updateStatus(OrderStatus newStatus, String reason) {
+        this.status = newStatus;
+        if (newStatus == OrderStatus.REJECTED) {
+            this.rejectionReason = reason;
+        }
     }
 
     public UUID getOrderId() {
@@ -43,5 +78,11 @@ public class Order {
 
     public void addDomainEvent(DomainEvent domainEvent) {
         domainEvents.add(domainEvent);
+    }
+
+    public String getRejectionReason() { return rejectionReason; }
+
+    public void clearDomainEvents() {
+        domainEvents.clear();
     }
 }

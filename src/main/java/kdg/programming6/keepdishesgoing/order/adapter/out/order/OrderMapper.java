@@ -1,6 +1,6 @@
 package kdg.programming6.keepdishesgoing.order.adapter.out.order;
 
-import kdg.programming6.keepdishesgoing.common.Address;
+import kdg.programming6.keepdishesgoing.common.vo.Address;
 import kdg.programming6.keepdishesgoing.order.domain.Basket;
 import kdg.programming6.keepdishesgoing.order.domain.BasketItems;
 import kdg.programming6.keepdishesgoing.order.domain.BasketStatus;

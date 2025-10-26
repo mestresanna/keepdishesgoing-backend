@@ -1,13 +1,10 @@
 package kdg.programming6.keepdishesgoing.restaurant.adapter.in;
 
-import jakarta.transaction.Transactional;
-import kdg.programming6.keepdishesgoing.restaurant.domain.Dish;
 import kdg.programming6.keepdishesgoing.restaurant.domain.DishAction;
 import kdg.programming6.keepdishesgoing.restaurant.domain.ScheduledDish;
-import kdg.programming6.keepdishesgoing.restaurant.port.in.PublishDishUseCase;
-import kdg.programming6.keepdishesgoing.restaurant.port.in.ScheduleDishChangeUseCase;
-import kdg.programming6.keepdishesgoing.restaurant.port.in.UnpublishDishUseCase;
-import kdg.programming6.keepdishesgoing.restaurant.port.out.ScheduledDishChangePort;
+import kdg.programming6.keepdishesgoing.restaurant.port.in.dish.PublishDishUseCase;
+import kdg.programming6.keepdishesgoing.restaurant.port.in.dish.ScheduleDishChangeUseCase;
+import kdg.programming6.keepdishesgoing.restaurant.port.in.dish.UnpublishDishUseCase;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 

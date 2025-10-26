@@ -18,6 +18,7 @@ Authorization: Bearer {{access_token}}
   "street": "Ernest Van Dijckkaai",
   "number": 18,
   "city": "Antwerpen",
+  "postalCode": "2000",
   "country": "Belgium",
   "contactEmail": "cafeernstantwerp@gmail.com",
   "pictureUrls": "https://www.trips.beer/wp-content/uploads/2022/10/an-overview-of-the-interior-of-cafe-ernst.jpg",
@@ -64,7 +65,7 @@ Authorization: Bearer {{access_token}}
 
 {
   "name": "Pasta Carbonara",
-  "restaurantId": "4320b75b-5877-4145-803d-ddec8282336b",
+  "restaurantId": "6d488e14-cc5e-4565-a69e-d6cf2ee7b0d7",
   "type": "ENTREE",
   "tags": ["gluten", "dairy"],
   "description": "Classic creamy Italian pasta.",
@@ -89,7 +90,7 @@ Authorization: Bearer {{access_token}}
 }
 
 ### Publish a dish
-POST http://localhost:8080/api/dishes/61e3d481-8dfc-401a-9aa1-7b88aa99c716/publish HTTP/1.1
+POST http://localhost:8080/api/dishes/19d03512-0e1a-47f9-ae06-fa8dac60f5cb/publish HTTP/1.1
 Authorization: Bearer {{access_token}}
 
 ### Unpublish a dish

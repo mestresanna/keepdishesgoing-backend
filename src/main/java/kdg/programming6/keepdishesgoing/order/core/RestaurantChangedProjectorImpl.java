@@ -1,7 +1,7 @@
 package kdg.programming6.keepdishesgoing.order.core;
 
 import jakarta.transaction.Transactional;
-import kdg.programming6.keepdishesgoing.common.Address;
+import kdg.programming6.keepdishesgoing.common.vo.Address;
 import kdg.programming6.keepdishesgoing.order.domain.projections.RestaurantProjection;
 import kdg.programming6.keepdishesgoing.order.domain.projections.RestaurantProjectionId;
 import kdg.programming6.keepdishesgoing.order.port.in.restaurant.CreatedRestaurantProjectionCommand;

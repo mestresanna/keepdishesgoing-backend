@@ -11,10 +11,10 @@ import kdg.programming6.keepdishesgoing.order.port.out.LoadBasketPort;
 import kdg.programming6.keepdishesgoing.order.port.out.LoadDishProjectionPort;
 import kdg.programming6.keepdishesgoing.order.port.out.SaveBasketPort;
 import kdg.programming6.keepdishesgoing.order.port.out.SaveOrderPort;
-import kdg.programming6.keepdishesgoing.restaurant.domain.exceptions.DishNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 import java.util.stream.Collectors;
@@ -24,13 +24,13 @@ import java.util.stream.Collectors;
 public class CheckoutBasketImpl implements CheckoutBasketUseCase {
     private final LoadBasketPort loadBasketPort;
     private final LoadDishProjectionPort loadDishProjectionPort;
-    private final SaveOrderPort saveOrderPort;
+    private final List<SaveOrderPort> saveOrderPort;
     private final SaveBasketPort saveBasketPort;
 
     public CheckoutBasketImpl(
             LoadBasketPort loadBasketPort,
             LoadDishProjectionPort loadDishProjectionPort,
-            SaveOrderPort saveOrderPort,
+            List<SaveOrderPort> saveOrderPort,
             SaveBasketPort saveBasketPort) {
         this.loadBasketPort = loadBasketPort;
         this.loadDishProjectionPort = loadDishProjectionPort;
@@ -61,6 +61,6 @@ public class CheckoutBasketImpl implements CheckoutBasketUseCase {
                 command.toCustomer(),
                 command.message()
         );
-        saveOrderPort.save(order);
+        saveOrderPort.forEach( port -> port.save(order));
     }
 }

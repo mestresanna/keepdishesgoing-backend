@@ -1,4 +1,4 @@
-package kdg.programming6.keepdishesgoing.restaurant.port.in;
+package kdg.programming6.keepdishesgoing.restaurant.port.in.restaurant;
 
 import kdg.programming6.keepdishesgoing.restaurant.domain.ov.OpeningHours;
 

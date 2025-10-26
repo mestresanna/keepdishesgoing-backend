@@ -5,7 +5,7 @@ import kdg.programming6.keepdishesgoing.restaurant.adapter.in.response.Restauran
 import kdg.programming6.keepdishesgoing.restaurant.adapter.in.response.RestaurantMapperDto;
 import kdg.programming6.keepdishesgoing.restaurant.domain.ov.OpeningHours;
 import kdg.programming6.keepdishesgoing.restaurant.domain.Restaurant;
-import kdg.programming6.keepdishesgoing.restaurant.port.in.*;
+import kdg.programming6.keepdishesgoing.restaurant.port.in.restaurant.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;

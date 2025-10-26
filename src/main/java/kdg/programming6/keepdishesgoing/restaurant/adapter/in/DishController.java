@@ -5,7 +5,8 @@ import kdg.programming6.keepdishesgoing.restaurant.adapter.in.request.EditDishRe
 import kdg.programming6.keepdishesgoing.restaurant.adapter.in.response.DishDto;
 import kdg.programming6.keepdishesgoing.restaurant.adapter.in.response.DishMapperDto;
 import kdg.programming6.keepdishesgoing.restaurant.adapter.out.dish.DishMapper;
-import kdg.programming6.keepdishesgoing.restaurant.port.in.*;
+import kdg.programming6.keepdishesgoing.restaurant.port.in.dish.*;
+import kdg.programming6.keepdishesgoing.restaurant.port.in.restaurant.FindAllRestaurantsUseCase;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;

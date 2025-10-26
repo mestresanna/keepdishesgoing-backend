@@ -7,7 +7,7 @@ import kdg.programming6.keepdishesgoing.restaurant.domain.Menu;
 import kdg.programming6.keepdishesgoing.restaurant.domain.Restaurant;
 import kdg.programming6.keepdishesgoing.restaurant.domain.exceptions.DishNotFoundException;
 import kdg.programming6.keepdishesgoing.restaurant.domain.exceptions.RestaurantNotFoundException;
-import kdg.programming6.keepdishesgoing.restaurant.port.in.PublishDishUseCase;
+import kdg.programming6.keepdishesgoing.restaurant.port.in.dish.PublishDishUseCase;
 import kdg.programming6.keepdishesgoing.restaurant.port.out.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

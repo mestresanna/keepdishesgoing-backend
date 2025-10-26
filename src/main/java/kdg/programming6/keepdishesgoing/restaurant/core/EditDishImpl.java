@@ -2,8 +2,8 @@ package kdg.programming6.keepdishesgoing.restaurant.core;
 
 import kdg.programming6.keepdishesgoing.restaurant.domain.Dish;
 import kdg.programming6.keepdishesgoing.restaurant.domain.exceptions.DishNotFoundException;
-import kdg.programming6.keepdishesgoing.restaurant.port.in.EditDishCommand;
-import kdg.programming6.keepdishesgoing.restaurant.port.in.EditDishUseCase;
+import kdg.programming6.keepdishesgoing.restaurant.port.in.dish.EditDishCommand;
+import kdg.programming6.keepdishesgoing.restaurant.port.in.dish.EditDishUseCase;
 import kdg.programming6.keepdishesgoing.restaurant.port.out.LoadDishPort;
 import kdg.programming6.keepdishesgoing.restaurant.port.out.SaveDishPort;
 import org.springframework.stereotype.Service;

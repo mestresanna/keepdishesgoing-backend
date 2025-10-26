@@ -23,14 +23,14 @@ PATCH  http://localhost:8080/api/orders/basket/items
 Content-Type: application/json
 
 {
-  "menuId": "16f78885-9eaa-4f36-9f90-3bcc5deff38b",
-  "dishId": "61e3d481-8dfc-401a-9aa1-7b88aa99c716",
-  "restaurantId": "4320b75b-5877-4145-803d-ddec8282336b",
-  "quantity": 1
+  "menuId": "b30e7950-bb00-4188-888a-4928e336167d",
+  "dishId": "19d03512-0e1a-47f9-ae06-fa8dac60f5cb",
+  "restaurantId": "6d488e14-cc5e-4565-a69e-d6cf2ee7b0d7",
+  "quantity": 2
 }
 
 ### Checkout Basket
-POST http://localhost:8080/api/orders/basket/c210070a-76a0-47d0-8774-a6a12da374b2/checkout
+POST http://localhost:8080/api/orders/basket/e6927ef7-4f6a-4616-86f1-56f6f4cd4170/checkout
 Content-Type: application/json
 
 {
@@ -38,6 +38,7 @@ Content-Type: application/json
   "lastName": "Doe",
   "email": "john@example.com",
   "street": "Main Street",
+  "postalCode": "2000",
   "number": 123,
   "city": "Antwerp",
   "country": "Belgium"

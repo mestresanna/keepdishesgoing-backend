@@ -2,7 +2,7 @@ package kdg.programming6.keepdishesgoing.restaurant.core;
 
 import jakarta.transaction.Transactional;
 import kdg.programming6.keepdishesgoing.restaurant.domain.Dish;
-import kdg.programming6.keepdishesgoing.restaurant.port.in.FindAllDishesUseCase;
+import kdg.programming6.keepdishesgoing.restaurant.port.in.dish.FindAllDishesUseCase;
 import kdg.programming6.keepdishesgoing.restaurant.port.out.LoadDishPort;
 import org.springframework.stereotype.Service;
 

@@ -1,7 +1,7 @@
-package kdg.programming6.keepdishesgoing.restaurant.port.in;
+package kdg.programming6.keepdishesgoing.restaurant.port.in.restaurant;
 
 import kdg.programming6.keepdishesgoing.restaurant.domain.*;
-import kdg.programming6.keepdishesgoing.common.Address;
+import kdg.programming6.keepdishesgoing.common.vo.Address;
 import kdg.programming6.keepdishesgoing.restaurant.domain.ov.OpeningHours;
 import kdg.programming6.keepdishesgoing.restaurant.domain.ov.OwnerId;
 

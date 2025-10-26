@@ -1,8 +1,8 @@
 package kdg.programming6.keepdishesgoing.restaurant.core;
 
 import kdg.programming6.keepdishesgoing.restaurant.domain.Restaurant;
-import kdg.programming6.keepdishesgoing.restaurant.port.in.CreateRestaurantCommand;
-import kdg.programming6.keepdishesgoing.restaurant.port.in.CreateRestaurantUseCase;
+import kdg.programming6.keepdishesgoing.restaurant.port.in.restaurant.CreateRestaurantCommand;
+import kdg.programming6.keepdishesgoing.restaurant.port.in.restaurant.CreateRestaurantUseCase;
 import kdg.programming6.keepdishesgoing.restaurant.port.out.SaveRestaurantPort;
 import org.springframework.stereotype.Service;
 import jakarta.transaction.Transactional;

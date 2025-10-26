@@ -5,9 +5,9 @@ import kdg.programming6.keepdishesgoing.order.domain.projections.DishProjId;
 import java.math.BigDecimal;
 
 public class BasketItems {
-    DishProjId dishId;
-    BigDecimal priceDish;
-    Integer quantity;
+    private DishProjId dishId;
+    private BigDecimal priceDish;
+    private Integer quantity;
 
     public BasketItems(DishProjId dishId, BigDecimal priceDish, Integer quantity) {
         this.dishId = dishId;

@@ -2,14 +2,12 @@ package kdg.programming6.keepdishesgoing.restaurant.core;
 
 import jakarta.transaction.Transactional;
 import kdg.programming6.keepdishesgoing.restaurant.domain.Dish;
-import kdg.programming6.keepdishesgoing.restaurant.domain.ov.DishId;
-import kdg.programming6.keepdishesgoing.restaurant.port.in.CreateDishCommand;
-import kdg.programming6.keepdishesgoing.restaurant.port.in.CreateDishUseCase;
+import kdg.programming6.keepdishesgoing.restaurant.port.in.dish.CreateDishCommand;
+import kdg.programming6.keepdishesgoing.restaurant.port.in.dish.CreateDishUseCase;
 import kdg.programming6.keepdishesgoing.restaurant.port.out.SaveDishPort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.UUID;
 
 @Service
 public class CreateNewDishImpl implements CreateDishUseCase {

@@ -1,6 +1,6 @@
 package kdg.programming6.keepdishesgoing.order.adapter.out.restaurant;
 
-import kdg.programming6.keepdishesgoing.common.Address;
+import kdg.programming6.keepdishesgoing.common.vo.Address;
 import kdg.programming6.keepdishesgoing.order.adapter.out.mapper.OpeningHoursProjectionMapper;
 import kdg.programming6.keepdishesgoing.order.domain.projections.RestaurantProjection;
 import kdg.programming6.keepdishesgoing.order.domain.projections.RestaurantProjectionId;

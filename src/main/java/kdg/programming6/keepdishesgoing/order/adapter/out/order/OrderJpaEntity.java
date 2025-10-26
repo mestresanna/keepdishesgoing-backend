@@ -15,16 +15,11 @@ public class OrderJpaEntity {
     private UUID orderId;
 
     @Column(name = "basket_id", nullable = false)
-    private UUID basketId; // reference to original basket
+    private UUID basketId;
 
     @Column(name = "restaurant_id", nullable = false)
-    private UUID restaurantId; // snapshot from basket
+    private UUID restaurantId;
 
-    // Snapshot of basket items at order time
-    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
-    private List<OrderItemJpaEntity> orderItems = new ArrayList<>();
-
-    // Customer embedded
     @Embedded
     private CustomerEmbeddable customer;
 
@@ -37,28 +32,16 @@ public class OrderJpaEntity {
     @Column(name = "status", length = 50)
     private String status;
 
+    @Column(name = "rejection_reason")
+    private String rejectionReason;
+
     @Column(name = "created_at")
     private OffsetDateTime createdAt;
 
+    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+    private List<OrderItemJpaEntity> orderItems = new ArrayList<>();
+
     public OrderJpaEntity() {}
-
-    // getters & setters
-    public UUID getOrderId() { return orderId; }
-    public void setOrderId(UUID orderId) { this.orderId = orderId; }
-
-    public UUID getBasketId() { return basketId; }
-    public void setBasketId(UUID basketId) { this.basketId = basketId; }
-
-    public UUID getRestaurantId() { return restaurantId; }
-    public void setRestaurantId(UUID restaurantId) { this.restaurantId = restaurantId; }
-
-    public List<OrderItemJpaEntity> getOrderItems() { return orderItems; }
-    public void setOrderItems(List<OrderItemJpaEntity> orderItems) {
-        this.orderItems.clear();
-        if (orderItems != null) {
-            orderItems.forEach(this::addOrderItem);
-        }
-    }
 
     public void addOrderItem(OrderItemJpaEntity item) {
         item.setOrder(this);
@@ -69,6 +52,16 @@ public class OrderJpaEntity {
         this.orderItems.remove(item);
         item.setOrder(null);
     }
+
+    // Getters & Setters
+    public UUID getOrderId() { return orderId; }
+    public void setOrderId(UUID orderId) { this.orderId = orderId; }
+
+    public UUID getBasketId() { return basketId; }
+    public void setBasketId(UUID basketId) { this.basketId = basketId; }
+
+    public UUID getRestaurantId() { return restaurantId; }
+    public void setRestaurantId(UUID restaurantId) { this.restaurantId = restaurantId; }
 
     public CustomerEmbeddable getCustomer() { return customer; }
     public void setCustomer(CustomerEmbeddable customer) { this.customer = customer; }
@@ -82,6 +75,17 @@ public class OrderJpaEntity {
     public String getStatus() { return status; }
     public void setStatus(String status) { this.status = status; }
 
+    public String getRejectionReason() { return rejectionReason; }
+    public void setRejectionReason(String rejectionReason) { this.rejectionReason = rejectionReason; }
+
     public OffsetDateTime getCreatedAt() { return createdAt; }
     public void setCreatedAt(OffsetDateTime createdAt) { this.createdAt = createdAt; }
+
+    public List<OrderItemJpaEntity> getOrderItems() { return orderItems; }
+    public void setOrderItems(List<OrderItemJpaEntity> orderItems) {
+        this.orderItems.clear();
+        if (orderItems != null) {
+            orderItems.forEach(this::addOrderItem);
+        }
+    }
 }

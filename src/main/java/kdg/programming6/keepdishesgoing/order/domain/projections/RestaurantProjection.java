@@ -1,6 +1,6 @@
 package kdg.programming6.keepdishesgoing.order.domain.projections;
 
-import kdg.programming6.keepdishesgoing.common.Address;
+import kdg.programming6.keepdishesgoing.common.vo.Address;
 import kdg.programming6.keepdishesgoing.order.domain.vo.OpeningHoursProjection;
 
 import java.time.DayOfWeek;

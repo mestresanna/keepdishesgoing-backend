@@ -3,7 +3,7 @@ package kdg.programming6.keepdishesgoing.restaurant.adapter.in.request;
 import kdg.programming6.keepdishesgoing.common.vo.FoodTag;
 import kdg.programming6.keepdishesgoing.restaurant.domain.*;
 import kdg.programming6.keepdishesgoing.restaurant.domain.ov.RestaurantId;
-import kdg.programming6.keepdishesgoing.restaurant.port.in.CreateDishCommand;
+import kdg.programming6.keepdishesgoing.restaurant.port.in.dish.CreateDishCommand;
 
 import java.math.BigDecimal;
 import java.util.Set;

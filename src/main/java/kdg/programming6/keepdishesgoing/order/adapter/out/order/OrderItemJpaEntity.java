@@ -38,9 +38,8 @@ public class OrderItemJpaEntity {
         this.quantity = quantity;
     }
 
-    // getters & setters
+    // Getters & Setters
     public UUID getOrderItemId() { return orderItemId; }
-    public void setOrderItemId(UUID orderItemId) { this.orderItemId = orderItemId; }
 
     public OrderJpaEntity getOrder() { return order; }
     public void setOrder(OrderJpaEntity order) { this.order = order; }

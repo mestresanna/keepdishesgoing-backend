@@ -1,12 +1,12 @@
 package kdg.programming6.keepdishesgoing.order.domain;
 
-import kdg.programming6.keepdishesgoing.common.Address;
+import kdg.programming6.keepdishesgoing.common.vo.Address;
 
 public class Customer {
-    String firstName;
-    String lastName;
-    String email;
-    Address address;
+    private String firstName;
+    private String lastName;
+    private String email;
+    private Address address;
 
     public Customer(String firstName, String lastName, String email, Address address) {
         this.firstName = firstName;
