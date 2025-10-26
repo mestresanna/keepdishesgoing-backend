@@ -96,4 +96,12 @@ public class DishProjection {
         return typeMatches && tagsMatch;
     }
 
+    public boolean isDishAvailable() {
+        if (status.equals(StatusDish.OUT_OF_STOCK) || status == null) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+
 }

@@ -1,5 +1,6 @@
 package kdg.programming6.keepdishesgoing.order.adapter.out.restaurant;
 
+import kdg.programming6.keepdishesgoing.common.Address;
 import kdg.programming6.keepdishesgoing.order.adapter.out.mapper.OpeningHoursProjectionMapper;
 import kdg.programming6.keepdishesgoing.order.domain.projections.RestaurantProjection;
 import kdg.programming6.keepdishesgoing.order.domain.projections.RestaurantProjectionId;
@@ -28,10 +29,11 @@ public class RestaurantProjectionJpaAdapter implements SaveRestaurantProjectionP
                 restaurantProjection.getRestaurantId().restaurantId(),
                 restaurantProjection.getOwner(),
                 restaurantProjection.getName(),
-                restaurantProjection.getStreet(),
-                restaurantProjection.getNumber(),
-                restaurantProjection.getCity(),
-                restaurantProjection.getCountry(),
+                restaurantProjection.getAddress().street(),
+                restaurantProjection.getAddress().number(),
+                restaurantProjection.getAddress().city(),
+                restaurantProjection.getAddress().postalCode(),
+                restaurantProjection.getAddress().country(),
                 restaurantProjection.getPictureUrls(),
                 openingHoursMapper.toJson(restaurantProjection.getOpeningHours()),
                 restaurantProjection.getTypeOfCuisine(),
@@ -41,13 +43,11 @@ public class RestaurantProjectionJpaAdapter implements SaveRestaurantProjectionP
 
         this.restaurantProjectionJpaRepository.save(restaurantProjectionEntity);
 
-        return new RestaurantProjection(restaurantProjection.getRestaurantId(),
+        return new RestaurantProjection(
+                restaurantProjection.getRestaurantId(),
                 restaurantProjection.getOwner(),
                 restaurantProjection.getName(),
-                restaurantProjection.getStreet(),
-                restaurantProjection.getNumber(),
-                restaurantProjection.getCity(),
-                restaurantProjection.getCountry(),
+                restaurantProjection.getAddress(),
                 restaurantProjection.getPictureUrls(),
                 restaurantProjection.getOpeningHours(),
                 restaurantProjection.getTypeOfCuisine(),
@@ -62,10 +62,7 @@ public class RestaurantProjectionJpaAdapter implements SaveRestaurantProjectionP
                 new RestaurantProjectionId(entity.getRestaurantId()),
                 entity.getOwnerId(),
                 entity.getName(),
-                entity.getStreet(),
-                entity.getNumber(),
-                entity.getCity(),
-                entity.getCountry(),
+                new Address(entity.getStreet(), entity.getNumber(),entity.getCity(), entity.getPostalCode(), entity.getCountry() ),
                 entity.getPictureUrls(),
                 openingHoursMapper.fromJson(entity.getOpeningHoursJson()),
                 entity.getTypeOfCuisine(),
@@ -80,10 +77,7 @@ public class RestaurantProjectionJpaAdapter implements SaveRestaurantProjectionP
                 new RestaurantProjectionId(entity.getRestaurantId()),
                 entity.getOwnerId(),
                 entity.getName(),
-                entity.getStreet(),
-                entity.getNumber(),
-                entity.getCity(),
-                entity.getCountry(),
+                new Address(entity.getStreet(), entity.getNumber(),entity.getCity(), entity.getPostalCode(), entity.getCountry() ),
                 entity.getPictureUrls(),
                 openingHoursMapper.fromJson(entity.getOpeningHoursJson()),
                 entity.getTypeOfCuisine(),

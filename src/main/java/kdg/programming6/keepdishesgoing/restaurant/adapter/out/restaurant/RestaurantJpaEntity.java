@@ -26,6 +26,7 @@ public class RestaurantJpaEntity {
     private int number;
     private String city;
     private String country;
+    private String postalCode;
 
     private String pictureUrls;
     private int defaultPreparationTimeInMinutes;
@@ -121,6 +122,14 @@ public class RestaurantJpaEntity {
 
     public int getDefaultPreparationTimeInMinutes() {
         return defaultPreparationTimeInMinutes;
+    }
+
+    public String getPostalCode() {
+        return postalCode;
+    }
+
+    public void setPostalCode(String postalCode) {
+        this.postalCode = postalCode;
     }
 
     public void setDefaultPreparationTimeInMinutes(int defaultPreparationTimeInMinutes) {

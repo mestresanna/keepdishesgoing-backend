@@ -11,6 +11,7 @@ public record CreatedRestaurantProjectionCommand (
         String street,
         int number,
         String city,
+        String postalCode,
         String country,
         String pictureUrls,
         OpeningHoursProjection openingHours,

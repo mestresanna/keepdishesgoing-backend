@@ -5,17 +5,21 @@ import kdg.programming6.keepdishesgoing.order.domain.Customer;
 
 import java.util.UUID;
 
-public class CheckoutBasketCommand {
-    private final UUID basketId;
-    private final String firstName;
-    private final String lastName;
-    private final String email;
-    private final Address deliveryAddress;
-    private final String message;
 
+public record CheckoutBasketCommand(
+        UUID basketId,
+        String firstName,
+        String lastName,
+        String email,
+        String street,
+        Integer number,
+        String city,
+        String country,
+        String postalCode,
+        String message
+) {
     public Customer toCustomer() {
-        return new Customer(firstName, lastName, email, deliveryAddress);
+        Address address = new Address(street, number, city, postalCode, country);
+        return new Customer(firstName, lastName, email, address);
     }
-
-    // getters, constructor...
 }

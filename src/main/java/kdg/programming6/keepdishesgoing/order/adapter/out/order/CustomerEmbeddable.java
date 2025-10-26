@@ -20,7 +20,7 @@ public class CustomerEmbeddable {
     private String street;
 
     @Column(name = "delivery_number")
-    private String number;
+    private Integer number;
 
     @Column(name = "delivery_postal_code")
     private String postalCode;
@@ -46,8 +46,8 @@ public class CustomerEmbeddable {
     public String getStreet() { return street; }
     public void setStreet(String street) { this.street = street; }
 
-    public String getNumber() { return number; }
-    public void setNumber(String number) { this.number = number; }
+    public Integer getNumber() { return number; }
+    public void setNumber(Integer number) { this.number = number; }
 
     public String getPostalCode() { return postalCode; }
     public void setPostalCode(String postalCode) { this.postalCode = postalCode; }

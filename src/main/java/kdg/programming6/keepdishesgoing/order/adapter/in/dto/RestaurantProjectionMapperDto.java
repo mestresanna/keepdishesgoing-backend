@@ -9,10 +9,11 @@ import java.util.List;
 public class RestaurantProjectionMapperDto {
     public RestaurantProjectionDto toDto(RestaurantProjection restaurant) {
         AddressProjectionDto address = new AddressProjectionDto(
-                restaurant.getStreet(),
-                restaurant.getNumber(),
-                restaurant.getCity(),
-                restaurant.getCountry()
+                restaurant.getAddress().street(),
+                restaurant.getAddress().number(),
+                restaurant.getAddress().city(),
+                restaurant.getAddress().postalCode(),
+                restaurant.getAddress().country()
         );
 
 
@@ -40,10 +41,11 @@ public class RestaurantProjectionMapperDto {
     public RestaurantDetailsDto toDetailsDto(RestaurantProjection restaurant, List<MenuProjectionDto> menuDtos) {
 
         AddressProjectionDto address = new AddressProjectionDto(
-                restaurant.getStreet(),
-                restaurant.getNumber(),
-                restaurant.getCity(),
-                restaurant.getCountry()
+                restaurant.getAddress().street(),
+                restaurant.getAddress().number(),
+                restaurant.getAddress().city(),
+                restaurant.getAddress().postalCode(),
+                restaurant.getAddress().country()
         );
 
         OpeningHourProjectionDto openingHours = new OpeningHourProjectionDto(

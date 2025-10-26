@@ -16,6 +16,7 @@ public class RestaurantProjectionEntity {
     private int number;
     private String city;
     private String country;
+    private String postalCode;
     private String pictureUrls;
 
     @Column(name = "opening_hours_json", columnDefinition = "TEXT")
@@ -30,7 +31,7 @@ public class RestaurantProjectionEntity {
     }
 
     public RestaurantProjectionEntity(UUID restaurantId, UUID ownerId, String name, String street, int number,
-                                      String city, String country, String pictureUrls, String openingHoursJson,
+                                      String city, String postalCode, String country, String pictureUrls, String openingHoursJson,
                                       String typeOfCuisine, String contactEmail,
                                       int defaultPreparationTimeInMinutes, String priceRange) {
         this.restaurantId = restaurantId;
@@ -39,6 +40,7 @@ public class RestaurantProjectionEntity {
         this.street = street;
         this.number = number;
         this.city = city;
+        this.postalCode = postalCode;
         this.country = country;
         this.pictureUrls = pictureUrls;
         this.openingHoursJson = openingHoursJson;
@@ -99,5 +101,65 @@ public class RestaurantProjectionEntity {
 
     public String getPriceRange() {
         return priceRange;
+    }
+
+    public void setRestaurantId(UUID restaurantId) {
+        this.restaurantId = restaurantId;
+    }
+
+    public void setOwnerId(UUID ownerId) {
+        this.ownerId = ownerId;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setStreet(String street) {
+        this.street = street;
+    }
+
+    public void setNumber(int number) {
+        this.number = number;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
+    }
+
+    public void setCountry(String country) {
+        this.country = country;
+    }
+
+    public String getPostalCode() {
+        return postalCode;
+    }
+
+    public void setPostalCode(String postalCode) {
+        this.postalCode = postalCode;
+    }
+
+    public void setPictureUrls(String pictureUrls) {
+        this.pictureUrls = pictureUrls;
+    }
+
+    public void setOpeningHoursJson(String openingHoursJson) {
+        this.openingHoursJson = openingHoursJson;
+    }
+
+    public void setTypeOfCuisine(String typeOfCuisine) {
+        this.typeOfCuisine = typeOfCuisine;
+    }
+
+    public void setContactEmail(String contactEmail) {
+        this.contactEmail = contactEmail;
+    }
+
+    public void setDefaultPreparationTimeInMinutes(int defaultPreparationTimeInMinutes) {
+        this.defaultPreparationTimeInMinutes = defaultPreparationTimeInMinutes;
+    }
+
+    public void setPriceRange(String priceRange) {
+        this.priceRange = priceRange;
     }
 }

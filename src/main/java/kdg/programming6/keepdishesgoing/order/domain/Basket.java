@@ -1,12 +1,16 @@
 package kdg.programming6.keepdishesgoing.order.domain;
 
 import kdg.programming6.keepdishesgoing.order.domain.exceptions.DifferentRestaurantException;
+import kdg.programming6.keepdishesgoing.order.domain.exceptions.DishUnavailableException;
 import kdg.programming6.keepdishesgoing.order.domain.projections.DishProjId;
+import kdg.programming6.keepdishesgoing.order.domain.projections.DishProjection;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 public class Basket {
     private UUID basketId;
@@ -62,7 +66,33 @@ public class Basket {
             this.restaurantId = null;
         }
     }
+    public void validateItemsAvailability(Map<UUID, DishProjection> dishProjections) {
+        List<UUID> unavailableDishes = items.stream()
+                .filter(item -> {
+                    DishProjection dish = dishProjections.get(item.getDishId().dishId());
+                    return dish == null || !dish.isDishAvailable();
+                })
+                .map(item -> item.getDishId().dishId())
+                .collect(Collectors.toList());
 
+        if (!unavailableDishes.isEmpty()) {
+            throw new DishUnavailableException(unavailableDishes);
+        }
+    }
+
+    public void markAsReady() {
+        if (items.isEmpty()) {
+            throw new IllegalStateException("Cannot mark an empty basket as ready");
+        }
+        this.basketStatus = BasketStatus.READY;
+    }
+
+    public void markAsOrdered() {
+        if (basketStatus != BasketStatus.READY && basketStatus != BasketStatus.IN_PROGRESS) {
+            throw new IllegalStateException("Can only checkout baskets that are ready or in progress");
+        }
+        this.basketStatus = BasketStatus.ORDERED;
+    }
     private void recalculateTotalPrice() {
         this.totalPrice = items.stream()
                 .map(BasketItems::totalPrice)

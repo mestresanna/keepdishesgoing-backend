@@ -14,6 +14,7 @@ public record RestaurantUpdatedEvent (LocalDateTime eventPit,
                                       String street,
                                       int number,
                                       String city,
+                                      String postalCode,
                                       String country,
                                       String pictureUrls,
                                       Map<DayOfWeek, TimeRange> openingHours,
@@ -22,7 +23,7 @@ public record RestaurantUpdatedEvent (LocalDateTime eventPit,
                                       int defaultPreparationTimeInMinutes,
                                       String priceRange) implements DomainEvent{
 
-    public RestaurantUpdatedEvent(LocalDateTime eventPit, UUID restaurantId, UUID ownerId, String name, String street, int number, String city, String country, String pictureUrls, Map<DayOfWeek, TimeRange> openingHours, String typeOfCuisine, String contactEmail, int defaultPreparationTimeInMinutes, String priceRange) {
+    public RestaurantUpdatedEvent(LocalDateTime eventPit, UUID restaurantId, UUID ownerId, String name, String street, int number, String city, String postalCode, String country, String pictureUrls, Map<DayOfWeek, TimeRange> openingHours, String typeOfCuisine, String contactEmail, int defaultPreparationTimeInMinutes, String priceRange) {
         this.eventPit = eventPit;
         this.restaurantId = restaurantId;
         this.ownerId = ownerId;
@@ -30,6 +31,7 @@ public record RestaurantUpdatedEvent (LocalDateTime eventPit,
         this.street = street;
         this.number = number;
         this.city = city;
+        this.postalCode = postalCode;
         this.country = country;
         this.pictureUrls = pictureUrls;
         this.openingHours = openingHours;
@@ -39,8 +41,8 @@ public record RestaurantUpdatedEvent (LocalDateTime eventPit,
         this.priceRange = priceRange;
     }
 
-    public RestaurantUpdatedEvent(UUID restaurantId, UUID ownerId, String name, String street, int number, String city, String country, String pictureUrls, Map<DayOfWeek, TimeRange> openingHours, String typeOfCuisine, String contactEmail, int defaultPreparationTimeInMinutes, String priceRange){
-        this(LocalDateTime.now(), restaurantId, ownerId, name, street, number, city, country, pictureUrls, openingHours, typeOfCuisine, contactEmail, defaultPreparationTimeInMinutes, priceRange);
+    public RestaurantUpdatedEvent(UUID restaurantId, UUID ownerId, String name, String street, int number, String city, String postalCode, String country, String pictureUrls, Map<DayOfWeek, TimeRange> openingHours, String typeOfCuisine, String contactEmail, int defaultPreparationTimeInMinutes, String priceRange){
+        this(LocalDateTime.now(), restaurantId, ownerId, name, street, number, city, postalCode,country, pictureUrls, openingHours, typeOfCuisine, contactEmail, defaultPreparationTimeInMinutes, priceRange);
     }
 
     @Override

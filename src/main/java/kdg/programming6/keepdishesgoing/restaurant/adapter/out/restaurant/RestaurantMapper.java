@@ -31,6 +31,7 @@ public class RestaurantMapper {
         entity.setTypeOfCuisine(restaurant.getTypeOfCuisine().name());
         entity.setStreet(restaurant.getAddress().street());
         entity.setNumber(restaurant.getAddress().number());
+        entity.setPostalCode(restaurant.getAddress().postalCode());
         entity.setCity(restaurant.getAddress().city());
         entity.setCountry(restaurant.getAddress().country());
         entity.setPictureUrls(restaurant.getPictureUrls());
@@ -52,7 +53,7 @@ public class RestaurantMapper {
     public Restaurant toDomain(RestaurantJpaEntity entity) {
         OwnerId orderId = OwnerId.of(entity.getOwner());
         Address address = new Address(
-                entity.getStreet(), entity.getNumber(), entity.getCity(), entity.getCountry()
+                entity.getStreet(), entity.getNumber(), entity.getCity(), entity.getPostalCode(), entity.getCountry()
         );
 
         OpeningHours openingHours = null;

@@ -1,5 +1,6 @@
 package kdg.programming6.keepdishesgoing.order.domain.projections;
 
+import kdg.programming6.keepdishesgoing.common.Address;
 import kdg.programming6.keepdishesgoing.order.domain.vo.OpeningHoursProjection;
 
 import java.time.DayOfWeek;
@@ -12,25 +13,20 @@ public class RestaurantProjection {
     private UUID owner;
     private String name;
 
-    private String street;
-    private int number;
-    private String city;
-    private String country;
+    private Address address;
 
     private String pictureUrls;
-    private OpeningHoursProjection openingHours;    private String typeOfCuisine;
+    private OpeningHoursProjection openingHours;
+    private String typeOfCuisine;
     private String contactEmail;
     private int defaultPreparationTimeInMinutes;
     private String priceRange;
 
-    public RestaurantProjection(RestaurantProjectionId restaurantId, UUID owner, String name, String street, int number, String city, String country, String pictureUrls, OpeningHoursProjection openingHours, String typeOfCuisine, String contactEmail, int defaultPreparationTimeInMinutes, String priceRange) {
+    public RestaurantProjection(RestaurantProjectionId restaurantId, UUID owner, String name, Address address, String pictureUrls, OpeningHoursProjection openingHours, String typeOfCuisine, String contactEmail, int defaultPreparationTimeInMinutes, String priceRange) {
         this.restaurantId = restaurantId;
         this.owner = owner;
         this.name = name;
-        this.street = street;
-        this.number = number;
-        this.city = city;
-        this.country = country;
+        this.address = address;
         this.pictureUrls = pictureUrls;
         this.openingHours = openingHours;
         this.typeOfCuisine = typeOfCuisine;
@@ -63,20 +59,8 @@ public class RestaurantProjection {
         return pictureUrls;
     }
 
-    public String getCountry() {
-        return country;
-    }
-
-    public String getCity() {
-        return city;
-    }
-
-    public int getNumber() {
-        return number;
-    }
-
-    public String getStreet() {
-        return street;
+    public Address getAddress() {
+        return address;
     }
 
     public String getName() {
@@ -90,6 +74,7 @@ public class RestaurantProjection {
     public RestaurantProjectionId getRestaurantId() {
         return restaurantId;
     }
+
 
     public boolean isOpenNow() {
         if (openingHours == null || openingHours.hoursPerDay() == null) return false;

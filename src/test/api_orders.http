@@ -19,12 +19,26 @@ GET http://localhost:8080/api/orders/dishes/03080bb4-f5c9-464e-bf00-217d045af233
 Accept: application/json
 
 ### Add a dish to a basket
-PATCH  http://localhost:8080/api/orders/basket/9e559a19-e602-48aa-8d04-2e4cd55db725/items
+PATCH  http://localhost:8080/api/orders/basket/items
 Content-Type: application/json
 
 {
-  "menuId": "737d691d-a14a-4bfe-bbad-51d407a0f79d",
-  "dishId": "6ac75718-d5cb-42f7-b3e3-65394050fc93",
-  "restaurantId": "1b918dcd-d3f0-4e32-977f-da2b8855a15d",
+  "menuId": "16f78885-9eaa-4f36-9f90-3bcc5deff38b",
+  "dishId": "61e3d481-8dfc-401a-9aa1-7b88aa99c716",
+  "restaurantId": "4320b75b-5877-4145-803d-ddec8282336b",
   "quantity": 1
+}
+
+### Checkout Basket
+POST http://localhost:8080/api/orders/basket/c210070a-76a0-47d0-8774-a6a12da374b2/checkout
+Content-Type: application/json
+
+{
+  "firstName": "John",
+  "lastName": "Doe",
+  "email": "john@example.com",
+  "street": "Main Street",
+  "number": 123,
+  "city": "Antwerp",
+  "country": "Belgium"
 }
