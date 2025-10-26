@@ -80,6 +80,10 @@ public class Order {
         domainEvents.add(domainEvent);
     }
 
+    public OrderStatus getStatus() {
+        return status;
+    }
+
     public String getRejectionReason() { return rejectionReason; }
 
     public void clearDomainEvents() {

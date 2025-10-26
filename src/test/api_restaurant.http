@@ -133,3 +133,28 @@ Authorization: Bearer {{access_token}}
 GET http://localhost:8080/api/dishes
 Accept: application/json
 Authorization: Bearer {{access_token}}
+
+### Accept an Order
+POST http://localhost:8080/api/restaurant/orders/f1196817-8402-47aa-b5f6-d971703bd6ad/accept
+Accept: application/json
+Authorization: Bearer {{access_token}}
+
+### Reject an Order
+POST http://localhost:8080/api/restaurant/orders/{{orderId}}/reject
+Accept: application/json
+Content-Type: application/json
+Authorization: Bearer {{access_token}}
+
+{
+  "reason": "We're out of ingredients for this dish"
+}
+
+### Start preparetion Order
+POST http://localhost:8080/api/restaurant/orders/f1196817-8402-47aa-b5f6-d971703bd6ad/start-preparation
+Accept: application/json
+Authorization: Bearer {{access_token}}
+
+### Ready to pick up Order
+POST http://localhost:8080/api/restaurant/orders/f1196817-8402-47aa-b5f6-d971703bd6ad/mark-ready
+Accept: application/json
+Authorization: Bearer {{access_token}}

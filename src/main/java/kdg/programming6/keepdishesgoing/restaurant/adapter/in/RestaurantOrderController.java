@@ -1,16 +1,20 @@
 package kdg.programming6.keepdishesgoing.restaurant.adapter.in;
 
+
+import jakarta.validation.Valid;
+import kdg.programming6.keepdishesgoing.restaurant.adapter.in.response.OrderStatusUpdateDto;
+import kdg.programming6.keepdishesgoing.restaurant.adapter.in.request.RejectOrderRequest;
 import kdg.programming6.keepdishesgoing.restaurant.port.in.order.ManageOrderUseCase;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Map;
 import java.util.UUID;
 
 @RestController
 @RequestMapping("/api/restaurant/orders")
 public class RestaurantOrderController {
-    
+
     private final ManageOrderUseCase manageOrderUseCase;
 
     public RestaurantOrderController(ManageOrderUseCase manageOrderUseCase) {
@@ -18,47 +22,33 @@ public class RestaurantOrderController {
     }
 
     @PostMapping("/{orderId}/accept")
-    public ResponseEntity<?> acceptOrder(@PathVariable UUID orderId) {
+    @PreAuthorize("hasAuthority('owner')")
+    public ResponseEntity<OrderStatusUpdateDto> acceptOrder(@PathVariable UUID orderId) {
         manageOrderUseCase.acceptOrder(orderId);
-        return ResponseEntity.ok(Map.of(
-            "message", "Order accepted",
-            "orderId", orderId
-        ));
+        return ResponseEntity.ok(OrderStatusUpdateDto.accepted(orderId));
     }
 
     @PostMapping("/{orderId}/reject")
-    public ResponseEntity<?> rejectOrder(
+    @PreAuthorize("hasAuthority('owner')")
+    public ResponseEntity<OrderStatusUpdateDto> rejectOrder(
             @PathVariable UUID orderId,
-            @RequestBody Map<String, String> body) {
-        String reason = body.get("reason");
-        if (reason == null || reason.isBlank()) {
-            return ResponseEntity.badRequest()
-                .body(Map.of("error", "Rejection reason is required"));
-        }
-        
-        manageOrderUseCase.rejectOrder(orderId, reason);
-        return ResponseEntity.ok(Map.of(
-            "message", "Order rejected",
-            "orderId", orderId,
-            "reason", reason
-        ));
+            @Valid @RequestBody RejectOrderRequest request) {
+
+        manageOrderUseCase.rejectOrder(orderId, request.reason());
+        return ResponseEntity.ok(OrderStatusUpdateDto.rejected(orderId, request.reason()));
     }
 
     @PostMapping("/{orderId}/start-preparation")
-    public ResponseEntity<?> startPreparation(@PathVariable UUID orderId) {
+    @PreAuthorize("hasAuthority('owner')")
+    public ResponseEntity<OrderStatusUpdateDto> startPreparation(@PathVariable UUID orderId) {
         manageOrderUseCase.startPreparation(orderId);
-        return ResponseEntity.ok(Map.of(
-            "message", "Order preparation started",
-            "orderId", orderId
-        ));
+        return ResponseEntity.ok(OrderStatusUpdateDto.inPreparation(orderId));
     }
 
     @PostMapping("/{orderId}/mark-ready")
-    public ResponseEntity<?> markReady(@PathVariable UUID orderId) {
+    @PreAuthorize("hasAuthority('owner')")
+    public ResponseEntity<OrderStatusUpdateDto> markReady(@PathVariable UUID orderId) {
         manageOrderUseCase.markReady(orderId);
-        return ResponseEntity.ok(Map.of(
-            "message", "Order marked as ready",
-            "orderId", orderId
-        ));
+        return ResponseEntity.ok(OrderStatusUpdateDto.ready(orderId));
     }
 }

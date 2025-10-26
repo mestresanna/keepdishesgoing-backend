@@ -23,7 +23,6 @@ public class RestaurantOrderMapper {
         entity.setStatus(domain.getStatus().name());
         entity.setRejectionReason(domain.getRejectionReason());
 
-        // Map address with new field names
         Address address = domain.getDeliveryAddress();
         entity.setDeliveryStreet(address.street());
         entity.setDeliveryNumber(address.number());
@@ -31,7 +30,6 @@ public class RestaurantOrderMapper {
         entity.setDeliveryCity(address.city());
         entity.setDeliveryCountry(address.country());
 
-        // Map items
         List<RestaurantOrderItemJpaEntity> itemEntities = domain.getItems().stream()
                 .map(item -> {
                     RestaurantOrderItemJpaEntity itemEntity = new RestaurantOrderItemJpaEntity();
@@ -49,7 +47,6 @@ public class RestaurantOrderMapper {
     }
 
     public RestaurantOrder toDomain(RestaurantOrderJpaEntity entity) {
-        // Map address with new field names
         Address address = new Address(
                 entity.getDeliveryStreet(),
                 entity.getDeliveryNumber(),
@@ -67,15 +64,17 @@ public class RestaurantOrderMapper {
                 ))
                 .collect(Collectors.toList());
 
-        RestaurantOrder domain = new RestaurantOrder(
+        return RestaurantOrder.reconstruct(
                 entity.getOrderId(),
                 new RestaurantId(entity.getRestaurantId()),
                 entity.getCustomerName(),
                 address,
                 items,
-                entity.getTotalPrice()
+                entity.getTotalPrice(),
+                RestaurantOrderStatus.valueOf(entity.getStatus()),
+                entity.getRejectionReason(),
+                entity.getCreatedAt()
         );
-
-        return domain;
     }
+
 }

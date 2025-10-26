@@ -2,6 +2,8 @@ package kdg.programming6.keepdishesgoing.order.adapter.in.listeners;
 
 import kdg.programming6.keepdishesgoing.common.events.OrderStatusChangedEvent;
 import kdg.programming6.keepdishesgoing.order.domain.OrderStatus;
+import kdg.programming6.keepdishesgoing.order.port.in.order.OrderChangeStatusCommand;
+import kdg.programming6.keepdishesgoing.order.port.in.order.OrderChangedProjector;
 import kdg.programming6.keepdishesgoing.order.port.out.LoadOrderPort;
 import kdg.programming6.keepdishesgoing.order.port.out.SaveOrderPort;
 import org.slf4j.Logger;
@@ -14,33 +16,19 @@ import java.util.List;
 @Component
 public class OrderStatusChangedListener {
     private final Logger logger = LoggerFactory.getLogger(OrderStatusChangedListener.class);
-    private final LoadOrderPort loadOrderPort;
-    private final List<SaveOrderPort> saveOrderPort;
+    private final OrderChangedProjector orderChangedProjector;
 
-    public OrderStatusChangedListener(
-            LoadOrderPort loadOrderPort,
-            List<SaveOrderPort>  saveOrderPort) {
-        this.loadOrderPort = loadOrderPort;
-        this.saveOrderPort = saveOrderPort;
+
+    public OrderStatusChangedListener(OrderChangedProjector orderChangedProjector) {
+        this.orderChangedProjector = orderChangedProjector;
+
     }
 
     @ApplicationModuleListener
     public void handle(OrderStatusChangedEvent event) {
         logger.info("Order context received OrderStatusChangedEvent: {} -> {}",
                 event.orderId(), event.newStatus());
-
-        //TODO create a UseCase for this
-        //Order order = loadOrderPort.findById(event.orderId())
-//                .orElseThrow(() -> new IllegalStateException("Order not found: " + event.orderId()));
-//
-//        // Update order status
-//        OrderStatus newStatus = OrderStatus.valueOf(event.newStatus());
-//        order.updateStatus(newStatus, event.reason());
-//
-//        saveOrderPort.save(order);
-
-        // TODO: Send notification to customer
-        logger.info("Order {} status updated to: {}", event.orderId(), event.newStatus());
+        orderChangedProjector.updateOrderStatus(new OrderChangeStatusCommand(event.orderId(), event.newStatus(), event.reason()));
     }
 
 }

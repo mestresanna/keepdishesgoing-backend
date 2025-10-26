@@ -24,6 +24,7 @@ public class RestaurantOrder {
     
     private final List<DomainEvent> domainEvents = new ArrayList<>();
 
+
     public RestaurantOrder(
             UUID orderId,
             RestaurantId restaurantId,
@@ -39,6 +40,25 @@ public class RestaurantOrder {
         this.totalPrice = totalPrice;
         this.status = RestaurantOrderStatus.PENDING;
         this.createdAt = Instant.now();
+    }
+
+    public static RestaurantOrder reconstruct(
+            UUID orderId,
+            RestaurantId restaurantId,
+            String customerName,
+            Address deliveryAddress,
+            List<RestaurantOrderItem> items,
+            BigDecimal totalPrice,
+            RestaurantOrderStatus status,
+            String rejectionReason,
+            Instant createdAt) {
+        RestaurantOrder order = new RestaurantOrder(
+                orderId, restaurantId, customerName, deliveryAddress, items, totalPrice
+        );
+        order.status = status;
+        order.rejectionReason = rejectionReason;
+        order.createdAt = createdAt;
+        return order;
     }
 
     public void accept() {

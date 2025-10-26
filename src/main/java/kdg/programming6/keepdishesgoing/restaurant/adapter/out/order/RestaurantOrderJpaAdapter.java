@@ -22,9 +22,22 @@ public class RestaurantOrderJpaAdapter implements SaveRestaurantOrderPort, LoadR
 
     @Override
     public void save(RestaurantOrder restaurantOrder) {
-        RestaurantOrderJpaEntity entity = mapper.toJpaEntity(restaurantOrder);
-        restaurantOrderJpaRepository.save(entity);
+        Optional<RestaurantOrderJpaEntity> existingEntity =
+                restaurantOrderJpaRepository.findById(restaurantOrder.getOrderId());
+
+        if (existingEntity.isPresent()) {
+            // UPDATE existing entity
+            RestaurantOrderJpaEntity entity = existingEntity.get();
+            entity.setStatus(restaurantOrder.getStatus().name());
+            entity.setRejectionReason(restaurantOrder.getRejectionReason());
+            restaurantOrderJpaRepository.save(entity);
+        } else {
+            // CREATE new entity
+            RestaurantOrderJpaEntity newEntity = mapper.toJpaEntity(restaurantOrder);
+            restaurantOrderJpaRepository.save(newEntity);
+        }
     }
+
 
     @Override
     public Optional<RestaurantOrder> findById(UUID restaurantOrderId) {
