@@ -38,6 +38,7 @@ dependencies {
     implementation ("org.apache.logging.log4j:log4j-api:2.13.3")
     testImplementation ("org.springframework.security:spring-security-test")
     implementation("org.springframework.modulith:spring-modulith-events-api")
+    implementation("org.springframework.modulith:spring-modulith-events-amqp")
 }
 
 dependencyManagement {

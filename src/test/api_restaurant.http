@@ -135,12 +135,12 @@ Accept: application/json
 Authorization: Bearer {{access_token}}
 
 ### Accept an Order
-POST http://localhost:8080/api/restaurant/orders/f1196817-8402-47aa-b5f6-d971703bd6ad/accept
+POST http://localhost:8080/api/restaurant/orders/e4e2eff2-4f31-4066-9e6b-826fc1e727aa/accept
 Accept: application/json
 Authorization: Bearer {{access_token}}
 
 ### Reject an Order
-POST http://localhost:8080/api/restaurant/orders/{{orderId}}/reject
+POST http://localhost:8080/api/restaurant/orders/4ce0d327-bf49-4923-b62e-f95e110ebbe1/reject
 Accept: application/json
 Content-Type: application/json
 Authorization: Bearer {{access_token}}
@@ -150,11 +150,11 @@ Authorization: Bearer {{access_token}}
 }
 
 ### Start preparetion Order
-POST http://localhost:8080/api/restaurant/orders/f1196817-8402-47aa-b5f6-d971703bd6ad/start-preparation
+POST http://localhost:8080/api/restaurant/orders/e4e2eff2-4f31-4066-9e6b-826fc1e727aa/start-preparation
 Accept: application/json
 Authorization: Bearer {{access_token}}
 
 ### Ready to pick up Order
-POST http://localhost:8080/api/restaurant/orders/f1196817-8402-47aa-b5f6-d971703bd6ad/mark-ready
+POST http://localhost:8080/api/restaurant/orders/e4e2eff2-4f31-4066-9e6b-826fc1e727aa/mark-ready
 Accept: application/json
 Authorization: Bearer {{access_token}}

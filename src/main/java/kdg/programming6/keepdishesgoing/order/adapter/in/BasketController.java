@@ -70,9 +70,9 @@ public class BasketController {
                     request.email(),
                     request.street(),
                     request.number(),
-                    request.postalCode(),
                     request.city(),
                     request.country(),
+                    request.postalCode(),
                     request.message()
             );
 

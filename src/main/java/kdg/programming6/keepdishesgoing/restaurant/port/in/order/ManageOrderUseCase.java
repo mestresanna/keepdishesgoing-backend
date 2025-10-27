@@ -7,4 +7,5 @@ public interface ManageOrderUseCase {
     void rejectOrder(UUID orderId, String reason);
     void startPreparation(UUID orderId);
     void markReady(UUID orderId);
+    void markOrderPickedUp(UUID orderId);
 }

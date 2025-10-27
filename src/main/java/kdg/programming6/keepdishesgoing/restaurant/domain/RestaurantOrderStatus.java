@@ -6,5 +6,6 @@ public enum RestaurantOrderStatus {
     REJECTED,
     IN_PREPARATION,
     READY,
-    COMPLETED
+    PICKED_UP,
+    DELIVERED
 }

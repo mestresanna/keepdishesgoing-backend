@@ -41,7 +41,7 @@ services:
       - "8095:8095"
     networks:
       - kdg-backend
-
+      -
   idp_mysql:
     image: mysql:9.0.1
     volumes:

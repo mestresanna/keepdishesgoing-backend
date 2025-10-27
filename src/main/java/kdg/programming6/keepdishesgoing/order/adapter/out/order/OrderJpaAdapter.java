@@ -4,7 +4,6 @@ import kdg.programming6.keepdishesgoing.order.domain.Order;
 import kdg.programming6.keepdishesgoing.order.port.out.LoadOrderPort;
 import kdg.programming6.keepdishesgoing.order.port.out.SaveOrderPort;
 import kdg.programming6.keepdishesgoing.order.port.out.UpdateOrderPort;
-import kdg.programming6.keepdishesgoing.restaurant.adapter.out.order.RestaurantOrderJpaEntity;
 import org.springframework.stereotype.Repository;
 
 import java.util.Optional;

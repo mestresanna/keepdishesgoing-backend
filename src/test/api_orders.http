@@ -26,7 +26,7 @@ Content-Type: application/json
   "menuId": "b30e7950-bb00-4188-888a-4928e336167d",
   "dishId": "19d03512-0e1a-47f9-ae06-fa8dac60f5cb",
   "restaurantId": "6d488e14-cc5e-4565-a69e-d6cf2ee7b0d7",
-  "quantity": 2
+  "quantity": 3
 }
 
 ### Remove dish from a basket
@@ -39,16 +39,16 @@ Content-Type: application/json
 }
 
 ### Checkout Basket
-POST http://localhost:8080/api/orders/basket/e6927ef7-4f6a-4616-86f1-56f6f4cd4170/checkout
+POST http://localhost:8080/api/orders/basket/d4ef2745-1662-40cb-a5f6-edb5e9071d90/checkout
 Content-Type: application/json
 
 {
-  "firstName": "John",
-  "lastName": "Doe",
+  "firstName": "Pau",
+  "lastName": "Mestres",
   "email": "john@example.com",
-  "street": "Main Street",
-  "postalCode": "2000",
-  "number": 123,
+  "street": "Gijselsstraat",
+  "postalCode": "2140",
+  "number": 31,
   "city": "Antwerp",
   "country": "Belgium"
 }

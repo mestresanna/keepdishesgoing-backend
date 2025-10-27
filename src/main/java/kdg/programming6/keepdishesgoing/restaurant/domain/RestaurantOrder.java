@@ -1,12 +1,16 @@
 package kdg.programming6.keepdishesgoing.restaurant.domain;
 
 import kdg.programming6.keepdishesgoing.common.events.DomainEvent;
+import kdg.programming6.keepdishesgoing.common.events.OrderAcceptedEvent;
+import kdg.programming6.keepdishesgoing.common.events.OrderReadyForPickupEvent;
 import kdg.programming6.keepdishesgoing.common.events.OrderStatusChangedEvent;
 import kdg.programming6.keepdishesgoing.common.vo.Address;
+import kdg.programming6.keepdishesgoing.common.vo.Coordinates;
 import kdg.programming6.keepdishesgoing.restaurant.domain.ov.RestaurantId;
 
 import java.math.BigDecimal;
 import java.time.Instant;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -61,7 +65,7 @@ public class RestaurantOrder {
         return order;
     }
 
-    public void accept() {
+    public void accept(Address pickUpAddress, Coordinates pickUpCo, Address dropOffAddress, Coordinates dropOffCo) {
         if (status != RestaurantOrderStatus.PENDING) {
             throw new IllegalStateException("Can only accept pending orders");
         }
@@ -73,6 +77,8 @@ public class RestaurantOrder {
             null,
             restaurantId.restaurantId()
         ));
+        addDomainEvent(new OrderAcceptedEvent(restaurantId.restaurantId(), orderId, pickUpAddress, pickUpCo, dropOffAddress, dropOffCo));
+
     }
 
     public void reject(String reason) {
@@ -120,7 +126,17 @@ public class RestaurantOrder {
             null,
             restaurantId.restaurantId()
         ));
+        addDomainEvent(new OrderReadyForPickupEvent(restaurantId.restaurantId(), orderId));
     }
+
+    public void markPickedUp() {
+        if (this.status != RestaurantOrderStatus.READY) {
+            throw new IllegalStateException("Cannot mark order as picked up when not READY");
+        }
+        this.status = RestaurantOrderStatus.PICKED_UP;
+        addDomainEvent(new OrderStatusChangedEvent(this.orderId,"PICKED_UP",null, restaurantId.restaurantId()));
+    }
+
 
     // Getters
     public UUID getOrderId() { return orderId; }

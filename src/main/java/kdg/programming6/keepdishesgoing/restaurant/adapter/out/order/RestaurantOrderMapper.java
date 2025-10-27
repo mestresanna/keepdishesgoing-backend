@@ -50,8 +50,8 @@ public class RestaurantOrderMapper {
         Address address = new Address(
                 entity.getDeliveryStreet(),
                 entity.getDeliveryNumber(),
-                entity.getDeliveryPostalCode(),
                 entity.getDeliveryCity(),
+                entity.getDeliveryPostalCode(),
                 entity.getDeliveryCountry()
         );
 

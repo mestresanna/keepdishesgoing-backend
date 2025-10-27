@@ -9,7 +9,6 @@ import kdg.programming6.keepdishesgoing.order.port.in.dish.UnpublishDishProjecti
 import kdg.programming6.keepdishesgoing.order.port.in.dish.UpdatedDishProjectionCommand;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.context.event.EventListener;
 import org.springframework.modulith.events.ApplicationModuleListener;
 import org.springframework.stereotype.Component;
 

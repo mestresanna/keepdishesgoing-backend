@@ -7,6 +7,8 @@ import kdg.programming6.keepdishesgoing.order.domain.BasketStatus;
 import kdg.programming6.keepdishesgoing.order.domain.Customer;
 import kdg.programming6.keepdishesgoing.order.domain.Order;
 import kdg.programming6.keepdishesgoing.order.domain.projections.DishProjId;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
 import java.time.OffsetDateTime;
@@ -15,7 +17,7 @@ import java.util.stream.Collectors;
 
 @Component
 public class OrderMapper {
-
+    private final Logger logger = LoggerFactory.getLogger(this.getClass());
     public OrderJpaEntity toJpaEntity(Order order) {
         OrderJpaEntity entity = new OrderJpaEntity();
 
@@ -86,16 +88,16 @@ public class OrderMapper {
         embeddable.setPostalCode(address.postalCode());
         embeddable.setCity(address.city());
         embeddable.setCountry(address.country());
-
+        logger.info(address.toString());
         return embeddable;
     }
 
     private Customer toCustomer(CustomerEmbeddable embeddable) {
-        Address address = new Address(
+        Address address = Address.of(
                 embeddable.getStreet(),
                 embeddable.getNumber(),
-                embeddable.getPostalCode(),
                 embeddable.getCity(),
+                embeddable.getPostalCode(),
                 embeddable.getCountry()
         );
 
