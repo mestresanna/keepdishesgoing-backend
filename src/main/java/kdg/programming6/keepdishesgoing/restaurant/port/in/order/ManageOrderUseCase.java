@@ -8,4 +8,5 @@ public interface ManageOrderUseCase {
     void startPreparation(UUID orderId);
     void markReady(UUID orderId);
     void markOrderPickedUp(UUID orderId);
+    void markOrderDelivered(UUID orderId);
 }

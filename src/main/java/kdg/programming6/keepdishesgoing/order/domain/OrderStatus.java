@@ -7,5 +7,5 @@ public enum OrderStatus {
     IN_PREPARATION, // Being prepared
     READY,          // Ready for pickup/delivery
     DELIVERED,      // Completed
-    CANCELLED
+    PICKED_UP
 }

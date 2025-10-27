@@ -84,4 +84,15 @@ public class ManageOrderImpl implements ManageOrderUseCase {
         saveRestaurantOrderPort.forEach(port -> port.save(order));
         order.clearDomainEvents();
     }
+
+    @Override
+    public void markOrderDelivered(UUID orderId) {
+        RestaurantOrder order = loadRestaurantOrderPort.findById(orderId)
+                .orElseThrow(() -> new RestaurantOrderNotFoundException("Order not found: " + orderId));
+        order.markDelivered();
+        saveRestaurantOrderPort.forEach(port -> port.save(order));
+        order.clearDomainEvents();
+    }
+
+
 }

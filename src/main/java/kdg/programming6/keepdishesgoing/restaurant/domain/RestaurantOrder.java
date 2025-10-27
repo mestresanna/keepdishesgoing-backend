@@ -137,6 +137,13 @@ public class RestaurantOrder {
         addDomainEvent(new OrderStatusChangedEvent(this.orderId,"PICKED_UP",null, restaurantId.restaurantId()));
     }
 
+    public void markDelivered(){
+        if (this.status != RestaurantOrderStatus.PICKED_UP) {
+            throw new IllegalStateException("Cannot mark order as delivered when not PICKED_UP");
+        }
+        this.status = RestaurantOrderStatus.DELIVERED;
+        addDomainEvent(new OrderStatusChangedEvent(this.orderId,"DELIVERED",null, restaurantId.restaurantId()));
+    }
 
     // Getters
     public UUID getOrderId() { return orderId; }

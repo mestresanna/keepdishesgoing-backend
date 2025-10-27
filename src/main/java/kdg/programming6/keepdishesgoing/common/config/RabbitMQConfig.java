@@ -1,4 +1,4 @@
-package be.kdg.keepdishesgoing.common.config;
+package kdg.programming6.keepdishesgoing.common.config;
 
 import org.springframework.amqp.rabbit.config.SimpleRabbitListenerContainerFactory;
 import org.springframework.amqp.rabbit.connection.ConnectionFactory;
@@ -29,9 +29,9 @@ public class RabbitMQConfig {
         DefaultClassMapper classMapper = new DefaultClassMapper();
         classMapper.setTrustedPackages("*"); // or a specific package
         classMapper.setIdClassMapping(Map.of(
-                "kdg.deliveryservice.domain.event.DeliveryDeliveredEvent",
+                "be.kdg.deliveryservice.domain.event.DeliveryDeliveredEvent",
                 kdg.programming6.keepdishesgoing.common.events.OrderDeliveredEvent.class,
-                "kdg.deliveryservice.domain.event.DeliveryJobLocationUpdatedEvent",
+                "be.kdg.deliveryservice.domain.event.DeliveryJobLocationUpdatedEvent",
                 kdg.programming6.keepdishesgoing.common.events.DeliveryJobLocationUpdatedEvent.class
         ));
 
