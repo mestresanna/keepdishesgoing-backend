@@ -3,12 +3,11 @@ package kdg.programming6.keepdishesgoing.order.adapter.in;
 import jakarta.validation.Valid;
 import kdg.programming6.keepdishesgoing.order.adapter.in.request.AddDishToBasketRequest;
 import kdg.programming6.keepdishesgoing.order.adapter.in.request.CheckoutRequest;
+import kdg.programming6.keepdishesgoing.order.adapter.in.request.RemoveDishToBasketRequest;
+import kdg.programming6.keepdishesgoing.order.core.RemoveDishToBasketUseCaseImpl;
 import kdg.programming6.keepdishesgoing.order.domain.exceptions.BasketNotFoundException;
 import kdg.programming6.keepdishesgoing.order.domain.exceptions.DishUnavailableException;
-import kdg.programming6.keepdishesgoing.order.port.in.basket.AddDishToBasketCommand;
-import kdg.programming6.keepdishesgoing.order.port.in.basket.AddDishtoBasketUseCase;
-import kdg.programming6.keepdishesgoing.order.port.in.basket.CheckoutBasketCommand;
-import kdg.programming6.keepdishesgoing.order.port.in.basket.CheckoutBasketUseCase;
+import kdg.programming6.keepdishesgoing.order.port.in.basket.*;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -21,10 +20,12 @@ import java.util.UUID;
 public class BasketController {
     private final AddDishtoBasketUseCase addDishtoBasketUseCase;
     private final CheckoutBasketUseCase checkoutBasketUseCase;
+    private final RemoveDishBasketUseCase removeDishBasketUseCase;
 
-    public BasketController(AddDishtoBasketUseCase addDishtoBasketUseCase, CheckoutBasketUseCase checkoutBasketUseCase) {
+    public BasketController(AddDishtoBasketUseCase addDishtoBasketUseCase, CheckoutBasketUseCase checkoutBasketUseCase, RemoveDishBasketUseCase removeDishBasketUseCase) {
         this.addDishtoBasketUseCase = addDishtoBasketUseCase;
         this.checkoutBasketUseCase = checkoutBasketUseCase;
+        this.removeDishBasketUseCase = removeDishBasketUseCase;
     }
 
 
@@ -43,7 +44,19 @@ public class BasketController {
         addDishtoBasketUseCase.addDishtoBasket(command);
         return ResponseEntity.noContent().build();
     }
+    @PatchMapping({"/{basketId}/removeItem"})
+    public ResponseEntity<Void> removeDishToBasket(
+            @PathVariable(required = false) UUID basketId,
+            @RequestBody RemoveDishToBasketRequest request
+    ) {
+        RemoveDishBasketCommand command = new RemoveDishBasketCommand(
+                basketId,
+                request.menuId(),
+                request.dishId());
 
+        removeDishBasketUseCase.removeDishtoBasket(command);
+        return ResponseEntity.noContent().build();
+    }
     @PostMapping("/{basketId}/checkout")
     public ResponseEntity<?> checkout(
             @PathVariable UUID basketId,

@@ -62,9 +62,6 @@ public class Basket {
         items.removeIf(i -> i.getDishId().equals(dishId));
         recalculateTotalPrice();
 
-        if (items.isEmpty()) {
-            this.restaurantId = null;
-        }
     }
     public void validateItemsAvailability(Map<UUID, DishProjection> dishProjections) {
         List<UUID> unavailableDishes = items.stream()
@@ -97,6 +94,10 @@ public class Basket {
         this.totalPrice = items.stream()
                 .map(BasketItems::totalPrice)
                 .reduce(BigDecimal.ZERO, BigDecimal::add);
+    }
+
+    public boolean isBasketEmpty() {
+        return items.isEmpty();
     }
 
     public UUID getBasketId() {

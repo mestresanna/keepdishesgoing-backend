@@ -29,6 +29,15 @@ Content-Type: application/json
   "quantity": 2
 }
 
+### Remove dish from a basket
+PATCH  http://localhost:8080/api/orders/basket/9bfc2e5d-0835-4686-be7b-60da2c9ff6ce/removeItem
+Content-Type: application/json
+
+{
+  "menuId": "b30e7950-bb00-4188-888a-4928e336167d",
+  "dishId": "19d03512-0e1a-47f9-ae06-fa8dac60f5cb"
+}
+
 ### Checkout Basket
 POST http://localhost:8080/api/orders/basket/e6927ef7-4f6a-4616-86f1-56f6f4cd4170/checkout
 Content-Type: application/json
