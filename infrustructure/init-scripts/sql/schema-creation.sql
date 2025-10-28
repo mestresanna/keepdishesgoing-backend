@@ -89,12 +89,15 @@ CREATE TABLE orders.basket_items (
                                      menu_id UUID NOT NULL,
                                      price_at_add NUMERIC(12,2) NOT NULL,
                                      quantity INTEGER NOT NULL,
+                                     name_dish VARCHAR NOT NULL,
                                      PRIMARY KEY (basket_id, dish_id),
                                      CONSTRAINT fk_basket
                                          FOREIGN KEY (basket_id)
                                              REFERENCES orders.baskets(basket_id)
                                              ON DELETE CASCADE
 );
+
+
 
 -- Orders (placed orders with customer snapshot)
 CREATE TABLE orders.orders (
@@ -125,6 +128,7 @@ CREATE TABLE orders.order_items (
                                     dish_id UUID NOT NULL,
                                     price_at_order NUMERIC(12,2) NOT NULL,
                                     quantity INTEGER NOT NULL,
+                                    name_dish VARCHAR NOT NULL,
                                     CONSTRAINT fk_order
                                         FOREIGN KEY (order_id)
                                             REFERENCES orders.orders(order_id)

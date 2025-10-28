@@ -36,7 +36,7 @@ public class AddDishToABasketUseCaseImpl implements AddDishtoBasketUseCase {
                 .orElseThrow(() -> new BasketNotFoundException("basket not found" +  command.basketId()));
         }
         DishProjection dish = loadDishPort.loadbyIdByMenu(command.dishId(), command.menuId()).orElseThrow(() -> new DishProjectionNotFoundException("Dish not found" + command.dishId()));
-        basket.addDish(new DishProjId(command.menuId(),command.dishId()), command.restaurantId(), dish.getPrice(), command.quantity());
+        basket.addDish(new DishProjId(command.menuId(),command.dishId()), dish.getName(), command.restaurantId(), dish.getPrice(), command.quantity());
         return saveBasketPort.saveBasket(basket);
     }
 }

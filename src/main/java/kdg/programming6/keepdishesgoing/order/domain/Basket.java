@@ -34,7 +34,7 @@ public class Basket {
         return basket;
     }
 
-    public void addDish(DishProjId dishId, UUID dishRestaurantId, BigDecimal price, int quantity) {
+    public void addDish(DishProjId dishId, String nameDish, UUID dishRestaurantId, BigDecimal price, int quantity) {
         if (this.restaurantId == null) {
             this.restaurantId = dishRestaurantId;
         } else if (!this.restaurantId.equals(dishRestaurantId)) {
@@ -49,10 +49,10 @@ public class Basket {
             if (existing != null) {
                 existing.addQuantity(quantity);}
             else {
-                items.add(new BasketItems(dishId, price, quantity));
+                items.add(new BasketItems(dishId,nameDish, price, quantity));
             }
         } else {
-            items.add(new BasketItems(dishId, price, quantity));
+            items.add(new BasketItems(dishId,nameDish, price, quantity));
         }
 
         recalculateTotalPrice();

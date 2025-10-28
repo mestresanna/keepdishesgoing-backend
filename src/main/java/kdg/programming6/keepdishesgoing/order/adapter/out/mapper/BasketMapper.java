@@ -30,7 +30,8 @@ public class BasketMapper {
                             item.getDishId().menuId(), // assuming DishProjId has both menuId and dishId
                             item.getDishId().dishId(),
                             item.getPriceAtAddition(),
-                            item.getQuantity()
+                            item.getQuantity(),
+                            item.getDishName()
                     );
                     itemEntity.setBasket(entity);
                     return itemEntity;
@@ -49,6 +50,7 @@ public class BasketMapper {
                                 item.getMenuId(),
                                 item.getDishId()
                         ),
+                        item.getNameDish(),
                         item.getPriceAtAdd(),
                         item.getQuantity()
                 ))

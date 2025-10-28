@@ -20,6 +20,9 @@ public class OrderItemJpaEntity {
     @Column(name = "menu_id", nullable = false)
     private UUID menuId;
 
+    @Column(name = "name_dish", nullable = false)
+    private String nameDish;
+
     @Column(name = "dish_id", nullable = false)
     private UUID dishId;
 
@@ -31,14 +34,25 @@ public class OrderItemJpaEntity {
 
     protected OrderItemJpaEntity() {}
 
-    public OrderItemJpaEntity(UUID menuId, UUID dishId, BigDecimal priceAtOrder, Integer quantity) {
+    public OrderItemJpaEntity(UUID menuId, UUID dishId, BigDecimal priceAtOrder, Integer quantity, String nameDish) {
         this.menuId = menuId;
         this.dishId = dishId;
         this.priceAtOrder = priceAtOrder;
         this.quantity = quantity;
+        this.nameDish = nameDish;
     }
 
     // Getters & Setters
+
+
+    public String getNameDish() {
+        return nameDish;
+    }
+
+    public void setNameDish(String nameDish) {
+        this.nameDish = nameDish;
+    }
+
     public UUID getOrderItemId() { return orderItemId; }
 
     public OrderJpaEntity getOrder() { return order; }

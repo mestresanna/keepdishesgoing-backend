@@ -6,11 +6,13 @@ import java.math.BigDecimal;
 
 public class BasketItems {
     private DishProjId dishId;
+    private String dishName;
     private BigDecimal priceDish;
     private Integer quantity;
 
-    public BasketItems(DishProjId dishId, BigDecimal priceDish, Integer quantity) {
+    public BasketItems(DishProjId dishId, String dishName, BigDecimal priceDish, Integer quantity) {
         this.dishId = dishId;
+        this.dishName = dishName;
         this.priceDish = priceDish;
         this.quantity = quantity;
     }
@@ -26,6 +28,9 @@ public class BasketItems {
         return priceDish.multiply(BigDecimal.valueOf(quantity));
     }
 
+    public String getDishName() {
+        return dishName;
+    }
 
     public DishProjId getDishId() {
         return dishId;

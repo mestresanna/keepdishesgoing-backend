@@ -6,6 +6,7 @@ import kdg.programming6.keepdishesgoing.restaurant.port.in.dish.PublishDishUseCa
 import kdg.programming6.keepdishesgoing.restaurant.port.in.dish.ScheduleDishChangeUseCase;
 import kdg.programming6.keepdishesgoing.restaurant.port.in.dish.UnpublishDishUseCase;
 import org.springframework.scheduling.annotation.Scheduled;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Component;
 
 import java.util.List;

@@ -36,7 +36,8 @@ public class OrderMapper {
                         item.getDishId().menuId(),
                         item.getDishId().dishId(),
                         item.getPriceAtAddition(),
-                        item.getQuantity()
+                        item.getQuantity(),
+                        item.getDishName()
                 ))
                 .collect(Collectors.toList());
 
@@ -52,6 +53,7 @@ public class OrderMapper {
         List<BasketItems> basketItems = entity.getOrderItems().stream()
                 .map(item -> new BasketItems(
                         new DishProjId(item.getMenuId(), item.getDishId()),
+                        item.getNameDish(),
                         item.getPriceAtOrder(),
                         item.getQuantity()
                 ))

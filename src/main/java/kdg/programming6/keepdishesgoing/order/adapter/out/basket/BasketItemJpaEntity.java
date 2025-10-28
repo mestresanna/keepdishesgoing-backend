@@ -19,6 +19,9 @@ public class BasketItemJpaEntity {
     @Column(name = "menu_id", nullable = false)
     private UUID menuId;
 
+    @Column(name = "name_dish", nullable = false)
+    private String nameDish;
+
     @Column(name = "price_at_add", precision = 12, scale = 2, nullable = false)
     private BigDecimal priceAtAdd;
 
@@ -27,11 +30,20 @@ public class BasketItemJpaEntity {
 
     protected BasketItemJpaEntity() {}
 
-    public BasketItemJpaEntity(UUID basketId, UUID menuId, UUID dishId, BigDecimal priceAtAdd, Integer quantity) {
+    public BasketItemJpaEntity(UUID basketId, UUID menuId, UUID dishId, BigDecimal priceAtAdd, Integer quantity, String nameDish) {
         this.id = new BasketItemId(basketId, dishId);
         this.menuId = menuId;
         this.priceAtAdd = priceAtAdd;
         this.quantity = quantity;
+        this.nameDish = nameDish;
+    }
+
+    public String getNameDish() {
+        return nameDish;
+    }
+
+    public void setNameDish(String nameDish) {
+        this.nameDish = nameDish;
     }
 
     public BasketItemId getId() { return id; }
