@@ -1,13 +1,11 @@
 package kdg.programming6.keepdishesgoing.order.core;
 
 import jakarta.transaction.Transactional;
-import kdg.programming6.keepdishesgoing.order.domain.projections.DishProjection;
 import kdg.programming6.keepdishesgoing.order.domain.projections.MenuProjection;
 import kdg.programming6.keepdishesgoing.order.domain.projections.RestaurantProjection;
 import kdg.programming6.keepdishesgoing.order.port.in.restaurant.FindRestaurantDetailsUseCase;
-import kdg.programming6.keepdishesgoing.order.port.out.LoadDishProjectionPort;
-import kdg.programming6.keepdishesgoing.order.port.out.LoadMenuProjectionPort;
-import kdg.programming6.keepdishesgoing.order.port.out.LoadRestaurantsProjectionsPort;
+import kdg.programming6.keepdishesgoing.order.port.out.menu.LoadMenuProjectionPort;
+import kdg.programming6.keepdishesgoing.order.port.out.restaurant.LoadRestaurantsProjectionsPort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

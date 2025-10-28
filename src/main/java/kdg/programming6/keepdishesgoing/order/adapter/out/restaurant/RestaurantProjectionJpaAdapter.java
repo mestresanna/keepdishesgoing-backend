@@ -4,8 +4,8 @@ import kdg.programming6.keepdishesgoing.common.vo.Address;
 import kdg.programming6.keepdishesgoing.order.adapter.out.mapper.OpeningHoursProjectionMapper;
 import kdg.programming6.keepdishesgoing.order.domain.projections.RestaurantProjection;
 import kdg.programming6.keepdishesgoing.order.domain.projections.RestaurantProjectionId;
-import kdg.programming6.keepdishesgoing.order.port.out.LoadRestaurantsProjectionsPort;
-import kdg.programming6.keepdishesgoing.order.port.out.SaveRestaurantProjectionPort;
+import kdg.programming6.keepdishesgoing.order.port.out.restaurant.LoadRestaurantsProjectionsPort;
+import kdg.programming6.keepdishesgoing.order.port.out.restaurant.SaveRestaurantProjectionPort;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;

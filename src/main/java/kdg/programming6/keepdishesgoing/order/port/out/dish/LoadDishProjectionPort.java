@@ -1,10 +1,9 @@
-package kdg.programming6.keepdishesgoing.order.port.out;
+package kdg.programming6.keepdishesgoing.order.port.out.dish;
 
 import kdg.programming6.keepdishesgoing.order.domain.projections.DishProjection;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.Set;
 import java.util.UUID;
 
 public interface LoadDishProjectionPort {

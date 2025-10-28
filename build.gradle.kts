@@ -39,6 +39,7 @@ dependencies {
     testImplementation ("org.springframework.security:spring-security-test")
     implementation("org.springframework.modulith:spring-modulith-events-api")
     implementation("org.springframework.modulith:spring-modulith-events-amqp")
+    implementation("com.stripe:stripe-java:24.16.0")
 }
 
 dependencyManagement {

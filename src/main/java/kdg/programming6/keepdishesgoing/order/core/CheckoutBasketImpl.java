@@ -7,10 +7,10 @@ import kdg.programming6.keepdishesgoing.order.domain.exceptions.DishProjectionNo
 import kdg.programming6.keepdishesgoing.order.domain.projections.DishProjection;
 import kdg.programming6.keepdishesgoing.order.port.in.basket.CheckoutBasketCommand;
 import kdg.programming6.keepdishesgoing.order.port.in.basket.CheckoutBasketUseCase;
-import kdg.programming6.keepdishesgoing.order.port.out.LoadBasketPort;
-import kdg.programming6.keepdishesgoing.order.port.out.LoadDishProjectionPort;
-import kdg.programming6.keepdishesgoing.order.port.out.SaveBasketPort;
-import kdg.programming6.keepdishesgoing.order.port.out.SaveOrderPort;
+import kdg.programming6.keepdishesgoing.order.port.out.basket.LoadBasketPort;
+import kdg.programming6.keepdishesgoing.order.port.out.dish.LoadDishProjectionPort;
+import kdg.programming6.keepdishesgoing.order.port.out.basket.SaveBasketPort;
+import kdg.programming6.keepdishesgoing.order.port.out.order.SaveOrderPort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -59,7 +59,8 @@ public class CheckoutBasketImpl implements CheckoutBasketUseCase {
                 UUID.randomUUID(),
                 basket,
                 command.toCustomer(),
-                command.message()
+                command.message(),
+                basket.getTotalPrice()
         );
         saveOrderPort.forEach( port -> port.save(order));
     }

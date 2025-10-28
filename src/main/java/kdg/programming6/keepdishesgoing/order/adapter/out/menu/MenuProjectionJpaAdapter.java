@@ -1,10 +1,9 @@
 package kdg.programming6.keepdishesgoing.order.adapter.out.menu;
 
-import jakarta.persistence.*;
 import kdg.programming6.keepdishesgoing.order.adapter.out.mapper.MenuProjectionMapper;
 import kdg.programming6.keepdishesgoing.order.domain.projections.MenuProjection;
-import kdg.programming6.keepdishesgoing.order.port.out.LoadMenuProjectionPort;
-import kdg.programming6.keepdishesgoing.order.port.out.SaveMenuProjectionPort;
+import kdg.programming6.keepdishesgoing.order.port.out.menu.LoadMenuProjectionPort;
+import kdg.programming6.keepdishesgoing.order.port.out.menu.SaveMenuProjectionPort;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;

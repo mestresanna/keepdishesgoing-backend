@@ -4,6 +4,7 @@ import kdg.programming6.keepdishesgoing.common.events.DomainEvent;
 import kdg.programming6.keepdishesgoing.common.events.OrderCreatedEvent;
 import kdg.programming6.keepdishesgoing.common.vo.OrderItemDto;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -16,15 +17,17 @@ public class Order {
     private String message;
     private OrderStatus status;
     private String rejectionReason;
+    private BigDecimal totalPrice;
 
     private final List<DomainEvent> domainEvents = new ArrayList<>();
 
-    public Order(UUID orderId, Basket basket, Customer customer, String message) {
+    public Order(UUID orderId, Basket basket, Customer customer, String message, BigDecimal totalPrice) {
         this.orderId = orderId;
         this.basket = basket;
         this.customer = customer;
         this.message = message;
         this.status = OrderStatus.PENDING; // Initial status
+        this.totalPrice = totalPrice;
         this.addDomainEvent(createOrderCreatedEvent());
     }
 
@@ -70,6 +73,10 @@ public class Order {
 
     public String getMessage() {
         return message;
+    }
+
+    public BigDecimal getTotalPrice() {
+        return totalPrice;
     }
 
     public List<DomainEvent> getDomainEvents() {

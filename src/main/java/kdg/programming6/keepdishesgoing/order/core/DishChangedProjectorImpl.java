@@ -9,7 +9,11 @@ import kdg.programming6.keepdishesgoing.order.port.in.dish.CreatedDishProjection
 import kdg.programming6.keepdishesgoing.order.port.in.dish.DishChangedProjector;
 import kdg.programming6.keepdishesgoing.order.port.in.dish.UnpublishDishProjectionCommand;
 import kdg.programming6.keepdishesgoing.order.port.in.dish.UpdatedDishProjectionCommand;
-import kdg.programming6.keepdishesgoing.order.port.out.*;
+import kdg.programming6.keepdishesgoing.order.port.out.dish.DeleteDishProjectionPort;
+import kdg.programming6.keepdishesgoing.order.port.out.dish.LoadDishProjectionPort;
+import kdg.programming6.keepdishesgoing.order.port.out.dish.SaveDishProjectionPort;
+import kdg.programming6.keepdishesgoing.order.port.out.menu.LoadMenuProjectionPort;
+import kdg.programming6.keepdishesgoing.order.port.out.menu.SaveMenuProjectionPort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

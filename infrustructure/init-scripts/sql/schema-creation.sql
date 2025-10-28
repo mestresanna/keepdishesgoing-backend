@@ -131,6 +131,18 @@ CREATE TABLE orders.order_items (
                                             ON DELETE CASCADE
 );
 
+CREATE TABLE orders.payment_states (
+                                       payment_id UUID PRIMARY KEY,
+                                       order_id UUID NOT NULL,
+                                       stripe_session_id VARCHAR(255) NOT NULL UNIQUE,
+                                       amount DECIMAL(12, 2) NOT NULL,
+                                       status VARCHAR(50) NOT NULL,
+                                       created_at TIMESTAMP NOT NULL
+);
+
+CREATE INDEX idx_payment_order_id ON orders.payment_states(order_id);
+CREATE INDEX idx_payment_session_id ON orders.payment_states(stripe_session_id);
+
 -- Indexes for performance
 CREATE INDEX idx_baskets_restaurant ON orders.baskets(restaurant_id);
 CREATE INDEX idx_basket_items_basket ON orders.basket_items(basket_id);

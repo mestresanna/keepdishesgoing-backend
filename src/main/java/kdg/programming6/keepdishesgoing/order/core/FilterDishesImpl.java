@@ -3,7 +3,7 @@ package kdg.programming6.keepdishesgoing.order.core;
 import jakarta.transaction.Transactional;
 import kdg.programming6.keepdishesgoing.order.domain.projections.DishProjection;
 import kdg.programming6.keepdishesgoing.order.port.in.dish.FilterDishesUseCase;
-import kdg.programming6.keepdishesgoing.order.port.out.LoadDishProjectionPort;
+import kdg.programming6.keepdishesgoing.order.port.out.dish.LoadDishProjectionPort;
 import org.springframework.stereotype.Service;
 
 import java.util.Comparator;

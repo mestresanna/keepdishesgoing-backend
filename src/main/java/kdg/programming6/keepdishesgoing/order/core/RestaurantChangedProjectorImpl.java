@@ -7,7 +7,7 @@ import kdg.programming6.keepdishesgoing.order.domain.projections.RestaurantProje
 import kdg.programming6.keepdishesgoing.order.port.in.restaurant.CreatedRestaurantProjectionCommand;
 import kdg.programming6.keepdishesgoing.order.port.in.restaurant.RestaurantChangedProjector;
 import kdg.programming6.keepdishesgoing.order.port.in.restaurant.UpdatedRestaurantProjectionCommand;
-import kdg.programming6.keepdishesgoing.order.port.out.SaveRestaurantProjectionPort;
+import kdg.programming6.keepdishesgoing.order.port.out.restaurant.SaveRestaurantProjectionPort;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;

@@ -1,7 +1,7 @@
 package kdg.programming6.keepdishesgoing.order.adapter.out.order;
 
 import kdg.programming6.keepdishesgoing.order.domain.Order;
-import kdg.programming6.keepdishesgoing.order.port.out.SaveOrderPort;
+import kdg.programming6.keepdishesgoing.order.port.out.order.SaveOrderPort;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Component;
 

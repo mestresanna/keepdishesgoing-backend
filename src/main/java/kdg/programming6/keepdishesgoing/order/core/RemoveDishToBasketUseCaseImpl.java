@@ -8,13 +8,11 @@ import kdg.programming6.keepdishesgoing.order.domain.projections.DishProjId;
 import kdg.programming6.keepdishesgoing.order.domain.projections.DishProjection;
 import kdg.programming6.keepdishesgoing.order.port.in.basket.RemoveDishBasketCommand;
 import kdg.programming6.keepdishesgoing.order.port.in.basket.RemoveDishBasketUseCase;
-import kdg.programming6.keepdishesgoing.order.port.out.DeleteBasketPort;
-import kdg.programming6.keepdishesgoing.order.port.out.LoadBasketPort;
-import kdg.programming6.keepdishesgoing.order.port.out.LoadDishProjectionPort;
-import kdg.programming6.keepdishesgoing.order.port.out.SaveBasketPort;
+import kdg.programming6.keepdishesgoing.order.port.out.basket.DeleteBasketPort;
+import kdg.programming6.keepdishesgoing.order.port.out.basket.LoadBasketPort;
+import kdg.programming6.keepdishesgoing.order.port.out.dish.LoadDishProjectionPort;
+import kdg.programming6.keepdishesgoing.order.port.out.basket.SaveBasketPort;
 import org.springframework.stereotype.Service;
-
-import java.util.UUID;
 
 @Service
 @Transactional

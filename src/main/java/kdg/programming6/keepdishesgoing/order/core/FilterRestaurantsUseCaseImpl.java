@@ -3,7 +3,7 @@ package kdg.programming6.keepdishesgoing.order.core;
 import jakarta.transaction.Transactional;
 import kdg.programming6.keepdishesgoing.order.domain.projections.RestaurantProjection;
 import kdg.programming6.keepdishesgoing.order.port.in.restaurant.FilterRestaurantsUseCase;
-import kdg.programming6.keepdishesgoing.order.port.out.LoadRestaurantsProjectionsPort;
+import kdg.programming6.keepdishesgoing.order.port.out.restaurant.LoadRestaurantsProjectionsPort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

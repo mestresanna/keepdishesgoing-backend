@@ -70,7 +70,8 @@ public class OrderMapper {
                 entity.getOrderId(),
                 basket,
                 customer,
-                entity.getMessage()
+                entity.getMessage(),
+                entity.getTotalPrice()
         );
     }
 

@@ -4,9 +4,9 @@ import kdg.programming6.keepdishesgoing.order.adapter.out.mapper.DishProjectionM
 import kdg.programming6.keepdishesgoing.order.adapter.out.menu.MenuProjectionJpaEntity;
 import kdg.programming6.keepdishesgoing.order.adapter.out.menu.MenuProjectionJpaRepository;
 import kdg.programming6.keepdishesgoing.order.domain.projections.DishProjection;
-import kdg.programming6.keepdishesgoing.order.port.out.DeleteDishProjectionPort;
-import kdg.programming6.keepdishesgoing.order.port.out.LoadDishProjectionPort;
-import kdg.programming6.keepdishesgoing.order.port.out.SaveDishProjectionPort;
+import kdg.programming6.keepdishesgoing.order.port.out.dish.DeleteDishProjectionPort;
+import kdg.programming6.keepdishesgoing.order.port.out.dish.LoadDishProjectionPort;
+import kdg.programming6.keepdishesgoing.order.port.out.dish.SaveDishProjectionPort;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;

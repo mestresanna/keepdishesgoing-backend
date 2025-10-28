@@ -1,9 +1,9 @@
 package kdg.programming6.keepdishesgoing.order.adapter.out.order;
 
 import kdg.programming6.keepdishesgoing.order.domain.Order;
-import kdg.programming6.keepdishesgoing.order.port.out.LoadOrderPort;
-import kdg.programming6.keepdishesgoing.order.port.out.SaveOrderPort;
-import kdg.programming6.keepdishesgoing.order.port.out.UpdateOrderPort;
+import kdg.programming6.keepdishesgoing.order.port.out.order.LoadOrderPort;
+import kdg.programming6.keepdishesgoing.order.port.out.order.SaveOrderPort;
+import kdg.programming6.keepdishesgoing.order.port.out.order.UpdateOrderPort;
 import org.springframework.stereotype.Repository;
 
 import java.util.Optional;

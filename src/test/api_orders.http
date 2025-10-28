@@ -26,7 +26,7 @@ Content-Type: application/json
   "menuId": "b30e7950-bb00-4188-888a-4928e336167d",
   "dishId": "19d03512-0e1a-47f9-ae06-fa8dac60f5cb",
   "restaurantId": "6d488e14-cc5e-4565-a69e-d6cf2ee7b0d7",
-  "quantity": 3
+  "quantity": 1
 }
 
 ### Remove dish from a basket
@@ -39,12 +39,12 @@ Content-Type: application/json
 }
 
 ### Checkout Basket
-POST http://localhost:8080/api/orders/basket/4904db81-d47a-47df-aeaa-f7d8f123f70f/checkout
+POST http://localhost:8080/api/orders/basket/2abd34ba-ec82-4b36-857d-9012907d0eae/checkout
 Content-Type: application/json
 
 {
-  "firstName": "Pau",
-  "lastName": "Mestres",
+  "firstName": "Anna",
+  "lastName": "Casadesus",
   "email": "john@example.com",
   "street": "Gijselsstraat",
   "postalCode": "2140",

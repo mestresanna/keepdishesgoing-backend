@@ -1,4 +1,4 @@
-package kdg.programming6.keepdishesgoing.order.port.out;
+package kdg.programming6.keepdishesgoing.order.port.out.basket;
 
 import kdg.programming6.keepdishesgoing.order.domain.Basket;
 
