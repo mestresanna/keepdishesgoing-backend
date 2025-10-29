@@ -3,7 +3,7 @@ GET http://localhost:8080/api/orders/restaurants
 Accept: application/json
 
 ### Get a restaurant with its details
-GET http://localhost:8080/api/orders/restaurants/1b918dcd-d3f0-4e32-977f-da2b8855a15d
+GET http://localhost:8080/api/orders/restaurants/6d488e14-cc5e-4565-a69e-d6cf2ee7b0d7
 Accept: application/json
 
 ### Filter restaurants by cuisine and price
@@ -11,17 +11,16 @@ GET http://localhost:8080/api/orders/restaurants/filter?cuisine=Italian&priceRan
 Accept: application/json
 
 ### Filter dishes with tags and type
-GET http://localhost:8080/api/orders/dishes/03080bb4-f5c9-464e-bf00-217d045af233/filter?type=&tags=gluten
+GET http://localhost:8080/api/orders/dishes/6d488e14-cc5e-4565-a69e-d6cf2ee7b0d7/filter?type=&tags=gluten
 Accept: application/json
 
 ### Get vegan desserts sorted by name descending
-GET http://localhost:8080/api/orders/dishes/03080bb4-f5c9-464e-bf00-217d045af233/filter?type=entree&tags=&sortBy=name&direction=desc
+GET http://localhost:8080/api/orders/dishes/6d488e14-cc5e-4565-a69e-d6cf2ee7b0d7/filter?type=main&tags=&sortBy=name&direction=desc
 Accept: application/json
 
 ### Add a dish to a basket
 PATCH  http://localhost:8080/api/orders/basket/items
 Content-Type: application/json
-
 {
   "menuId": "b30e7950-bb00-4188-888a-4928e336167d",
   "dishId": "19d03512-0e1a-47f9-ae06-fa8dac60f5cb",

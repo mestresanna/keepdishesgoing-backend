@@ -9,5 +9,6 @@ public record RestaurantProjectionDto(
         int defaultPreparationTimeInMinutes,
         String typeOfCuisine,
         OpeningHourProjectionDto openingHours,
-        String priceRange) {
+        String priceRange,
+        Boolean isOpen) {
 }

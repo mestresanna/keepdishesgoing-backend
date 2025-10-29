@@ -15,8 +15,7 @@ public record CreateDishRequest(
         Set<String> tags,
         String description,
         BigDecimal price,
-        String pictureUrl,
-        String state
+        String pictureUrl
 ) {
     public CreateDishCommand toCommand(UUID restaurantId) {
         return new CreateDishCommand(
@@ -27,9 +26,7 @@ public record CreateDishRequest(
                 description,
                 price,
                 pictureUrl,
-                DishState.valueOf(state),
-                false,
-                null
+                DishState.DRAFT
         );
     }
 }

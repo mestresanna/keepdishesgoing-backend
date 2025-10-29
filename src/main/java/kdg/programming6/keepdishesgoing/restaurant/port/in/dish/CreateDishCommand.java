@@ -15,8 +15,6 @@ public record CreateDishCommand(
         String description,
         BigDecimal price,
         String pictureUrl,
-        DishState state,
-        boolean hasPendingChanges,
-        PublishDishesSchedule scheduledChange
+        DishState state
 ) {
 }

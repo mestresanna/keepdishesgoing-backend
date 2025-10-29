@@ -8,8 +8,9 @@ import java.math.BigDecimal;
 import java.util.Set;
 import java.util.UUID;
 
-public record EditDishRequest(UUID dishId, String name, String description, BigDecimal price, String pictureUrl, DishType type, Set<FoodTag> tags) {
+public record EditDishRequest(UUID dishId, String name, String description, BigDecimal price, String pictureUrl, String type, Set<String> tags) {
     public EditDishCommand toCommand(UUID dishId) {
-        return new EditDishCommand(dishId, name, description, price, pictureUrl, type, tags);
+        return new EditDishCommand(dishId, name, description, price, pictureUrl, DishType.valueOf(type), tags != null ? tags.stream().map(FoodTag::new).collect(java.util.stream.Collectors.toSet()) : Set.of()
+                );
     }
 }

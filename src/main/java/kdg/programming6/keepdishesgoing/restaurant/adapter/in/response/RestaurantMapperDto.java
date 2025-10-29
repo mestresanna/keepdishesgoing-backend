@@ -1,12 +1,6 @@
 package kdg.programming6.keepdishesgoing.restaurant.adapter.in.response;
 
-import kdg.programming6.keepdishesgoing.restaurant.adapter.in.response.AddressDto;
-import kdg.programming6.keepdishesgoing.restaurant.adapter.in.response.DayHoursDto;
-import kdg.programming6.keepdishesgoing.restaurant.adapter.in.response.OpeningHourDto;
-import kdg.programming6.keepdishesgoing.restaurant.adapter.in.response.RestaurantDto;
-import kdg.programming6.keepdishesgoing.restaurant.domain.PriceRange;
 import kdg.programming6.keepdishesgoing.restaurant.domain.Restaurant;
-import kdg.programming6.keepdishesgoing.restaurant.domain.TypeOfCuisine;
 import org.springframework.stereotype.Component;
 
 @Component

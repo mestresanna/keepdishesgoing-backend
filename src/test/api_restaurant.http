@@ -46,7 +46,7 @@ Accept: application/json
 Authorization: Bearer {{access_token}}
 
 ### Update opening-hours of a restaurant
-PATCH http://localhost:8080/api/restaurants/079a77cc-01d3-4c7a-ba5e-05008b2706ae/opening-hours
+PATCH http://localhost:8080/api/restaurants/6d488e14-cc5e-4565-a69e-d6cf2ee7b0d7/opening-hours
 Content-Type: application/json
 Authorization: Bearer {{access_token}}
 
@@ -82,11 +82,10 @@ Authorization: Bearer {{access_token}}
 {
   "name": "Arros Negre",
   "type": "ENTREE",
-  "tags": ["egg", "lactose"],
+  "tags": ["eggs"],
   "description": "Rice with seafood and ink from squid.",
   "price": 40,
   "pictureUrl": "https://cuinatsjotri.cat/files/productes/arros-negre-470x470.jpg",
-  "state": "DRAFT"
 }
 
 ### Publish a dish
@@ -98,7 +97,7 @@ POST http://localhost:8080/api/dishes/2b197fda-85e3-4f47-a040-47031a849ae3/unpub
 Authorization: Bearer {{access_token}}
 
 ### Edit a dish
-PATCH http://localhost:8080/api/dishes/4e36477a-b5fc-4b4b-a51a-9111471e52e5
+PATCH http://localhost:8080/api/dishes/d81e380d-866c-4d53-8d77-05a4a9408544
 Content-Type: application/json
 Authorization: Bearer {{access_token}}
 
@@ -108,10 +107,7 @@ Authorization: Bearer {{access_token}}
   "price": 30.5,
   "pictureUrl": "https://i.ytimg.com/vi/1MzMde4FzBM/hq720.jpg?sqp=-oaymwEhCK4FEIIDSFryq4qpAxMIARUAAAAAGAElAADIQj0AgKJD&rs=AOn4CLCq_CZLPwDzuIgbMYWTlK3Sz-ifxQ",
   "type": "SPECIALS",
-  "tags": [
-    { "tag": "gluten" },
-    { "tag": "seafood" }
-  ]
+  "tags": ["gluten", "seafood"]
 }
 
 ### Change state dish, out of stok or back on stock

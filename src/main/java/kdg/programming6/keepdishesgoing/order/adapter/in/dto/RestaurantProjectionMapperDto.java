@@ -34,7 +34,8 @@ public class RestaurantProjectionMapperDto {
                 restaurant.getDefaultPreparationTimeInMinutes(),
                 restaurant.getTypeOfCuisine(),
                 openingHours,
-                restaurant.getPriceRange()
+                restaurant.getPriceRange(),
+                restaurant.isOpenNow()
         );
     }
 

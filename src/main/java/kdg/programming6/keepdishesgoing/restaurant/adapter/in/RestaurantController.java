@@ -46,11 +46,11 @@ public class RestaurantController {
         createRestaurant.createRestaurant(request.toCommand(ownerId));
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
-// TODO check if it is use in the frontend
-//    @GetMapping("/{id}")
-//    public ResponseEntity<Restaurant> getRestaurantById(@PathVariable UUID id) {
-//        return ResponseEntity.ok(findRestaurant.findRestaurant(id));
-//    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<Restaurant> getRestaurantById(@PathVariable UUID id) {
+        return ResponseEntity.ok(findRestaurant.findRestaurant(id));
+    }
 
     @GetMapping
     @PreAuthorize("hasAuthority('owner')")
