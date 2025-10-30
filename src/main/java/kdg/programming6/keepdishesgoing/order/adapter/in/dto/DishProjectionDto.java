@@ -9,6 +9,6 @@ public record DishProjectionDto(
         String description,
         BigDecimal price,
         String pictureUrl,
-        String type,
+        String dishType,
         Set<String> tags
 ) {}

@@ -30,6 +30,20 @@ public class Order {
         this.totalPrice = totalPrice;
         this.addDomainEvent(createOrderCreatedEvent());
     }
+    public static Order reconstitute(
+            UUID orderId,
+            Basket basket,
+            Customer customer,
+            String message,
+            BigDecimal totalPrice,
+            OrderStatus status,
+            String rejectionReason) {
+        Order order = new Order(orderId, basket, customer, message, totalPrice);
+        order.status = status;
+        order.rejectionReason = rejectionReason;
+        order.clearDomainEvents();
+        return order;
+    }
 
     private OrderCreatedEvent createOrderCreatedEvent() {
         List<OrderItemDto> items = basket.getItems().stream()

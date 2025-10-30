@@ -26,7 +26,7 @@ public class RestaurantProjectionMapperDto {
         );
 
         return new RestaurantProjectionDto(
-                restaurant.getRestaurantId().toString(),
+                restaurant.getRestaurantId().restaurantId(),
                 restaurant.getName(),
                 address,
                 restaurant.getContactEmail(),
@@ -58,7 +58,7 @@ public class RestaurantProjectionMapperDto {
         );
 
         return new RestaurantDetailsDto(
-                restaurant.getRestaurantId().toString(),
+                restaurant.getRestaurantId().restaurantId(),
                 restaurant.getName(),
                 address,
                 restaurant.getContactEmail(),

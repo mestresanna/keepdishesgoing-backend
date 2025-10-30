@@ -5,6 +5,7 @@ import java.util.UUID;
 
 public record BasketItemDto(
         UUID dishId,
+        UUID menuId,
         String dishName,
         int quantity,
         BigDecimal pricePerItem,

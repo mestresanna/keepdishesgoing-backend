@@ -6,7 +6,7 @@ import kdg.programming6.keepdishesgoing.restaurant.domain.Restaurant;
 import kdg.programming6.keepdishesgoing.restaurant.domain.RestaurantOrder;
 import kdg.programming6.keepdishesgoing.restaurant.domain.exceptions.RestaurantNotFoundException;
 import kdg.programming6.keepdishesgoing.restaurant.domain.exceptions.RestaurantOrderNotFoundException;
-import kdg.programming6.keepdishesgoing.restaurant.port.in.order.LoadRestaurantOrderPort;
+import kdg.programming6.keepdishesgoing.restaurant.port.out.LoadRestaurantOrderPort;
 import kdg.programming6.keepdishesgoing.restaurant.port.in.order.ManageOrderUseCase;
 import kdg.programming6.keepdishesgoing.restaurant.port.out.GeocodingPort;
 import kdg.programming6.keepdishesgoing.restaurant.port.out.LoadRestaurantPort;

@@ -1,6 +1,8 @@
 package kdg.programming6.keepdishesgoing.order.port.in.basket;
 
 
+import kdg.programming6.keepdishesgoing.order.domain.Order;
+
 public interface CheckoutBasketUseCase {
-    void checkout(CheckoutBasketCommand command);
+    Order checkout(CheckoutBasketCommand command);
 }

@@ -1,11 +1,7 @@
 package kdg.programming6.keepdishesgoing.order.adapter.out.order;
 
 import kdg.programming6.keepdishesgoing.common.vo.Address;
-import kdg.programming6.keepdishesgoing.order.domain.Basket;
-import kdg.programming6.keepdishesgoing.order.domain.BasketItems;
-import kdg.programming6.keepdishesgoing.order.domain.BasketStatus;
-import kdg.programming6.keepdishesgoing.order.domain.Customer;
-import kdg.programming6.keepdishesgoing.order.domain.Order;
+import kdg.programming6.keepdishesgoing.order.domain.*;
 import kdg.programming6.keepdishesgoing.order.domain.projections.DishProjId;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -26,11 +22,10 @@ public class OrderMapper {
         entity.setRestaurantId(order.getBasket().getRestaurantId());
         entity.setMessage(order.getMessage());
         entity.setTotalPrice(order.getBasket().getTotalPrice());
-        entity.setStatus("PENDING"); // or map from order status if you have one
+        entity.setStatus(order.getStatus().toString());
         entity.setCreatedAt(OffsetDateTime.now());
         entity.setCustomer(toCustomerEmbeddable(order.getCustomer()));
 
-        // Snapshot basket items as order items
         List<OrderItemJpaEntity> orderItems = order.getBasket().getItems().stream()
                 .map(item -> new OrderItemJpaEntity(
                         item.getDishId().menuId(),
@@ -49,7 +44,6 @@ public class OrderMapper {
     public Order toDomain(OrderJpaEntity entity) {
         Customer customer = toCustomer(entity.getCustomer());
 
-        // Reconstruct basket from order items snapshot
         List<BasketItems> basketItems = entity.getOrderItems().stream()
                 .map(item -> new BasketItems(
                         new DishProjId(item.getMenuId(), item.getDishId()),
@@ -68,12 +62,15 @@ public class OrderMapper {
                 entity.getMessage()
         );
 
-        return new Order(
+        // ⭐ Use reconstitute instead of constructor
+        return Order.reconstitute(
                 entity.getOrderId(),
                 basket,
                 customer,
                 entity.getMessage(),
-                entity.getTotalPrice()
+                entity.getTotalPrice(),
+                OrderStatus.valueOf(entity.getStatus()),
+                entity.getRejectionReason()
         );
     }
 

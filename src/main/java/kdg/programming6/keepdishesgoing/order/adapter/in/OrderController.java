@@ -21,7 +21,7 @@ public class OrderController {
     }
 
     @GetMapping("/{orderId}")
-    public ResponseEntity<OrdersDto> getBasket(@PathVariable UUID orderId) {
+    public ResponseEntity<OrdersDto> getOrder(@PathVariable UUID orderId) {
         Order order = findOrderUseCase.findById(orderId);
         OrdersDto orderDto = orderMapperDto.toDto(order);
         return ResponseEntity.ok(orderDto);

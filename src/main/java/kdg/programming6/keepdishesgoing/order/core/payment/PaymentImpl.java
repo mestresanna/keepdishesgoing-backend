@@ -2,6 +2,7 @@ package kdg.programming6.keepdishesgoing.order.core.payment;
 
 import jakarta.transaction.Transactional;
 import kdg.programming6.keepdishesgoing.order.domain.exceptions.OrderNotFoundException;
+import kdg.programming6.keepdishesgoing.order.domain.vo.PaymentSession;
 import kdg.programming6.keepdishesgoing.order.port.in.payment.PaymentUseCase;
 import kdg.programming6.keepdishesgoing.order.port.out.order.LoadOrderPort;
 import kdg.programming6.keepdishesgoing.order.port.out.payment.PaymentPort;
@@ -35,13 +36,16 @@ public class PaymentImpl implements PaymentUseCase {
     }
 
     @Override
-    public String createPayment(BigDecimal amount, UUID orderId) {
+    public PaymentSession createPayment(BigDecimal amount, UUID orderId) {
         // Load order to verify it exists
         var order = loadOrderPort.loadOrder(orderId)
                 .orElseThrow(() -> new OrderNotFoundException("Order not found: " + orderId));
 
+        String successUrlWithParams = successUrl + "?session_id={CHECKOUT_SESSION_ID}&order_id=" + orderId;
+        String cancelUrlWithParams = cancelUrl + "?order_id=" + orderId;
+
         // Create payment session via adapter
-        var session = paymentPort.createPayment(amount, "EUR", successUrl, cancelUrl);
+        var session = paymentPort.createPayment(amount, "EUR", successUrlWithParams, cancelUrlWithParams);
 
         // Save payment state (link session to order)
         savePaymentStatePort.savePaymentState(new PaymentState(
@@ -52,7 +56,7 @@ public class PaymentImpl implements PaymentUseCase {
                 "PENDING"
         ));
 
-        return session.getUrl();
+        return new PaymentSession(session.getId() ,session.getUrl());
     }
 
     @Override

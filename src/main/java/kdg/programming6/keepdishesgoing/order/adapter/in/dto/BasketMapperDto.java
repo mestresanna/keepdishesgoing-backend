@@ -27,6 +27,7 @@ public class BasketMapperDto {
     private BasketItemDto toItemDto(BasketItems item) {
         return new BasketItemDto(
                 item.getDishId().dishId(),
+                item.getDishId().menuId(),
                 item.getDishName(),
                 item.getQuantity(),
                 item.getPriceAtAddition(),

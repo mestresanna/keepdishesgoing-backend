@@ -21,9 +21,11 @@ Accept: application/json
 ### Add a dish to a basket
 PATCH  http://localhost:8080/api/orders/basket/items
 Content-Type: application/json
+Accept: application/json
+
 {
   "menuId": "b30e7950-bb00-4188-888a-4928e336167d",
-  "dishId": "19d03512-0e1a-47f9-ae06-fa8dac60f5cb",
+  "dishId": "2074cadd-cde6-48c3-88f6-cab5fb90eec4",
   "restaurantId": "6d488e14-cc5e-4565-a69e-d6cf2ee7b0d7",
   "quantity": 1
 }
@@ -38,7 +40,7 @@ Content-Type: application/json
 }
 
 ### Checkout Basket
-POST http://localhost:8080/api/orders/basket/2abd34ba-ec82-4b36-857d-9012907d0eae/checkout
+POST http://localhost:8080/api/orders/basket/d1a00d9b-636d-4d59-8e98-2e63b576ccd6/checkout
 Content-Type: application/json
 
 {
@@ -51,3 +53,21 @@ Content-Type: application/json
   "city": "Antwerp",
   "country": "Belgium"
 }
+
+### Get Basket
+GET http://localhost:8080/api/orders/basket/c7aebe9e-d6fe-42b3-8017-795c02b88c61
+Accept: application/json
+
+
+### Get Payment
+POST http://localhost:8080/api/payment?orderId=c3c04282-ac76-4a23-8db7-8d98ce373769
+Accept: application/json
+
+### Verify payment
+GET http://localhost:8080/api/payment/verify?sessionId=cs_test_a1zSThc1JLThViqPoST0rmnevxHpCL3jEUsHDXWZHQ8iufJ9ZGRQbEKLKo&orderId=fccbb384-73fb-460c-ae7c-4aed89a2789e
+Accept: application/json
+
+
+### Get order
+GET http://localhost:8080/api/orders/fccbb384-73fb-460c-ae7c-4aed89a2789e
+Accept: application/json

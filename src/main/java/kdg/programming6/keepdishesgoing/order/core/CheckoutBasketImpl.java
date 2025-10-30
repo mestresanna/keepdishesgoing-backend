@@ -39,7 +39,7 @@ public class CheckoutBasketImpl implements CheckoutBasketUseCase {
     }
 
     @Override
-    public void checkout(CheckoutBasketCommand command) {
+    public Order checkout(CheckoutBasketCommand command) {
         Basket basket = loadBasketPort.loadBasket(command.basketId())
                 .orElseThrow(() -> new BasketNotFoundException("Basket not found: " + command.basketId()));
 
@@ -63,5 +63,6 @@ public class CheckoutBasketImpl implements CheckoutBasketUseCase {
                 basket.getTotalPrice()
         );
         saveOrderPort.forEach( port -> port.save(order));
+        return order;
     }
 }

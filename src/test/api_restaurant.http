@@ -85,7 +85,7 @@ Authorization: Bearer {{access_token}}
   "tags": ["eggs"],
   "description": "Rice with seafood and ink from squid.",
   "price": 40,
-  "pictureUrl": "https://cuinatsjotri.cat/files/productes/arros-negre-470x470.jpg",
+  "pictureUrl": "https://cuinatsjotri.cat/files/productes/arros-negre-470x470.jpg"
 }
 
 ### Publish a dish
@@ -154,3 +154,14 @@ Authorization: Bearer {{access_token}}
 POST http://localhost:8080/api/restaurant/orders/249f5384-4fe4-49c8-9489-0a9d05b7eb77/mark-ready
 Accept: application/json
 Authorization: Bearer {{access_token}}
+
+### Get pending Orders
+GET http://localhost:8080/api/restaurant/orders?status=PENDING
+Accept: application/json
+Authorization: Bearer {{access_token}}
+
+### Get orders in process
+GET http://localhost:8080/api/restaurant/orders?status=ACCEPTED,IN_PREPARATION,READY
+Accept: application/json
+Authorization: Bearer {{access_token}}
+

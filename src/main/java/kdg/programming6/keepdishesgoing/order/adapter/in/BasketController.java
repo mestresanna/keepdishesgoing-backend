@@ -2,11 +2,13 @@ package kdg.programming6.keepdishesgoing.order.adapter.in;
 
 import jakarta.validation.Valid;
 import kdg.programming6.keepdishesgoing.order.adapter.in.dto.BasketMapperDto;
+import kdg.programming6.keepdishesgoing.order.adapter.in.dto.OrderIdDto;
 import kdg.programming6.keepdishesgoing.order.adapter.in.request.AddDishToBasketRequest;
 import kdg.programming6.keepdishesgoing.order.adapter.in.request.CheckoutRequest;
 import kdg.programming6.keepdishesgoing.order.adapter.in.request.RemoveDishToBasketRequest;
 import kdg.programming6.keepdishesgoing.order.adapter.in.dto.BasketDto;
 import kdg.programming6.keepdishesgoing.order.domain.Basket;
+import kdg.programming6.keepdishesgoing.order.domain.Order;
 import kdg.programming6.keepdishesgoing.order.port.in.basket.*;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -56,9 +58,8 @@ public class BasketController {
                 request.restaurantId(),
                 request.quantity());
 
-        addDishtoBasketUseCase.addDishtoBasket(command);
+        Basket basket = addDishtoBasketUseCase.addDishtoBasket(command);
 
-        Basket basket = findBasketUseCase.findById(basketId);
         BasketDto basketDto = basketMapperDto.toDto(basket);
         return ResponseEntity.ok(basketDto);
     }
@@ -80,7 +81,7 @@ public class BasketController {
     }
 
     @PostMapping("/{basketId}/checkout")
-    public ResponseEntity<Void> checkout(
+    public ResponseEntity<OrderIdDto> checkout(
             @PathVariable UUID basketId,
             @Valid @RequestBody CheckoutRequest request) {
         CheckoutBasketCommand command = new CheckoutBasketCommand(
@@ -96,7 +97,7 @@ public class BasketController {
                 request.message()
         );
 
-        checkoutBasketUseCase.checkout(command);
-        return ResponseEntity.noContent().build();
+        Order order = checkoutBasketUseCase.checkout(command);
+        return ResponseEntity.ok(new OrderIdDto(order.getOrderId()));
     }
 }

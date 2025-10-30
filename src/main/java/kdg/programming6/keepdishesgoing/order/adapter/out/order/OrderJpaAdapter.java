@@ -4,6 +4,8 @@ import kdg.programming6.keepdishesgoing.order.domain.Order;
 import kdg.programming6.keepdishesgoing.order.port.out.order.LoadOrderPort;
 import kdg.programming6.keepdishesgoing.order.port.out.order.SaveOrderPort;
 import kdg.programming6.keepdishesgoing.order.port.out.order.UpdateOrderPort;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
 
 import java.util.Optional;
@@ -13,6 +15,7 @@ import java.util.UUID;
 public class OrderJpaAdapter implements SaveOrderPort, LoadOrderPort, UpdateOrderPort {
     private final OrderJpaRepository orderJpaRepository;
     private final OrderMapper orderMapper;
+    private final Logger logger = LoggerFactory.getLogger(OrderJpaAdapter.class);
 
     public OrderJpaAdapter(OrderJpaRepository orderJpaRepository, OrderMapper orderMapper) {
         this.orderJpaRepository = orderJpaRepository;
@@ -28,7 +31,9 @@ public class OrderJpaAdapter implements SaveOrderPort, LoadOrderPort, UpdateOrde
 
     @Override
     public Optional<Order> loadOrder(UUID orderId) {
-        return orderJpaRepository.findById(orderId).map(orderMapper::toDomain);
+        var order = orderJpaRepository.findByOrderId(orderId).map(orderMapper::toDomain);
+        logger.debug("Loading order with id {}", orderId);
+        return order;
     }
 
     @Override

@@ -11,9 +11,6 @@ import java.util.stream.Collectors;
 @Component
 public class OrderMapperDto {
 
-    /**
-     * Convert Order domain object to OrdersDto
-     */
     public OrdersDto toDto(Order order) {
         List<OrderItemDto> items = order.getBasket().getItems().stream()
                 .map(this::toOrderItemDto)
@@ -33,9 +30,6 @@ public class OrderMapperDto {
         );
     }
 
-    /**
-     * Convert BasketItem to OrderItemDto
-     */
     private OrderItemDto toOrderItemDto(BasketItems item) {
         return new OrderItemDto(
                 item.getDishId().dishId(),
@@ -46,9 +40,6 @@ public class OrderMapperDto {
         );
     }
 
-    /**
-     * Convert Customer domain object to CustomerOrderDto
-     */
     private CustomerOrderDto toCustomerDto(Customer customer) {
         return new CustomerOrderDto(
                 customer.getName().split(" ")[0],  // firstName

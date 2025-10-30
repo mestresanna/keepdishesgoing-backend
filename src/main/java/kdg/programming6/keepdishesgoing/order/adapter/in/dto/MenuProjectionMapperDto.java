@@ -20,7 +20,7 @@ public class MenuProjectionMapperDto {
                 .map(dishMapper::toDto)
                 .toList();
 
-        return new MenuProjectionDto(dishDtos);
+        return new MenuProjectionDto(menu.getId(), dishDtos);
     }
 
     public MenuProjectionDto toDto(MenuProjection menu) {
@@ -28,6 +28,6 @@ public class MenuProjectionMapperDto {
                 .map(dishMapper::toDto)
                 .toList();
 
-        return new MenuProjectionDto(dishDtos);
+        return new MenuProjectionDto(menu.getId(), dishDtos);
     }
 }
