@@ -1,7 +1,7 @@
 package kdg.programming6.keepdishesgoing.restaurant.domain;
 import kdg.programming6.keepdishesgoing.common.events.DomainEvent;
-import kdg.programming6.keepdishesgoing.common.events.RestaurantCreatedEvent;
-import kdg.programming6.keepdishesgoing.common.events.RestaurantUpdatedEvent;
+import kdg.programming6.keepdishesgoing.common.events.restaurant.RestaurantCreatedEvent;
+import kdg.programming6.keepdishesgoing.common.events.restaurant.RestaurantUpdatedEvent;
 import kdg.programming6.keepdishesgoing.common.vo.Address;
 import kdg.programming6.keepdishesgoing.restaurant.domain.ov.OpeningHours;
 import kdg.programming6.keepdishesgoing.restaurant.domain.ov.OwnerId;
@@ -106,7 +106,7 @@ public class Restaurant {
     public OpeningHours getOpeningHours() { return openingHours; }
     public PriceRange getPriceRange() { return priceRange; }
 
-    public void setPriceRange(BigDecimal averagePrice) {
+    public void updatePriceRange(BigDecimal averagePrice) {
         if (averagePrice == null) {
             this.priceRange = PriceRange.NONE;
             throw new IllegalArgumentException("Average price is null — there is no price for this restaurant.");

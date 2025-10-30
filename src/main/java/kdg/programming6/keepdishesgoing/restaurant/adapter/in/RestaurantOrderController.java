@@ -2,10 +2,10 @@ package kdg.programming6.keepdishesgoing.restaurant.adapter.in;
 
 
 import jakarta.validation.Valid;
-import kdg.programming6.keepdishesgoing.restaurant.adapter.in.response.OrderStatusUpdateDto;
+import kdg.programming6.keepdishesgoing.restaurant.adapter.in.response.order.OrderStatusUpdateDto;
 import kdg.programming6.keepdishesgoing.restaurant.adapter.in.request.RejectOrderRequest;
-import kdg.programming6.keepdishesgoing.restaurant.adapter.in.response.RestaurantOrderDto;
-import kdg.programming6.keepdishesgoing.restaurant.adapter.in.response.RestaurantOrderMapperDto;
+import kdg.programming6.keepdishesgoing.restaurant.adapter.in.response.order.RestaurantOrderDto;
+import kdg.programming6.keepdishesgoing.restaurant.adapter.in.response.order.RestaurantOrderMapperDto;
 import kdg.programming6.keepdishesgoing.restaurant.domain.RestaurantOrderStatus;
 import kdg.programming6.keepdishesgoing.restaurant.port.in.order.LoadRestaurantOrderByStatusUseCase;
 import kdg.programming6.keepdishesgoing.restaurant.port.in.order.ManageOrderUseCase;
@@ -50,7 +50,7 @@ public class RestaurantOrderController {
                 .toList();
 
         List<RestaurantOrderDto> dtos = loadRestaurantOrderByStatusUseCase
-                .findAllRestaurantOrderByStatus(statuses, restaurants.get().getRestaurantId())
+                .findAllRestaurantOrderByStatusAndRestaurantId(statuses, restaurants.get().getRestaurantId())
                 .stream()
                 .map(RestaurantOrderMapperDto::toDto)
                 .toList();

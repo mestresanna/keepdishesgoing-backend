@@ -1,7 +1,7 @@
 package kdg.programming6.keepdishesgoing.restaurant.adapter.out.restaurant;
 
 import kdg.programming6.keepdishesgoing.restaurant.domain.Restaurant;
-import kdg.programming6.keepdishesgoing.restaurant.port.out.SaveRestaurantPort;
+import kdg.programming6.keepdishesgoing.restaurant.port.out.restaurant.SaveRestaurantPort;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.ApplicationEventPublisher;

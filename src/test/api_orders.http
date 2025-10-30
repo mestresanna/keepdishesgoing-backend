@@ -40,7 +40,7 @@ Content-Type: application/json
 }
 
 ### Checkout Basket
-POST http://localhost:8080/api/orders/basket/d1a00d9b-636d-4d59-8e98-2e63b576ccd6/checkout
+POST http://localhost:8080/api/orders/basket/fbb0b5f0-43b8-4f7b-baa5-56c9620985fb/checkout
 Content-Type: application/json
 
 {

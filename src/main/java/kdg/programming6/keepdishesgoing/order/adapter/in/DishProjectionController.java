@@ -1,7 +1,7 @@
 package kdg.programming6.keepdishesgoing.order.adapter.in;
 
-import kdg.programming6.keepdishesgoing.order.adapter.in.dto.*;
-import kdg.programming6.keepdishesgoing.order.domain.projections.DishProjection;
+import kdg.programming6.keepdishesgoing.order.adapter.in.response.menu.MenuProjectionDto;
+import kdg.programming6.keepdishesgoing.order.adapter.in.response.menu.MenuProjectionMapperDto;
 import kdg.programming6.keepdishesgoing.order.port.in.dish.FilterDishesUseCase;
 import kdg.programming6.keepdishesgoing.order.port.in.restaurant.FindRestaurantDetailsUseCase;
 import org.springframework.http.ResponseEntity;

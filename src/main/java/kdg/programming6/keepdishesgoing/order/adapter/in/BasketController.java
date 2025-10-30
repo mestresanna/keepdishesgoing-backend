@@ -1,18 +1,20 @@
 package kdg.programming6.keepdishesgoing.order.adapter.in;
 
 import jakarta.validation.Valid;
-import kdg.programming6.keepdishesgoing.order.adapter.in.dto.BasketMapperDto;
-import kdg.programming6.keepdishesgoing.order.adapter.in.dto.OrderIdDto;
+import kdg.programming6.keepdishesgoing.order.adapter.in.response.basket.BasketMapperDto;
+import kdg.programming6.keepdishesgoing.order.adapter.in.response.order.OrderIdDto;
 import kdg.programming6.keepdishesgoing.order.adapter.in.request.AddDishToBasketRequest;
 import kdg.programming6.keepdishesgoing.order.adapter.in.request.CheckoutRequest;
 import kdg.programming6.keepdishesgoing.order.adapter.in.request.RemoveDishToBasketRequest;
-import kdg.programming6.keepdishesgoing.order.adapter.in.dto.BasketDto;
+import kdg.programming6.keepdishesgoing.order.adapter.in.response.basket.BasketDto;
 import kdg.programming6.keepdishesgoing.order.domain.Basket;
 import kdg.programming6.keepdishesgoing.order.domain.Order;
+import kdg.programming6.keepdishesgoing.order.domain.exceptions.DishUnavailableException;
 import kdg.programming6.keepdishesgoing.order.port.in.basket.*;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Map;
 import java.util.UUID;
 
 @RestController
@@ -44,9 +46,6 @@ public class BasketController {
         return ResponseEntity.ok(basketDto);
     }
 
-    /**
-     * Add dish to basket
-     */
     @PatchMapping({"/{basketId}/items", "/items"})
     public ResponseEntity<BasketDto> addDishToBasket(
             @PathVariable(required = false) UUID basketId,
@@ -81,7 +80,7 @@ public class BasketController {
     }
 
     @PostMapping("/{basketId}/checkout")
-    public ResponseEntity<OrderIdDto> checkout(
+    public ResponseEntity<?> checkout(
             @PathVariable UUID basketId,
             @Valid @RequestBody CheckoutRequest request) {
         CheckoutBasketCommand command = new CheckoutBasketCommand(
@@ -96,8 +95,14 @@ public class BasketController {
                 request.postalCode(),
                 request.message()
         );
-
-        Order order = checkoutBasketUseCase.checkout(command);
-        return ResponseEntity.ok(new OrderIdDto(order.getOrderId()));
+        try {
+            Order order = checkoutBasketUseCase.checkout(command);
+            return ResponseEntity.ok(new OrderIdDto(order.getOrderId()));
+        } catch (DishUnavailableException e) {
+            return ResponseEntity.badRequest().body(Map.of(
+                    "message", e.getMessage(),
+                    "unavailableIds", e.getUnavailableDishIds()
+            ));
+        }
     }
 }

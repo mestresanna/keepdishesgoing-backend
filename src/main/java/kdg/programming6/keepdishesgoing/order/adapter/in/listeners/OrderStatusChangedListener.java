@@ -1,6 +1,6 @@
 package kdg.programming6.keepdishesgoing.order.adapter.in.listeners;
 
-import kdg.programming6.keepdishesgoing.common.events.OrderStatusChangedEvent;
+import kdg.programming6.keepdishesgoing.common.events.order.OrderStatusChangedEvent;
 import kdg.programming6.keepdishesgoing.order.port.in.order.OrderChangeStatusCommand;
 import kdg.programming6.keepdishesgoing.order.port.in.order.OrderChangedProjector;
 import org.slf4j.Logger;

@@ -1,6 +1,9 @@
 package kdg.programming6.keepdishesgoing.order.adapter.in;
 
-import kdg.programming6.keepdishesgoing.order.adapter.in.dto.*;
+import kdg.programming6.keepdishesgoing.order.adapter.in.response.menu.MenuProjectionMapperDto;
+import kdg.programming6.keepdishesgoing.order.adapter.in.response.restaurant.RestaurantDetailsDto;
+import kdg.programming6.keepdishesgoing.order.adapter.in.response.restaurant.RestaurantProjectionDto;
+import kdg.programming6.keepdishesgoing.order.adapter.in.response.restaurant.RestaurantProjectionMapperDto;
 import kdg.programming6.keepdishesgoing.order.port.in.restaurant.FilterRestaurantsUseCase;
 import kdg.programming6.keepdishesgoing.order.port.in.restaurant.FindAllRestaurantsProjectionsUseCase;
 import kdg.programming6.keepdishesgoing.order.port.in.restaurant.FindRestaurantDetailsUseCase;

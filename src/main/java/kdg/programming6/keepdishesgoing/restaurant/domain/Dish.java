@@ -79,7 +79,6 @@ public class Dish {
         return state;
     }
 
-
     public void publish() {
         switch (this.state) {
             case DRAFT -> {
@@ -148,16 +147,6 @@ public class Dish {
     public void recordEvent(DomainEvent event) {
         domainEvents.add(event);
     }
-
-    public void commitEvents() {
-        domainEvents.addAll(uncommittedEvents);
-        uncommittedEvents.clear();
-    }
-
-    public List<DomainEvent> getUncommittedEvents() {
-        return new ArrayList<>(uncommittedEvents);
-    }
-
 
     public List<DomainEvent> getDomainEvents() {
         return new ArrayList<>(Stream.concat(domainEvents.stream(), uncommittedEvents.stream()).toList());

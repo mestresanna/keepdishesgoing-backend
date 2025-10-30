@@ -2,8 +2,8 @@ package kdg.programming6.keepdishesgoing.restaurant.adapter.in;
 
 import kdg.programming6.keepdishesgoing.restaurant.adapter.in.request.CreateDishRequest;
 import kdg.programming6.keepdishesgoing.restaurant.adapter.in.request.EditDishRequest;
-import kdg.programming6.keepdishesgoing.restaurant.adapter.in.response.DishDto;
-import kdg.programming6.keepdishesgoing.restaurant.adapter.in.response.DishMapperDto;
+import kdg.programming6.keepdishesgoing.restaurant.adapter.in.response.dish.DishDto;
+import kdg.programming6.keepdishesgoing.restaurant.adapter.in.response.dish.DishMapperDto;
 import kdg.programming6.keepdishesgoing.restaurant.adapter.out.dish.DishMapper;
 import kdg.programming6.keepdishesgoing.restaurant.port.in.dish.*;
 import kdg.programming6.keepdishesgoing.restaurant.port.in.restaurant.FindAllRestaurantsUseCase;

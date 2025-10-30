@@ -1,8 +1,8 @@
 package kdg.programming6.keepdishesgoing.restaurant.domain;
 
 import kdg.programming6.keepdishesgoing.common.events.DomainEvent;
-import kdg.programming6.keepdishesgoing.common.events.MenuCreatedEvent;
-import kdg.programming6.keepdishesgoing.common.events.MenuUpdatedEvent;
+import kdg.programming6.keepdishesgoing.common.events.menu.MenuCreatedEvent;
+import kdg.programming6.keepdishesgoing.common.events.menu.MenuUpdatedEvent;
 import kdg.programming6.keepdishesgoing.restaurant.domain.ov.RestaurantId;
 
 import java.math.BigDecimal;
@@ -80,10 +80,6 @@ public class Menu {
         return id;
     }
 
-    public void setId(UUID id) {
-        this.id = id;
-    }
-
     public RestaurantId getRestaurantId() {
         return restaurantId;
     }
@@ -96,7 +92,7 @@ public class Menu {
         return dishes;
     }
 
-    public void setDishes(List<Dish> dishes) {
+    public void updateDishes(List<Dish> dishes) {
         this.dishes = new ArrayList<>(dishes);
     }
 

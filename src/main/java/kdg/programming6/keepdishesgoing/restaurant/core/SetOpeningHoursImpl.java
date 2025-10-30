@@ -5,8 +5,8 @@ import kdg.programming6.keepdishesgoing.restaurant.domain.exceptions.OwnerNotFou
 import kdg.programming6.keepdishesgoing.restaurant.domain.exceptions.RestaurantNotFoundException;
 import kdg.programming6.keepdishesgoing.restaurant.port.in.restaurant.SetOpeningHoursCommand;
 import kdg.programming6.keepdishesgoing.restaurant.port.in.restaurant.SetOpeningHoursUseCase;
-import kdg.programming6.keepdishesgoing.restaurant.port.out.LoadRestaurantPort;
-import kdg.programming6.keepdishesgoing.restaurant.port.out.SaveRestaurantPort;
+import kdg.programming6.keepdishesgoing.restaurant.port.out.restaurant.LoadRestaurantPort;
+import kdg.programming6.keepdishesgoing.restaurant.port.out.restaurant.SaveRestaurantPort;
 import org.springframework.stereotype.Service;
 import jakarta.transaction.Transactional;
 

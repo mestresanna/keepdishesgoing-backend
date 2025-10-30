@@ -1,6 +1,6 @@
 package kdg.programming6.keepdishesgoing.restaurant.adapter.in.listeners;
 
-import kdg.programming6.keepdishesgoing.common.events.OrderCreatedEvent;
+import kdg.programming6.keepdishesgoing.common.events.order.OrderCreatedEvent;
 import kdg.programming6.keepdishesgoing.restaurant.port.in.order.RestaurantOrderCommand;
 import kdg.programming6.keepdishesgoing.restaurant.port.in.order.RestaurantOrderItemCommand;
 import kdg.programming6.keepdishesgoing.restaurant.port.in.order.RestaurantOrderCreatedProjector;

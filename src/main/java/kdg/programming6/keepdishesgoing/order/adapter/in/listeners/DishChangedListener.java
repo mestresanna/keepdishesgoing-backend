@@ -1,8 +1,8 @@
 package kdg.programming6.keepdishesgoing.order.adapter.in.listeners;
 
-import kdg.programming6.keepdishesgoing.common.events.DishPublishedEvent;
-import kdg.programming6.keepdishesgoing.common.events.DishStateChangedEvent;
-import kdg.programming6.keepdishesgoing.common.events.DishUnpublishedEvent;
+import kdg.programming6.keepdishesgoing.common.events.dish.DishPublishedEvent;
+import kdg.programming6.keepdishesgoing.common.events.dish.DishStateChangedEvent;
+import kdg.programming6.keepdishesgoing.common.events.dish.DishUnpublishedEvent;
 import kdg.programming6.keepdishesgoing.order.port.in.dish.CreatedDishProjectionCommand;
 import kdg.programming6.keepdishesgoing.order.port.in.dish.DishChangedProjector;
 import kdg.programming6.keepdishesgoing.order.port.in.dish.UnpublishDishProjectionCommand;

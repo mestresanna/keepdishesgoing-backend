@@ -1,16 +1,15 @@
 package kdg.programming6.keepdishesgoing.restaurant.domain;
 
 import kdg.programming6.keepdishesgoing.common.events.DomainEvent;
-import kdg.programming6.keepdishesgoing.common.events.OrderAcceptedEvent;
-import kdg.programming6.keepdishesgoing.common.events.OrderReadyForPickupEvent;
-import kdg.programming6.keepdishesgoing.common.events.OrderStatusChangedEvent;
+import kdg.programming6.keepdishesgoing.common.events.order.OrderAcceptedEvent;
+import kdg.programming6.keepdishesgoing.common.events.order.OrderReadyForPickupEvent;
+import kdg.programming6.keepdishesgoing.common.events.order.OrderStatusChangedEvent;
 import kdg.programming6.keepdishesgoing.common.vo.Address;
 import kdg.programming6.keepdishesgoing.common.vo.Coordinates;
 import kdg.programming6.keepdishesgoing.restaurant.domain.ov.RestaurantId;
 
 import java.math.BigDecimal;
 import java.time.Instant;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;

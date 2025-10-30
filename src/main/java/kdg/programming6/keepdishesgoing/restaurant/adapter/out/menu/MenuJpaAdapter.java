@@ -5,9 +5,8 @@ import kdg.programming6.keepdishesgoing.restaurant.adapter.out.dish.DishMapper;
 import kdg.programming6.keepdishesgoing.restaurant.domain.Dish;
 import kdg.programming6.keepdishesgoing.restaurant.domain.Menu;
 import kdg.programming6.keepdishesgoing.restaurant.domain.ov.RestaurantId;
-import kdg.programming6.keepdishesgoing.restaurant.port.out.LoadMenuPort;
-import kdg.programming6.keepdishesgoing.restaurant.port.out.LoadRestaurantPort;
-import kdg.programming6.keepdishesgoing.restaurant.port.out.SaveMenuPort;
+import kdg.programming6.keepdishesgoing.restaurant.port.out.menu.LoadMenuPort;
+import kdg.programming6.keepdishesgoing.restaurant.port.out.menu.SaveMenuPort;
 import org.springframework.stereotype.Repository;
 
 import java.util.Optional;
@@ -31,7 +30,7 @@ public class MenuJpaAdapter implements LoadMenuPort, SaveMenuPort {
                             .map(dishMapper::toDomain)
                             .toList();
                     Menu menu = new Menu(entity.getMenuId(),restaurantId);
-                    menu.setDishes(dishes);
+                    menu.updateDishes(dishes);
                     return menu;
                 });
     }

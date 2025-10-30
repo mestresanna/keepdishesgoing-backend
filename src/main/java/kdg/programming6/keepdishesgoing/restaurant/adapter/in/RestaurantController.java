@@ -1,8 +1,8 @@
 package kdg.programming6.keepdishesgoing.restaurant.adapter.in;
 
 import kdg.programming6.keepdishesgoing.restaurant.adapter.in.request.CreateRestaurantRequest;
-import kdg.programming6.keepdishesgoing.restaurant.adapter.in.response.RestaurantDto;
-import kdg.programming6.keepdishesgoing.restaurant.adapter.in.response.RestaurantMapperDto;
+import kdg.programming6.keepdishesgoing.restaurant.adapter.in.response.restaurant.RestaurantDto;
+import kdg.programming6.keepdishesgoing.restaurant.adapter.in.response.restaurant.RestaurantMapperDto;
 import kdg.programming6.keepdishesgoing.restaurant.domain.ov.OpeningHours;
 import kdg.programming6.keepdishesgoing.restaurant.domain.Restaurant;
 import kdg.programming6.keepdishesgoing.restaurant.port.in.restaurant.*;

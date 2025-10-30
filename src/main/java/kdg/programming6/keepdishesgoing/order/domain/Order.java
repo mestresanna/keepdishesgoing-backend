@@ -1,7 +1,7 @@
 package kdg.programming6.keepdishesgoing.order.domain;
 
 import kdg.programming6.keepdishesgoing.common.events.DomainEvent;
-import kdg.programming6.keepdishesgoing.common.events.OrderCreatedEvent;
+import kdg.programming6.keepdishesgoing.common.events.order.OrderCreatedEvent;
 import kdg.programming6.keepdishesgoing.common.vo.OrderItemDto;
 
 import java.math.BigDecimal;

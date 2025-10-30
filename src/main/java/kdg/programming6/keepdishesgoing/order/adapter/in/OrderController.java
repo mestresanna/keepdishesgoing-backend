@@ -1,7 +1,7 @@
 package kdg.programming6.keepdishesgoing.order.adapter.in;
 
-import kdg.programming6.keepdishesgoing.order.adapter.in.dto.OrderMapperDto;
-import kdg.programming6.keepdishesgoing.order.adapter.in.dto.OrdersDto;
+import kdg.programming6.keepdishesgoing.order.adapter.in.response.order.OrderMapperDto;
+import kdg.programming6.keepdishesgoing.order.adapter.in.response.order.OrdersDto;
 import kdg.programming6.keepdishesgoing.order.domain.Order;
 import kdg.programming6.keepdishesgoing.order.port.in.order.FindOrderUseCase;
 import org.springframework.http.ResponseEntity;

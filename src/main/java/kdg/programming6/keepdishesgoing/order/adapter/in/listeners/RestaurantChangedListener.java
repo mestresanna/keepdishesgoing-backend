@@ -1,14 +1,13 @@
 package kdg.programming6.keepdishesgoing.order.adapter.in.listeners;
 
-import kdg.programming6.keepdishesgoing.common.events.RestaurantCreatedEvent;
-import kdg.programming6.keepdishesgoing.common.events.RestaurantUpdatedEvent;
+import kdg.programming6.keepdishesgoing.common.events.restaurant.RestaurantCreatedEvent;
+import kdg.programming6.keepdishesgoing.common.events.restaurant.RestaurantUpdatedEvent;
 import kdg.programming6.keepdishesgoing.order.domain.vo.OpeningHoursProjection;
 import kdg.programming6.keepdishesgoing.order.port.in.restaurant.CreatedRestaurantProjectionCommand;
 import kdg.programming6.keepdishesgoing.order.port.in.restaurant.RestaurantChangedProjector;
 import kdg.programming6.keepdishesgoing.order.port.in.restaurant.UpdatedRestaurantProjectionCommand;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.context.event.EventListener;
 import org.springframework.modulith.events.ApplicationModuleListener;
 import org.springframework.stereotype.Component;
 

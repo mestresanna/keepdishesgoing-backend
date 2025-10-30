@@ -7,5 +7,8 @@ import java.util.List;
 import java.util.UUID;
 
 public interface LoadRestaurantOrderByStatusUseCase {
-    List<RestaurantOrder> findAllRestaurantOrderByStatus(List<RestaurantOrderStatus> restaurantOrders, UUID restaurantId);
+    List<RestaurantOrder> findAllRestaurantOrderByStatusAndRestaurantId(List<RestaurantOrderStatus> restaurantOrders, UUID restaurantId);
+    List<RestaurantOrder> findAllRestaurantOrderByStatus(RestaurantOrderStatus restaurantOrders);
+
+
 }

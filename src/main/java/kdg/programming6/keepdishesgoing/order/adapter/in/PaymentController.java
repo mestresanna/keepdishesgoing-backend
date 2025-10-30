@@ -1,8 +1,7 @@
 package kdg.programming6.keepdishesgoing.order.adapter.in;
 
-import kdg.programming6.keepdishesgoing.order.adapter.in.dto.PaymentSessionDto;
+import kdg.programming6.keepdishesgoing.order.adapter.in.response.PaymentSessionDto;
 import kdg.programming6.keepdishesgoing.order.domain.Order;
-import kdg.programming6.keepdishesgoing.order.domain.vo.PaymentSession;
 import kdg.programming6.keepdishesgoing.order.port.in.order.FindOrderUseCase;
 import kdg.programming6.keepdishesgoing.order.port.in.payment.PaymentUseCase;
 import org.springframework.web.bind.annotation.*;

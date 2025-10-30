@@ -1,8 +1,8 @@
 package kdg.programming6.keepdishesgoing.restaurant.adapter.out.dish;
 
 import kdg.programming6.keepdishesgoing.restaurant.domain.Dish;
-import kdg.programming6.keepdishesgoing.restaurant.port.out.LoadDishPort;
-import kdg.programming6.keepdishesgoing.restaurant.port.out.SaveDishPort;
+import kdg.programming6.keepdishesgoing.restaurant.port.out.dish.LoadDishPort;
+import kdg.programming6.keepdishesgoing.restaurant.port.out.dish.SaveDishPort;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;

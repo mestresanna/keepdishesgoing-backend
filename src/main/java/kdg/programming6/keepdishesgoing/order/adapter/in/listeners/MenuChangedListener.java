@@ -1,13 +1,12 @@
 package kdg.programming6.keepdishesgoing.order.adapter.in.listeners;
 
-import kdg.programming6.keepdishesgoing.common.events.MenuCreatedEvent;
-import kdg.programming6.keepdishesgoing.common.events.MenuUpdatedEvent;
+import kdg.programming6.keepdishesgoing.common.events.menu.MenuCreatedEvent;
+import kdg.programming6.keepdishesgoing.common.events.menu.MenuUpdatedEvent;
 import kdg.programming6.keepdishesgoing.order.port.in.menu.CreatedMenuProjectionCommand;
 import kdg.programming6.keepdishesgoing.order.port.in.menu.MenuChangedProjector;
 import kdg.programming6.keepdishesgoing.order.port.in.menu.UpdatedMenuProjectionCommand;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.context.event.EventListener;
 import org.springframework.modulith.events.ApplicationModuleListener;
 import org.springframework.stereotype.Component;
 

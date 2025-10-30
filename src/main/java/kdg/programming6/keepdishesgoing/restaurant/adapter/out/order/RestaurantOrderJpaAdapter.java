@@ -2,8 +2,8 @@ package kdg.programming6.keepdishesgoing.restaurant.adapter.out.order;
 
 import kdg.programming6.keepdishesgoing.restaurant.domain.RestaurantOrder;
 import kdg.programming6.keepdishesgoing.restaurant.domain.RestaurantOrderStatus;
-import kdg.programming6.keepdishesgoing.restaurant.port.out.LoadRestaurantOrderPort;
-import kdg.programming6.keepdishesgoing.restaurant.port.out.SaveRestaurantOrderPort;
+import kdg.programming6.keepdishesgoing.restaurant.port.out.order.LoadRestaurantOrderPort;
+import kdg.programming6.keepdishesgoing.restaurant.port.out.order.SaveRestaurantOrderPort;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -47,12 +47,22 @@ public class RestaurantOrderJpaAdapter implements SaveRestaurantOrderPort, LoadR
     }
 
     @Override
-    public List<RestaurantOrder> findAllByStatus(List<RestaurantOrderStatus> restaurantOrderStatuses, UUID restaurantId) {
+    public List<RestaurantOrder> findAllByStatusWithRestaurantId(List<RestaurantOrderStatus> restaurantOrderStatuses, UUID restaurantId) {
         List<String> statusStrings = restaurantOrderStatuses.stream()
                 .map(Enum::name)
                 .toList();
 
         return restaurantOrderJpaRepository.findAllByStatusInAndRestaurantId(statusStrings, restaurantId)
+                .stream()
+                .map(mapper::toDomain)
+                .toList();
+    }
+
+    @Override
+    public List<RestaurantOrder> findAllByStatus(RestaurantOrderStatus restaurantOrderStatuses) {
+        String statusStrings = restaurantOrderStatuses.toString();
+
+        return restaurantOrderJpaRepository.findAllByStatus(statusStrings)
                 .stream()
                 .map(mapper::toDomain)
                 .toList();

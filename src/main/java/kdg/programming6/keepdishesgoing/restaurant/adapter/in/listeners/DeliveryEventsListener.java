@@ -1,8 +1,8 @@
 package kdg.programming6.keepdishesgoing.restaurant.adapter.in.listeners;
 import kdg.programming6.keepdishesgoing.common.events.DeliveryJobLocationUpdatedEvent;
-import kdg.programming6.keepdishesgoing.common.events.OrderDeliveredEvent;
-import kdg.programming6.keepdishesgoing.common.events.OrderPickedUpEvent;
-import kdg.programming6.keepdishesgoing.restaurant.core.ManageOrderImpl;
+import kdg.programming6.keepdishesgoing.common.events.order.OrderDeliveredEvent;
+import kdg.programming6.keepdishesgoing.common.events.order.OrderPickedUpEvent;
+import kdg.programming6.keepdishesgoing.restaurant.core.order.ManageOrderImpl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;

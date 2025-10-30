@@ -14,13 +14,6 @@ public record DeliveryJobLocationUpdatedEvent(
         double lng
 ) implements DomainEvent {
 
-    public DeliveryJobLocationUpdatedEvent(UUID restaurantId,
-                                           UUID orderId,
-                                           double lat,
-                                           double lng) {
-        this(UUID.randomUUID(), LocalDateTime.now(), restaurantId, orderId, lat, lng);
-    }
-
     @Override
     public LocalDateTime eventPit() {
         return occurredAt;

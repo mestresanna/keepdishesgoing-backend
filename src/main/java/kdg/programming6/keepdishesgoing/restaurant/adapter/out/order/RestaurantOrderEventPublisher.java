@@ -1,7 +1,7 @@
 package kdg.programming6.keepdishesgoing.restaurant.adapter.out.order;
 
 import kdg.programming6.keepdishesgoing.restaurant.domain.RestaurantOrder;
-import kdg.programming6.keepdishesgoing.restaurant.port.out.SaveRestaurantOrderPort;
+import kdg.programming6.keepdishesgoing.restaurant.port.out.order.SaveRestaurantOrderPort;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Component;
 
