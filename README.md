@@ -7,21 +7,17 @@ Challenges faced
 
 One of the most intricate challenges was designing a consistent domain model and flow across multiple bounded contexts Orders, Baskets, and Restaurants while ensuring each remained independent yet interoperable. Establishing clean mappings between domain models, JPA entities, and external projections required careful design to avoid redundancy and maintain data integrity.
 
-Implementing basket consistency rules proved especially demanding. Enforcing the constraint that a basket may only contain dishes from a single restaurant and must automatically block checkout when a dish becomes unpublished or out of stock required domain-driven coordination between aggregate roots, event propagation, and validation at both the application and persistence layers.
+Implementing basket consistency rules proved especially demanding. Enforcing the constraint that a basket may only contain dishes from a single restaurant and must automatically block checkout when a dish becomes unpublished or out of stock required domain-driven coordination between aggregate roots, event propagation, and validation at both the application and persistence layers, which was tricky.
 
 Another significant challenge was handling state synchronization between the restaurant and order contexts. When restaurants update dish availability or accept/reject orders, these changes must cascade through the system in real time, without breaking transaction boundaries or causing stale data. Designing for eventual consistency through domain events and asynchronous communication required deep attention to transactional safety and business logic sequencing.
-
-Building out the persistence layer with complex composite keys (e.g., DishProjectionId, BasketItemId) and avoiding Hibernate mapping conflicts was also nontrivial. Careful use of @Embeddable, @MapsId, and schema alignment was essential to prevent duplication issues and maintain referential integrity.
 
 Proud achievements
 
 Despite the challenges, the resulting system demonstrates a strong DDD architecture with clearly defined boundaries and smooth collaboration between contexts. The basket-to-order workflow now provides a consistent and reliable experience: customers can build baskets, review their contents, and safely proceed to checkout with immutable order snapshots, even when menu items change afterward.
 
-Implementing real-time validation and blocking checkout logic ensures that the customer’s basket always reflects the restaurant’s current offerings, improving both user trust and operational integrity. The order tracking feature, powered by event-driven updates, provides clear visibility into the order lifecycle—from placement to restaurant acceptance, preparation, and readiness.
+Implementing real-time validation and blocking checkout logic ensures that the customer’s basket always reflects the restaurant’s current offerings, improving both user trust and operational integrity. The order tracking feature, powered by event-driven updates, provides clear visibility into the order lifecycle, from placement to restaurant acceptance, preparation, and readiness.
 
-From a technical standpoint, the modular structure of the project, combined with robust mapping layers and explicit domain models, has made the system easier to test, evolve, and extend. The use of domain events, aggregate patterns, and value objects ensures a high level of maintainability and domain fidelity.
-
-Overall, this project evolved into a production-ready architecture that balances business complexity with clean design principles, delivering both reliability and scalability for future growth.
+Overall, I think this project evolved into a production-ready architecture that balances business complexity with clean design principles, delivering both reliability and scalability for future growth.
 
 ---
 
