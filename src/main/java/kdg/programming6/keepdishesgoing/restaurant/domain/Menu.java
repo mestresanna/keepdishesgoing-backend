@@ -37,7 +37,6 @@ public class Menu {
             }
             if (getPublishedCount() >= 10 && dish.getState() == DishState.PUBLISHED)
                 throw new IllegalStateException("Max 10 dishes can be live at once.");
-
         }
         if (this.dishes == null) {
             this.dishes = new ArrayList<Dish>();

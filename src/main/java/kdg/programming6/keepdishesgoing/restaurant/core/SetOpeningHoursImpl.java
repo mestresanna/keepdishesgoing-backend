@@ -13,6 +13,7 @@ import jakarta.transaction.Transactional;
 import java.util.List;
 
 @Service
+@Transactional
 public class SetOpeningHoursImpl implements SetOpeningHoursUseCase {
     private final LoadRestaurantPort repository;
     private final List<SaveRestaurantPort> saveRestaurantPort;
@@ -23,7 +24,6 @@ public class SetOpeningHoursImpl implements SetOpeningHoursUseCase {
     }
 
     @Override
-    @Transactional
     public Restaurant setOpeningHours(SetOpeningHoursCommand command) throws RestaurantNotFoundException, OwnerNotFoundException {
         Restaurant restaurant = repository.loadById(command.restaurantId())
                 .orElseThrow(() -> new RestaurantNotFoundException("Restaurant not found: " + command.restaurantId()));

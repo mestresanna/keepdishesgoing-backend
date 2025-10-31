@@ -24,36 +24,42 @@ public class RestaurantProjectionJpaAdapter implements SaveRestaurantProjectionP
 
     @Override
     public RestaurantProjection save(RestaurantProjection restaurantProjection) {
+        UUID restaurantId = restaurantProjection.getRestaurantId().restaurantId();
+        RestaurantProjectionEntity entity = restaurantProjectionJpaRepository
+                .findByRestaurantId(restaurantId)
+                .orElse(new RestaurantProjectionEntity());
 
-        RestaurantProjectionEntity restaurantProjectionEntity = new RestaurantProjectionEntity(
-                restaurantProjection.getRestaurantId().restaurantId(),
-                restaurantProjection.getOwner(),
-                restaurantProjection.getName(),
-                restaurantProjection.getAddress().street(),
-                restaurantProjection.getAddress().number(),
-                restaurantProjection.getAddress().city(),
-                restaurantProjection.getAddress().postalCode(),
-                restaurantProjection.getAddress().country(),
-                restaurantProjection.getPictureUrls(),
-                openingHoursMapper.toJson(restaurantProjection.getOpeningHours()),
-                restaurantProjection.getTypeOfCuisine(),
-                restaurantProjection.getContactEmail(),
-                restaurantProjection.getDefaultPreparationTimeInMinutes(),
-                restaurantProjection.getPriceRange());
+        entity.setRestaurantId(restaurantId);
+        entity.setOwnerId(restaurantProjection.getOwner());
+        entity.setName(restaurantProjection.getName());
+        entity.setStreet(restaurantProjection.getAddress().street());
+        entity.setNumber(restaurantProjection.getAddress().number());
+        entity.setCity(restaurantProjection.getAddress().city());
+        entity.setPostalCode(restaurantProjection.getAddress().postalCode());
+        entity.setCountry(restaurantProjection.getAddress().country());
+        entity.setPictureUrls(restaurantProjection.getPictureUrls());
+        entity.setOpeningHoursJson(openingHoursMapper.toJson(restaurantProjection.getOpeningHours()));
+        entity.setTypeOfCuisine(restaurantProjection.getTypeOfCuisine());
+        entity.setContactEmail(restaurantProjection.getContactEmail());
+        entity.setDefaultPreparationTimeInMinutes(restaurantProjection.getDefaultPreparationTimeInMinutes());
+        entity.setPriceRange(restaurantProjection.getPriceRange());
 
-        this.restaurantProjectionJpaRepository.save(restaurantProjectionEntity);
+        RestaurantProjectionEntity savedEntity = restaurantProjectionJpaRepository.save(entity);
 
         return new RestaurantProjection(
-                restaurantProjection.getRestaurantId(),
-                restaurantProjection.getOwner(),
-                restaurantProjection.getName(),
-                restaurantProjection.getAddress(),
-                restaurantProjection.getPictureUrls(),
-                restaurantProjection.getOpeningHours(),
-                restaurantProjection.getTypeOfCuisine(),
-                restaurantProjection.getContactEmail(),
-                restaurantProjection.getDefaultPreparationTimeInMinutes(),
-                restaurantProjection.getPriceRange());
+                new RestaurantProjectionId(savedEntity.getRestaurantId()),
+                savedEntity.getOwnerId(),
+                savedEntity.getName(),
+                new Address(savedEntity.getStreet(), savedEntity.getNumber(),
+                        savedEntity.getCity(), savedEntity.getPostalCode(),
+                        savedEntity.getCountry()),
+                savedEntity.getPictureUrls(),
+                openingHoursMapper.fromJson(savedEntity.getOpeningHoursJson()),
+                savedEntity.getTypeOfCuisine(),
+                savedEntity.getContactEmail(),
+                savedEntity.getDefaultPreparationTimeInMinutes(),
+                savedEntity.getPriceRange()
+        );
     }
 
     @Override

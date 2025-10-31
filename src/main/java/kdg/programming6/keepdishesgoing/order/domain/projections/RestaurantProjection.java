@@ -5,6 +5,7 @@ import kdg.programming6.keepdishesgoing.order.domain.vo.OpeningHoursProjection;
 
 import java.time.DayOfWeek;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.UUID;
 
@@ -79,14 +80,25 @@ public class RestaurantProjection {
     public boolean isOpenNow() {
         if (openingHours == null || openingHours.hoursPerDay() == null) return false;
 
-        LocalDate today = LocalDate.now();
-        DayOfWeek day = today.getDayOfWeek();
-        LocalTime now = LocalTime.now();
+        LocalDateTime now = LocalDateTime.now();
+        DayOfWeek day = now.getDayOfWeek();
 
         var todayRange = openingHours.getForDay(day);
         if (todayRange == null) return false;
 
-        return now.isAfter(todayRange.open()) && now.isBefore(todayRange.close());
+        LocalTime open = todayRange.open();
+        LocalTime close = todayRange.close();
+
+        LocalDateTime openDateTime = now.toLocalDate().atTime(open);
+        LocalDateTime closeDateTime;
+
+        if (close.isBefore(open) || close.equals(LocalTime.MIDNIGHT)) {
+            closeDateTime = now.toLocalDate().plusDays(1).atTime(close);
+        } else {
+            closeDateTime = now.toLocalDate().atTime(close);
+        }
+
+        return now.isAfter(openDateTime) && now.isBefore(closeDateTime);
     }
 
     public boolean matches(String cuisineFilter, String priceRangeFilter) {
