@@ -1,6 +1,17 @@
 # KeepDishesComming - Backend
 Anna Mestres 
 
+## All technologies and concepts handled in this project
+
+* Concepts of Domain Driven Design with a rich domain, entities, aggregates, value objects, domain events  
+* A clear context mapping technique between bounded contexts  
+* Hexagonal Architecture with clear separation, boundaries, infrastructure agnostic uses cases  
+* Commands/events  
+* Projected data (derived state)  
+* At least 1 snapshotted event-sourced aggregate  
+* Apply security to REST endpoints  
+
+
 ## Challenges & Accomplishments
 
 Challenges faced
