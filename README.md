@@ -696,5 +696,5 @@ KeepDishesGoing/
 - A Stripe webhook (`checkout.session.completed`) for payment confirmation that does not depend on the redirect.
 - Real-time order tracking for customers (WebSocket / Server-Sent Events) including the courier's location.
 - Database migrations with Flyway or Liquibase instead of hand-run SQL scripts.
-- Move all secrets (Stripe, DB, broker) to environment variables or a secret manager, and add a `Dockerfile` for the backend itself.
+- Add a `Dockerfile` for the backend itself.
 - A global exception handler (`@ControllerAdvice`) with consistent error responses, and OpenAPI / Swagger documentation.
